@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ForgeEngine::Texture" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAABACAAAABAAAAEAACAAAKAAEAACAA=</HashCode>
+      <FileName>src\alchemist\components\LandscapeComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::CameraComponent" Collapsed="true">
+    <Position X="16.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQBEQAkAAAAJMAAAKBAAACwAAREAAEQEAABAJEAAAA=</HashCode>
+      <FileName>src\common\components\CameraComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::FirstPersonControllerComponent" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAACAAIAAAAQAAAAAAAAAAAAAQAAAAAAAECAAA=</HashCode>
+      <FileName>src\common\components\FirstPersonControllerComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::Shader" Collapsed="true">
+    <Position X="29.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAAgUAAEAAgIIAAAABAAQACAUAAAQBAgAAAQABAE=</HashCode>
+      <FileName>src\common\components\MeshComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::MeshComponent" Collapsed="true">
+    <Position X="20.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAhAQEAAAAAAABAAAAAAAAAACgAAAASIAAAAAFAAAA=</HashCode>
+      <FileName>src\common\components\MeshComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::ViewerComponent" Collapsed="true">
+    <Position X="23" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAIAAAAAAQEBAAAAAEQAAA=</HashCode>
+      <FileName>src\common\components\ViewerComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::DebugManager" Collapsed="true">
+    <Position X="9.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAEAAAAAAAgAAAAQAMAAAABAAAA=</HashCode>
+      <FileName>src\common\worldcomponents\DebugManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::InputManager" Collapsed="true">
+    <Position X="11.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAgAAgAACARAAAAAgAAEAAIAAAAAA=</HashCode>
+      <FileName>src\common\worldcomponents\InputManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::ShaderManager" Collapsed="true">
+    <Position X="14" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAABAAAAAAgAAA=</HashCode>
+      <FileName>src\common\worldcomponents\ShaderManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::TransformComponent" Collapsed="true">
+    <Position X="25.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIABAAGCABCAAAAIACAAAEAAAAggAIAAEAgEAAAA=</HashCode>
+      <FileName>src\engine\components\TransformComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::Entity" Collapsed="true">
+    <Position X="7.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAABIAAIAAAASAAAAABAJAAAAABAAAwAAIABAgEAAAA=</HashCode>
+      <FileName>src\engine\core\Component.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::Component" Collapsed="true">
+    <Position X="20.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAIAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>src\engine\core\Component.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::World" Collapsed="true">
+    <Position X="27.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBQAgAAAgAQAQAAABAJAQAAACCAAAAIAACAAEAAAA=</HashCode>
+      <FileName>src\engine\core\Entity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::GameHandler" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAABAACABAggAAAAAAAAEAAAQAAEiBAAOAIAA=</HashCode>
+      <FileName>src\engine\core\GameHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::ManagedObject" Collapsed="true">
+    <Position X="17.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAABIAAAAAABAAAAEAAAIAAgAABAAAUACIgABqFAAAA=</HashCode>
+      <FileName>src\engine\core\ManagedObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::NonCopyable" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>src\engine\core\NonCopyable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::Object" Collapsed="true">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAgAAAAgAAAAAAAAAAAAAIEAAAAAAA=</HashCode>
+      <FileName>src\engine\core\Object.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::WorldComponent" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAABEAAAAAA=</HashCode>
+      <FileName>src\engine\core\WorldComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::Color" Collapsed="true">
+    <Position X="34.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACQAIAAAAAAAAAAAAAAAQAAAAAAAAAEBqAEAAAA=</HashCode>
+      <FileName>src\engine\shader\Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::Timer" Collapsed="true">
+    <Position X="32" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAgAQACBAAAAAAIAAAAAAAABAIAAAIAAAAAgEAAA=</HashCode>
+      <FileName>src\system\Input\InputAction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForgeEngine::InputAction" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAMAACAAAAAAAAGAgAAAAAAAAAQQAACAAAAQAAAAQ=</HashCode>
+      <FileName>src\system\Input\InputAction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="ForgeEngine::COUNTER" Collapsed="true">
+    <Position X="34.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\engine\core\Defines.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ForgeEngine::GL_ID" Collapsed="true">
+    <Position X="36.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\engine\core\Defines.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ForgeEngine::GL_RESULT" Collapsed="true">
+    <Position X="38" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\engine\core\Defines.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ForgeEngine::ObjectID" Collapsed="true">
+    <Position X="36.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\engine\core\Object.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ForgeEngine::Matrix4" Collapsed="true">
+    <Position X="34.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\system\math\Matrix4.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ForgeEngine::Vector2" Collapsed="true">
+    <Position X="38" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\system\math\Vector2.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ForgeEngine::Vector3" Collapsed="true">
+    <Position X="34.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\system\math\Vector3.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ForgeEngine::Vector4" Collapsed="true">
+    <Position X="36.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\system\math\Vector4.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="ForgeEngine::EInputAction" Collapsed="true">
+    <Position X="38" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAkAAIABQAAAEAAAAIYAAIAAAAAAA=</HashCode>
+      <FileName>src\common\helpers\InputHelper.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ForgeEngine::EShaderType" Collapsed="true">
+    <Position X="38" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAQAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\common\worldcomponents\ShaderManager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ForgeEngine::EInitializationState" Collapsed="true">
+    <Position X="36.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAACAAAAABAAAA=</HashCode>
+      <FileName>src\engine\core\ManagedObject.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ForgeEngine::EInputAction" Collapsed="true">
+    <Position X="34.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAkAAIABQAAAEAAAAIYAAIAAAAAAA=</HashCode>
+      <FileName>src\system\Input\InputAction.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ForgeEngine::EInputType" Collapsed="true">
+    <Position X="36.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAgAAAAAQAAAABAAAAA=</HashCode>
+      <FileName>src\system\Input\InputAction.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ForgeEngine::EDeviceTarget" Collapsed="true">
+    <Position X="34.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAIAAAAAQAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\system\Input\InputAction.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
