@@ -1,14 +1,14 @@
 #pragma once
 
-#include "engine/core/GameHandler.h"
+#include "common/utils/BasicGameHandler.h"
 
 using namespace ForgeEngine;
 
 namespace Daggerfall
 {
-    class Daggerfall : public GameHandler
+    class Daggerfall : public BasicGameHandler
     {
-        using Mother = GameHandler;
+        using Mother = BasicGameHandler;
 
         /************************************/
         /************ATTRIBUTES**************/

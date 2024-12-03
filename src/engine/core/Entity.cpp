@@ -156,7 +156,7 @@ namespace ForgeEngine
 	{
 		Mother::OnDrawDebug(dT);
 
-        ImGui::PushID(GetID());
+        ImGui::PushID(static_cast<int>(GetID()));
 		for (auto& component : m_RegisteredComponents)
 		{
 			if (component != nullptr)

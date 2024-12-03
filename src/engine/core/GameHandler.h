@@ -19,7 +19,7 @@ namespace ForgeEngine
 		public:
             static GameHandler* s_Instance;
 
-        private:
+        protected:
             GLFWwindow* m_Window{ nullptr };
             unsigned int m_WindowWidth;
             unsigned int m_WindowHeight;
@@ -44,10 +44,10 @@ namespace ForgeEngine
             static GameHandler& Get() { return *s_Instance; }
 
 		protected:
-			virtual void OnInit();
-			virtual void OnUpdate(float dT) {}
+			virtual void OnInit() {};
+			virtual void OnUpdate(float dT);
 			virtual void OnTermination();
 
-			virtual bool ShouldTerminate();
+			virtual bool ShouldTerminate() = 0;
 	};
 }

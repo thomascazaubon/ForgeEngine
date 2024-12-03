@@ -1,14 +1,14 @@
 #pragma once
 
-#include "engine/core/GameHandler.h"
+#include "common/utils/BasicGameHandler.h"
 
 using namespace ForgeEngine;
 
 namespace Newton
 {
-    class Newton : public GameHandler
+    class Newton : public BasicGameHandler
     {
-        using Mother = GameHandler;
+        using Mother = BasicGameHandler;
 
         /************************************/
         /************ATTRIBUTES**************/

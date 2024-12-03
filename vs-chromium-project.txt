@@ -1,0 +1,5 @@
+[SearchableFiles.include]
+src/
+
+[SearchableFiles.ignore]
+src/extern/

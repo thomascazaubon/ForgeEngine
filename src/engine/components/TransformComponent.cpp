@@ -13,7 +13,7 @@ namespace ForgeEngine
 	}
 
 #ifdef FORGE_DEBUG_ENABLED
-    void TransformComponent::OnDrawDebug(float dT) const  const
+    void TransformComponent::OnDrawDebug(float dT) const
     {
         ImGui::Text("Position: (%.2f, %.2f, %.2f)", m_Position.x, m_Position.y, m_Position.z);
         ImGui::Text("Rotation: (%.2f, %.2f, %.2f)", m_Rotation.x, m_Rotation.y, m_Rotation.z);

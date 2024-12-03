@@ -8,8 +8,8 @@ namespace ForgeEngine
 		Mother()
 	{
 		m_InputActionMappings[EInputAction::ToggleWireframe]	= std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_F1 });
-		m_InputActionMappings[EInputAction::ToggleFreeMouse]	= std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_F2 });
-		m_InputActionMappings[EInputAction::ToggleImGUI]	    = std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_F3 });
+		m_InputActionMappings[EInputAction::ToggleImGUI]	    = std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_F2 });
+		m_InputActionMappings[EInputAction::ToggleFreeMouse]	= std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_TAB });
 		m_InputActionMappings[EInputAction::RightClickOnce]		= std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Mouse, GLFW_MOUSE_BUTTON_RIGHT });
 		m_InputActionMappings[EInputAction::LeftClickOnce]		= std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Mouse, GLFW_MOUSE_BUTTON_LEFT });
 

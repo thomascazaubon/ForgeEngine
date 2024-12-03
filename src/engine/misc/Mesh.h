@@ -36,6 +36,10 @@ namespace ForgeEngine
         std::vector<float> MakeGLData() const;
         std::vector<unsigned int> GetTrianglesIndices() const;
 
+#ifdef FORGE_DEBUG_ENABLED
+        void OnDrawDebug() const;
+#endif //FORGE_DEBUG_ENABLED
+
     private:
         struct Triangle
         {
@@ -53,6 +57,10 @@ namespace ForgeEngine
             Vector3 m_Normal;
 
             void ComputeNormal(const Mesh& owningMesh);
+
+#ifdef FORGE_DEBUG_ENABLED
+            void OnDrawDebug() const;
+#endif //FORGE_DEBUG_ENABLED
 
             std::vector<float> ToGLData(const Mesh& owningMesh) const;
             static unsigned int GetGLDataSize() { return Vertex::GetGLDataSize() * 3; }

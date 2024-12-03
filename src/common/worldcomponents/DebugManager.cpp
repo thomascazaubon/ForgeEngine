@@ -60,6 +60,10 @@ namespace ForgeEngine
         }
         if (InputHelper::IsInputActive(EInputAction::ToggleImGUI))
         {
+			if (m_ImGUIEnabled == m_FreeMouseEnabled)
+			{
+				ToggleFreeMouse();
+			}
             m_ImGUIEnabled = m_ImGUIEnabled ? false : true;
         }
 	}

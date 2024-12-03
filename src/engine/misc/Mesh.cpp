@@ -6,6 +6,7 @@
 #include "engine/shader/Material.h"
 
 #include <iostream>
+#include <format>
 
 namespace ForgeEngine
 {
@@ -124,4 +125,61 @@ namespace ForgeEngine
 
         return indices;
     }
+
+#ifdef FORGE_DEBUG_ENABLED
+    void Mesh::OnDrawDebug() const
+    {
+        if (ImGui::CollapsingHeader("Vertices"))
+        {
+            ImGui::Indent();
+            {
+                for (const Vector3& vertex : m_Vertices)
+                {
+                    ImGui::Text("(%.2f, %.2f, %.2f)", vertex.x, vertex.y, vertex.z);
+                }
+            }
+            ImGui::Unindent();
+        }
+        if (ImGui::CollapsingHeader("Triangles"))
+        {
+            ImGui::Indent();
+            {
+                for (const Triangle& triangle : m_Triangles)
+                {
+                    triangle.OnDrawDebug();
+                }
+            }
+            ImGui::Unindent();
+        }
+        if (ImGui::CollapsingHeader("GL Data"))
+        {
+            ImGui::Indent();
+            {
+                std::string stringData = "";
+                const unsigned int dataSize = Triangle::Vertex::GetGLDataSize();
+                const std::vector<float> glData = MakeGLData();
+                unsigned int numVertices = 0;
+
+                for (unsigned int i = 0; i < glData.size(); i++)
+                {
+                    //New vertex
+                    if (i > 0 && i % dataSize == 0)
+                    {
+                        numVertices++;
+                        stringData += numVertices > 0 && numVertices % 3 == 0 ? "\n\n" : "\n";
+                    }
+                    
+                    stringData += std::format("[{:.2f}]", glData[i]);
+                }
+                ImGui::Text("%s", stringData.c_str());
+            }
+            ImGui::Unindent();
+        }
+    }
+
+    void Mesh::Triangle::OnDrawDebug() const
+    {
+        ImGui::Text("%i - %i - %i", m_Vertices[0].m_Index, m_Vertices[1].m_Index, m_Vertices[2].m_Index);
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

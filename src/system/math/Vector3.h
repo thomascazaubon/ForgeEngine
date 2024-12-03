@@ -27,26 +27,33 @@ namespace ForgeEngine
 		float Dot(const Vector3& v1, const Vector3& v2);
 		float Distance(const Vector3& v1, const Vector3& v2);
 	}
-
+    
+    /*
     template <unsigned int N, typename T>
     class Vector : public glm::vec<N, T, glm::defaultp>
     {
         public:
-            using glm::vec<N, T, glm::defaultp>::vec;
+            using Mother = glm::vec<N, T, glm::defaultp>;
+            using Mother::vec;
 
-            float Dot(const Vector<N, T>& other) const
+            T Dot(const Mother& other) const
             {
                 return glm::dot(*this, other);
             }
 
-            float Length() const
+            T Length() const
             {
                 return this.length();
             }
 
-            Vector<N, T> Cross(const Vector<N, T>& other)
+            Vector<N, T> Cross(const Mother& other)
             {
-                return *this;//static_cast<Vector<N, T>>(glm::cross(*this, other));
+                return *this;//glm::cross(*this, other);
+            }
+
+            T Distance(const Vector<N, T>& other)
+            {
+                return (other - *this).Length();
             }
 
             Vector<N, T> GetNormalized()
@@ -58,12 +65,9 @@ namespace ForgeEngine
             {
                 *this = glm::normalize(*this);
             }
-
-            float Distance(const Vector<N, T>& other)
-            {
-                return (other - *this).Length();
-            }
     };
 
     using Vector3f = Vector<3, float>;
+    using Vector3d = Vector<3, double>;
+    */
 }

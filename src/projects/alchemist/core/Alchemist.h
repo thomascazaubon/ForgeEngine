@@ -1,14 +1,14 @@
 #pragma once
 
-#include "engine/core/GameHandler.h"
+#include "common/utils/BasicGameHandler.h"
 
 using namespace ForgeEngine;
 
 namespace Alchemist
 {
-	class Alchemist : public GameHandler
+	class Alchemist : public BasicGameHandler
 	{
-		using Mother = GameHandler;
+		using Mother = BasicGameHandler;
 
 		/************************************/
 		/************ATTRIBUTES**************/

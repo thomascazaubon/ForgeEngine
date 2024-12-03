@@ -1,5 +1,7 @@
 #include "Color.h"
 
+#include "system/math/MathUtils.h"
+
 namespace ForgeEngine
 {
 	Color::Color(unsigned int r, unsigned int g, unsigned int b, float a /*= 1.f*/) :
@@ -19,6 +21,12 @@ namespace ForgeEngine
 	/*static*/ Color Color::GetGrayScale(Color c)
 	{
 		return c.GetGrayScale();
+	}
+
+	Color Color::operator*(float multiplier)
+	{
+		float clampedMultiplier = ForgeMaths::Clamp(multiplier, 0.f, 1.f);
+		return Color(m_R * clampedMultiplier, m_G * clampedMultiplier, m_B * clampedMultiplier);
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Color& c)

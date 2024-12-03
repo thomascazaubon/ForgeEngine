@@ -27,6 +27,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\utils\BasicGameHandler.h" />
+    <ClInclude Include="src\common\worldcomponents\SkyboxComponent.h" />
     <ClInclude Include="src\engine\core\LoadableResource.h" />
     <ClInclude Include="src\system\io\FileUtils.h" />
     <ClInclude Include="src\engine\core\ResourceLoader.h" />
@@ -384,6 +386,8 @@
     <ClInclude Include="src\common\worldcomponents\TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\utils\BasicGameHandler.cpp" />
+    <ClCompile Include="src\common\worldcomponents\SkyboxComponent.cpp" />
     <ClCompile Include="src\engine\core\LoadableResource.cpp" />
     <ClCompile Include="src\system\io\FileUtils.cpp" />
     <ClCompile Include="src\engine\core\ResourceLoader.cpp" />

@@ -8,6 +8,7 @@
 #include "common/components/LightComponent.h"
 #include "common/worldcomponents/LightManager.h"
 #include "common/worldcomponents/ShaderLoader.h"
+#include "common/worldcomponents/SkyboxComponent.h"
 
 #ifdef FORGE_DEBUG_ENABLED
 #include "engine/ui/ImGUI.h"
@@ -101,6 +102,7 @@ namespace ForgeEngine
 
             //Lighting
             std::vector<const LightComponent*> lights = GameHandler::Get().GetWorld().GetComponentByType<LightManager>()->GetLightsInRange(GetOwner()->GetPosition());
+			//TODO: support multiple lights
             if (!lights.empty())
             {
                 m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
@@ -109,7 +111,14 @@ namespace ForgeEngine
                 m_Shader->SetFloat(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange());
             }
 
-            m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, 0.f);
+			float ambientLightIntensity = 1.f;
+
+			if (const SkyboxComponent* skybox = GameHandler::Get().GetWorld().GetComponentByType<SkyboxComponent>())
+			{
+				ambientLightIntensity = skybox->GetAmbientLightIntensity();
+			}
+
+            m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, ambientLightIntensity);
 			
             m_Shader->SetMaterial(*m_Mesh.GetMaterial());
 
@@ -142,6 +151,7 @@ namespace ForgeEngine
         ImGui::Text("VBO ID: %d", m_VertexBufferObject);
         ImGui::Text("VBE ID: %d", m_VertexBufferElement);
         ImGui::Text("Num Indices: %d", m_NumIndices);
+		m_Mesh.OnDrawDebug();
     }
 #endif //FORGE_DEBUG_ENABLED
 }

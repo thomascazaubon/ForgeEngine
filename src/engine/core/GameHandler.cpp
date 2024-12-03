@@ -1,15 +1,9 @@
 #include "GameHandler.h"
 
-#include "common/worldcomponents/DebugManager.h"
-#include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/LightManager.h"
-#include "common/worldcomponents/MaterialLoader.h"
-#include "common/worldcomponents/ShaderLoader.h"
-#include "common/worldcomponents/TextureLoader.h"
-
 #include "engine/core/ForgeEngine.h"
 #include "engine/shader/ShaderUtils.h"
 #include "engine/ui/ImGUI.h"
+#include "system/misc/Color.h"
 
 #include <chrono>
 #include <cmath>
@@ -75,6 +69,24 @@ namespace ForgeEngine
 					ImGui_ImplOpenGL3_NewFrame();
 					ImGui_ImplGlfw_NewFrame();
 					ImGui::NewFrame();
+					if (ImGui::BeginMainMenuBar())
+					{
+						if (ImGui::BeginMenu("File"))
+						{
+							ImGui::EndMenu();
+						}
+						if (ImGui::BeginMenu("Edit"))
+						{
+							if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+							if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+							ImGui::Separator();
+							if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+							if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+							if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+							ImGui::EndMenu();
+						}
+						ImGui::EndMainMenuBar();
+					}
 
 					m_World.DrawDebug(dT);
 
@@ -94,37 +106,14 @@ namespace ForgeEngine
 		}
 	}
 
-	void GameHandler::OnInit()
+	void GameHandler::OnUpdate(float dT)
 	{
-        m_World.RegisterComponent(new ShaderLoader());
-        m_World.RegisterComponent(new InputManager());
-        m_World.RegisterComponent(new LightManager());
-        m_World.RegisterComponent(new MaterialLoader());
-        m_World.RegisterComponent(new TextureLoader());
-
-		#ifdef FORGE_DEBUG_ENABLED
-            m_World.RegisterComponent(new DebugManager());
-
-			// Setup Dear ImGui context
-			IMGUI_CHECKVERSION();
-			ImGui::CreateContext();
-			ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-			// Setup Dear ImGui style
-			ImGui::StyleColorsDark();
-			ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
-			ImGui_ImplOpenGL3_Init("#version 150");
-		#endif //#ifdef FORGE_DEBUG_ENABLED
+		ShaderUtils::ClearScreen(COLOR_GREEN);
 	}
 
 	void GameHandler::OnTermination()
 	{
 		// glfw: terminate, clearing all previously allocated GLFW resources.
 		glfwTerminate();
-	}
-
-	bool GameHandler::ShouldTerminate()
-	{
-		return (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS);
 	}
 }

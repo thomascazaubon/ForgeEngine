@@ -4,7 +4,7 @@
 
 namespace ForgeEngine
 {
-	typedef unsigned long long int ObjectID;
+	typedef unsigned int ObjectID;
 
 	class Object : public NonCopyable
 	{

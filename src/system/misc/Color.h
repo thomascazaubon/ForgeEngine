@@ -49,6 +49,8 @@ namespace ForgeEngine
 			static Color GetGrayScale(Color c);
 			Color GetGrayScale() const;
 
+			Color operator*(float multiplier);
+
 			friend std::ostream& operator<<(std::ostream& os, const Color& c);
 	};
 }

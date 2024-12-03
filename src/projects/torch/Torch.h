@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/GameHandler.h"
+#include "common/utils/BasicGameHandler.h"
 
 using namespace ForgeEngine;
 
@@ -11,9 +11,9 @@ namespace ForgeEngine
 
 namespace Torch
 {
-    class Torch : public GameHandler
+    class Torch : public BasicGameHandler
     {
-        using Mother = GameHandler;
+        using Mother = BasicGameHandler;
 
         public:
             Torch(std::string name, unsigned int width, unsigned int height);
