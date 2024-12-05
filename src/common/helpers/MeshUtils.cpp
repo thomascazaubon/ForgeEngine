@@ -1,5 +1,9 @@
 #include "MeshUtils.h"
 
+#include "common/worldcomponents/MaterialLoader.h"
+#include "engine/core/GameHandler.h"
+#include "engine/misc/Texture.h"
+#include "engine/shader/Material.h"
 #include "system/math/Vector2.h"
 #include "system/math/Vector3.h"
 
@@ -116,7 +120,7 @@ namespace ForgeEngine
 
         /********PLANE********/
 
-        std::vector<Vector3> GetPlaneVerticesCoordinates(float scale/* = 1.f*/)
+        std::vector<Vector3> GetPlaneVerticesCoordinates(float height = 1.f, float width = 1.f, bool flat = true)
         {
             return std::vector<Vector3>
             {
@@ -126,10 +130,10 @@ namespace ForgeEngine
                                 A------B'
                 */
 
-                Vector3(-scale / 2.f, 0.f,-scale / 2.f), //0 - A
-                Vector3(scale / 2.f, 0.f,-scale / 2.f),  //1 - B
-                Vector3(scale / 2.f, 0.f, scale / 2.f),  //2 - C
-                Vector3(-scale / 2.f, 0.f, scale / 2.f)  //3 - D
+                Vector3(-width / 2.f, flat ? 0.f : -height / 2.f, flat ? -height / 2.f : 0.f), //0 - A
+                Vector3(width / 2.f, flat ? 0.f : -height / 2.f, flat ? -height / 2.f : 0.f),  //1 - B
+                Vector3(width / 2.f, flat ? 0.f : height / 2.f, flat ? height / 2.f : 0.f),  //2 - C
+                Vector3(-width / 2.f, flat ? 0.f : height / 2.f, flat ? height / 2.f : 0.f)  //3 - D
             };
         }
 
@@ -142,7 +146,7 @@ namespace ForgeEngine
             };
         }
 
-        std::vector<Vector2> GetPlaneTextureCoordinates(float scale/* = 1.f*/)
+        std::vector<Vector2> GetPlaneTextureCoordinates(float scale = 1.f)
         {
             return std::vector<Vector2>
             {
@@ -218,7 +222,20 @@ namespace ForgeEngine
 
         Mesh MakePlane(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
         {
-            return Mesh(GetPlaneVerticesCoordinates(scale), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(scale), materialPath);
+            return Mesh(GetPlaneVerticesCoordinates(scale, scale), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(scale), materialPath);
+        }
+
+        Mesh MakeSprite(const char* materialPath, float height /*= 1.f*/)
+        {
+            const std::shared_ptr<Material>* material = GameHandler::Get().GetWorld().GetComponentByType<MaterialLoader>()->GetOrLoadResource(materialPath);
+            float heightWidthRatio = 1.f;
+
+            if (const Texture* texture = material->get()->GetTexture())
+            {
+                heightWidthRatio = texture->GetWidth() / static_cast<float>(texture->GetHeight());
+            }
+
+            return Mesh(GetPlaneVerticesCoordinates(height, height * heightWidthRatio, false), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(1.f), *material);
         }
 
         Mesh MakeTriangle(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)

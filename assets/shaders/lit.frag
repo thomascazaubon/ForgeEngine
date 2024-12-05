@@ -47,12 +47,14 @@ void main()
 
 	if (UseTexture)
 	{
-		result = texture(RenderTexture, ourTextureCoordinates) * Material.color * (diffuseLight + specularLight + AmbientLightIntensity);
+		vec4 texture = texture(RenderTexture, ourTextureCoordinates).rgba;
+		result = texture * Material.color * (diffuseLight + specularLight + AmbientLightIntensity);
+		result.w = texture.w * Material.color.w;
 	}
 	else
 	{
 		result = Material.color * (diffuseLight + specularLight + AmbientLightIntensity);
 	}
 
-	FragColor = vec4(result.x, result.y, result.z, Material.color.w);
+	FragColor = vec4(result.x, result.y, result.z, result.w);
 }

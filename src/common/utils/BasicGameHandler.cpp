@@ -21,7 +21,7 @@ namespace ForgeEngine
 		m_World.RegisterComponent(new LightManager());
 		m_World.RegisterComponent(new MaterialLoader());
 		m_World.RegisterComponent(new TextureLoader());
-		m_World.RegisterComponent(new SkyboxComponent(100.f, MAX_LIGHT_TIME_END));
+		m_World.RegisterComponent(new SkyboxComponent(0.f, NOON_TIME));
 
 #ifdef FORGE_DEBUG_ENABLED
 		m_World.RegisterComponent(new DebugManager());

@@ -58,7 +58,7 @@ namespace ForgeEngine
 		ShaderUtils::DeletePrograms(&m_ProgramID);
 	}
 
-	void Shader::Use()
+	void Shader::Use() const
 	{
 		glUseProgram(m_ProgramID);
 	}
@@ -81,49 +81,49 @@ namespace ForgeEngine
 		return -1;
 	}
 
-	void Shader::SetFloat(const char* which, float value)
+	void Shader::SetFloat(const char* which, float value) const
 	{
 		glUniform1f(glGetUniformLocation(m_ProgramID, which), value);
 	}
 
-	void Shader::SetBool(const char* which, bool value)
+	void Shader::SetBool(const char* which, bool value) const
 	{
 		glUniform1i(glGetUniformLocation(m_ProgramID, which), static_cast<int>(value));
 	}
 
-	void Shader::SetInt(const char* which, int value)
+	void Shader::SetInt(const char* which, int value) const
 	{
 		glUniform1i(glGetUniformLocation(m_ProgramID, which), value);
 	}
 
-	void Shader::SetColor(const char* which, const Color& value)
+	void Shader::SetColor(const char* which, const Color& value) const
 	{
 		glUniform4f(glGetUniformLocation(m_ProgramID, which), value.GetRRatio(), value.GetGRatio(), value.GetBRatio(), value.GetA());
 	}
 
-	void Shader::SetTexture(unsigned int which, const Texture* texture)
+	void Shader::SetTexture(unsigned int which, const Texture* texture) const
 	{
         SetBool(DEFAULT_USE_TEXTURE_NAME, texture != nullptr);
         glActiveTexture(texture != nullptr ? which : 0); // activate the texture unit first before binding texture
         glBindTexture(GL_TEXTURE_2D, texture != nullptr ? texture->GetGLTexture() : 0);
 	}
 
-	void Shader::SetMatrix4(const char* which, const glm::mat4& matrix)
+	void Shader::SetMatrix4(const char* which, const glm::mat4& matrix) const
 	{
 		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-	void Shader::SetMatrix3(const char* which, const glm::mat3& matrix)
+	void Shader::SetMatrix3(const char* which, const glm::mat3& matrix) const
 	{
 		glUniformMatrix3fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-    void Shader::SetVector4(const char* which, const Vector3& vector)
+    void Shader::SetVector4(const char* which, const Vector3& vector) const
     {
         glUniform4f(glGetUniformLocation(m_ProgramID, which), vector.x, vector.y, vector.z, 0.f);
     }
 
-    void Shader::SetMaterial(const Material& material)
+    void Shader::SetMaterial(const Material& material) const
     {
         SetColor(DEFAULT_MATERIAL_COLOR_NAME, material.GetColor());
         SetFloat(DEFAULT_MATERIAL_DIFFUSE_NAME, material.GetDiffuse());

@@ -10,12 +10,12 @@
 
 namespace ForgeEngine
 {
-	Texture::Texture(const std::string& texturePath, unsigned int rgbaMode/*= GL_RGB*/, bool flip/* = true*/) 
+	Texture::Texture(const std::string& texturePath, unsigned int rgbaMode/*= GL_RGBA*/, bool flip/* = true*/) 
         : Mother()
         , m_Name(texturePath)
 	{
 		stbi_set_flip_vertically_on_load(flip);
-		unsigned char* data = stbi_load(texturePath.c_str(), &m_Width, &m_Height, &m_Channels, 0);
+		unsigned char* data = stbi_load(texturePath.c_str(), &m_Width, &m_Height, &m_Channels, STBI_rgb_alpha);
 		stbi_set_flip_vertically_on_load(false);
 
 		if (data)
@@ -29,7 +29,7 @@ namespace ForgeEngine
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, rgbaMode, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, rgbaMode, GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 		else
@@ -51,8 +51,8 @@ namespace ForgeEngine
 			glBindTexture(GL_TEXTURE_2D, m_GLTexture);
 
 			// set the texture wrapping/filtering options (on the currently bound texture object)
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 

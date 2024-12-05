@@ -4,6 +4,7 @@
 
 namespace ForgeEngine
 {
+	//TODO: This shouldn't need an update
 	//Time expressed in seconds
 	class Timer : public Object
 	{

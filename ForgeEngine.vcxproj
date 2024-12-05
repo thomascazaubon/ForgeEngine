@@ -27,6 +27,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\debug\DebugElements.h" />
+    <ClInclude Include="src\engine\debug\DebugDrawer.h" />
     <ClInclude Include="src\common\utils\BasicGameHandler.h" />
     <ClInclude Include="src\common\worldcomponents\SkyboxComponent.h" />
     <ClInclude Include="src\engine\core\LoadableResource.h" />
@@ -386,6 +388,8 @@
     <ClInclude Include="src\common\worldcomponents\TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\debug\DebugElements.cpp" />
+    <ClCompile Include="src\engine\debug\DebugDrawer.cpp" />
     <ClCompile Include="src\common\utils\BasicGameHandler.cpp" />
     <ClCompile Include="src\common\worldcomponents\SkyboxComponent.cpp" />
     <ClCompile Include="src\engine\core\LoadableResource.cpp" />

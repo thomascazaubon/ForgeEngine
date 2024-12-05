@@ -19,8 +19,8 @@ namespace ForgeEngine
 		m_InputActionMappings[EInputAction::MoveLeft]			= std::unique_ptr<InputAction>(new InputAction{ EInputType::Hold, EDeviceTarget::Keyboard, GLFW_KEY_A });
 		m_InputActionMappings[EInputAction::RightClick]			= std::unique_ptr<InputAction>(new InputAction{ EInputType::Hold, EDeviceTarget::Mouse, GLFW_MOUSE_BUTTON_RIGHT });
 		m_InputActionMappings[EInputAction::LeftClick]			= std::unique_ptr<InputAction>(new InputAction{ EInputType::Hold, EDeviceTarget::Mouse, GLFW_MOUSE_BUTTON_LEFT });
-		m_InputActionMappings[EInputAction::FlyUp]				= std::unique_ptr<InputAction>(new InputAction{ EInputType::Hold, EDeviceTarget::Keyboard, GLFW_KEY_UP });
-		m_InputActionMappings[EInputAction::FlyDown]			= std::unique_ptr<InputAction>(new InputAction{ EInputType::Hold, EDeviceTarget::Keyboard, GLFW_KEY_DOWN });
+		m_InputActionMappings[EInputAction::FlyUp]				= std::unique_ptr<InputAction>(new InputAction{ EInputType::Hold, EDeviceTarget::Keyboard, GLFW_KEY_SPACE });
+		m_InputActionMappings[EInputAction::FlyDown]			= std::unique_ptr<InputAction>(new InputAction{ EInputType::Hold, EDeviceTarget::Keyboard, GLFW_KEY_C });
 
 		m_InputActionMappings[EInputAction::Exit]				= std::unique_ptr<InputAction>(new InputAction{ EInputType::Release, EDeviceTarget::Keyboard, GLFW_KEY_ENTER });
 	}

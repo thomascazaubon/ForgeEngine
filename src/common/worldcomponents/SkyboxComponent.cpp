@@ -45,8 +45,14 @@ namespace ForgeEngine
 		}
 	}
 
+	bool SkyboxComponent::IsDay() const
+	{
+		return m_CurrentTime >= DAWN_TIME && m_CurrentTime <= DUSK_TIME;
+	}
+
 	Color SkyboxComponent::GetCurrentSkyColor() const
 	{
+		//TODO: Shitty red shade implementation for dawn and dusk
 		return Color(255.f * (1.f - GetAmbientLightIntensity()), COLOR_SKY_BLUE.GetG(), COLOR_SKY_BLUE.GetB()) * GetAmbientLightIntensity();
 	}
 
@@ -54,8 +60,11 @@ namespace ForgeEngine
 	void SkyboxComponent::OnDrawDebug(float dT) const /*override*/
 	{
 		ImGui::InputFloat("Current time scale", &m_TimeScale, 0.1f, 1.0f, "%.2f");
+		ImGui::InputFloat("Current time", &m_CurrentTime, HOUR_DURATION_SECONDS, HOUR_DURATION_SECONDS, "%.0f");
+		m_CurrentTime = ForgeMaths::Max(m_CurrentTime, 0.f);
+		m_TimeScale = ForgeMaths::Max(m_TimeScale, 0.f);
 		const unsigned int timeSeconds = static_cast<unsigned int>(m_CurrentTime);
-		const unsigned int hours = static_cast<unsigned int>(timeSeconds / 3600.f);
+		const unsigned int hours = static_cast<unsigned int>(timeSeconds / HOUR_DURATION_SECONDS);
 		const unsigned int minutes = static_cast<unsigned int>((timeSeconds - (hours * 3600)) / 60.f);
 		const unsigned int seconds = (timeSeconds - (hours * 3600)) % 60;
 		ImGui::Text(std::format("Current time: {:02}:{:02}:{:02}", hours, minutes, seconds).c_str());

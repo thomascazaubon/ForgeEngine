@@ -25,6 +25,22 @@ namespace ForgeEngine
             m_Material = std::shared_ptr<Material>(*(GameHandler::Get().GetWorld().GetComponentByType<MaterialLoader>()->GetOrLoadResource(materialPath)));
         }
 
+        BuildTriangles(triangleIndices, textureCoordinates);
+    }
+
+    Mesh::Mesh(const std::vector<Vector3>& vertices,
+        const std::vector<unsigned int>& triangleIndices,
+        const std::vector<Vector2>& textureCoordinates,
+        const std::shared_ptr<Material>& material)
+        : m_Vertices(vertices)
+    {
+        m_Material = material;
+
+        BuildTriangles(triangleIndices, textureCoordinates);
+    }
+
+    void Mesh::BuildTriangles(const std::vector<unsigned int>& triangleIndices, const std::vector<Vector2>& textureCoordinates)
+    {
         for (unsigned int i = 0; i < triangleIndices.size(); i += 3)
         {
             unsigned int indices[3];

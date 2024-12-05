@@ -9,16 +9,19 @@
 
 namespace ForgeEngine
 {
-	#define GLSL_ATTRIBUTE_TOKEN			"//ATTRIBUTE"
+	#define GLSL_ATTRIBUTE_TOKEN			        "//ATTRIBUTE"
 
-	#define DEFAULT_VERTEX_SHADER_PATH		"assets\\shaders\\vertex\\default.glslv"
-	#define DEFAULT_FRAGMENT_SHADER_PATH	"assets\\shaders\\fragment\\default.glslf"
+	#define DEFAULT_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\default.glslv"
+	#define DEFAULT_FRAGMENT_SHADER_PATH	        "assets\\shaders\\fragment\\default.glslf"
 
-	#define TEXTURED_VERTEX_SHADER_PATH		"assets\\shaders\\vertex\\textured.glslv"
-	#define TEXTURED_FRAGMENT_SHADER_PATH	"assets\\shaders\\fragment\\textured.glslf"
+	#define TEXTURED_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\textured.glslv"
+	#define TEXTURED_FRAGMENT_SHADER_PATH	        "assets\\shaders\\fragment\\textured.glslf"
 
-    #define LIT_VERTEX_SHADER_PATH		    "assets\\shaders\\vertex\\lit.glslv"
-    #define LIT_FRAGMENT_SHADER_PATH	    "assets\\shaders\\fragment\\lit.glslf"
+    #define LIT_VERTEX_SHADER_PATH		            "assets\\shaders\\vertex\\lit.glslv"
+    #define LIT_FRAGMENT_SHADER_PATH	            "assets\\shaders\\fragment\\lit.glslf"
+
+    #define DEBUG_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\debug.glslv"
+    #define DEBUG_FRAGMENT_SHADER_PATH	            "assets\\shaders\\fragment\\debug.glslf"
 
 	#define DEFAULT_RENDER_COLOR_NAME		        "RenderColor"
 	#define DEFAULT_RENDER_TEXTURE_NAME		        "RenderTexture"
@@ -60,7 +63,7 @@ namespace ForgeEngine
             void OnDrawDebug() const override;
 #endif //FORGE_DEBUG_ENABLED
 
-            void Use();
+            void Use() const;
 
             bool IsValid() const override { return m_ProgramID && m_VertexID&& m_FragmentID; }
 
@@ -71,15 +74,15 @@ namespace ForgeEngine
             const auto& GetAttributesSizes() const { return m_AttributesSizes; }
 
             //Use should be called before calling any of the following!
-            void SetFloat(const char* which, float value);
-            void SetBool(const char* which, bool value);
-            void SetInt(const char* which, int value);
-            void SetColor(const char* which, const Color& value);
-            void SetTexture(unsigned int which, const Texture* texture);
-            void SetMatrix4(const char* which, const glm::mat4& matrix);
-            void SetMatrix3(const char* which, const glm::mat3& matrix);
-            void SetVector4(const char* which, const Vector3& vector);
-            void SetMaterial(const Material& material);
+            void SetFloat(const char* which, float value) const;
+            void SetBool(const char* which, bool value) const;
+            void SetInt(const char* which, int value) const;
+            void SetColor(const char* which, const Color& value) const;
+            void SetTexture(unsigned int which, const Texture* texture) const;
+            void SetMatrix4(const char* which, const glm::mat4& matrix) const;
+            void SetMatrix3(const char* which, const glm::mat3& matrix) const;
+            void SetVector4(const char* which, const Vector3& vector) const;
+            void SetMaterial(const Material& material) const;
 
 		private:
             unsigned int m_ProgramID{};

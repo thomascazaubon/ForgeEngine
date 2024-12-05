@@ -23,6 +23,11 @@ namespace ForgeEngine
             const std::vector<Vector2>& textureCoordinates,
             const char* materialPath = nullptr);
 
+        Mesh(const std::vector<Vector3>& vertices,
+            const std::vector<unsigned int>& triangleIndices,
+            const std::vector<Vector2>& textureCoordinates,
+            const std::shared_ptr<Material>& material);
+
         const std::vector<Vector3>& GetVertices() const { return m_Vertices; }
         unsigned int GetVerticesCount() const { return m_Vertices.size(); }
         unsigned int GetTrianglesCount() const { return m_Triangles.size(); }
@@ -65,6 +70,8 @@ namespace ForgeEngine
             std::vector<float> ToGLData(const Mesh& owningMesh) const;
             static unsigned int GetGLDataSize() { return Vertex::GetGLDataSize() * 3; }
         };
+
+        void BuildTriangles(const std::vector<unsigned int>& triangleIndices, const std::vector<Vector2>& textureCoordinates);
 
         std::vector<Vector3> m_Vertices{};
         std::vector<Triangle> m_Triangles{};

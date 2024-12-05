@@ -23,6 +23,32 @@ namespace ForgeEngine
 			return retValue;
 		}
 
+		template <typename T>
+		T Min(T value1, T value2)
+		{
+			if (value1 < value2)
+			{
+				return value1;
+			}
+			else
+			{
+				return value2;
+			}
+		}
+
+		template <typename T>
+		T Max(T value1, T value2)
+		{
+			if (value1 > value2)
+			{
+				return value1;
+			}
+			else
+			{
+				return value2;
+			}
+		}
+
 		template <typename T1, typename T2, typename T3>
 		bool IsBetween(T1 value, T2 inf, T3 sup)
 		{

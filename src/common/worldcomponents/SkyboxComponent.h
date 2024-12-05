@@ -12,6 +12,7 @@ namespace ForgeEngine
     #define DUSK_TIME 75600.f //21h
     #define MIDNIGHT_TIME 0.f //0h
     #define DAY_DURATION_SECONDS 86400.f
+    #define HOUR_DURATION_SECONDS 3600.f
 
     class SkyboxComponent : public WorldComponent
     {
@@ -22,6 +23,8 @@ namespace ForgeEngine
 
         void OnUpdate(float dT) override;
 
+        bool IsDay() const;
+        bool IsNight() const { return !IsDay(); }
         float GetAmbientLightIntensity() const;
         Color GetCurrentSkyColor() const;
 
@@ -32,8 +35,7 @@ namespace ForgeEngine
 #endif //FORGE_DEBUG_ENABLED
 
     private:
-        float m_ElapsedTime{ 0.f };
-        float m_CurrentTime{ 0.f };
+        mutable float m_CurrentTime{ 0.f };
         mutable float m_TimeScale{ 1.f };
         Color m_CurrentSkyColor;
     };
