@@ -1,8 +1,8 @@
 #pragma once
 
-#include "engine/core/Component.h"
-#include "system/misc/Color.h"
-#include "system/math/Vector2.h"
+#include "engine/components/Component.h"
+#include "engine/math/Vector2.h"
+#include "engine/render/Color.h"
 
 #include <memory>
 

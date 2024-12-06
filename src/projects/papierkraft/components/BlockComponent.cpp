@@ -1,10 +1,10 @@
 #include "BlockComponent.h"
 
-#include "common/components/MeshComponent.h"
 #include "common/components/ViewerComponent.h"
-#include "engine/core/World.h"
+#include "engine/components/MeshComponent.h"
 #include "engine/core/Entity.h"
-#include "engine/misc/Texture.h"
+#include "engine/core/World.h"
+#include "engine/render/Texture.h"
 #include "projects/papierkraft/data/BlockTextureData.h"
 #include "projects/papierkraft/worldcomponents/BlockTextureManager.h"
 

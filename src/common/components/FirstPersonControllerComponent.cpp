@@ -1,12 +1,13 @@
 #include "FirstPersonControllerComponent.h"
 
-#include "common/components/CameraComponent.h"
-#include "common/helpers/InputHelper.h"
-#include "common/worldcomponents/DebugManager.h"
+#include "engine/components/CameraComponent.h"
 #include "engine/core/ForgeEngine.h"
-#include "engine/ui/ImGUI.h"
-#include "system/math/MathUtils.h"
-#include "system/math/Vector3.h"
+#include "engine/debug/ImGUI.h"
+#include "engine/input/InputHelper.h"
+#include "engine/math/MathUtils.h"
+#include "engine/math/Vector2.h"
+#include "engine/math/Vector3.h"
+#include "engine/worldcomponents/DebugManager.h"
 
 namespace ForgeEngine
 {

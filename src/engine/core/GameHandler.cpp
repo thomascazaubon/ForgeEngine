@@ -1,9 +1,9 @@
 #include "GameHandler.h"
 
 #include "engine/core/ForgeEngine.h"
-#include "engine/shader/ShaderUtils.h"
-#include "engine/ui/ImGUI.h"
-#include "system/misc/Color.h"
+#include "engine/debug/ImGUI.h"
+#include "engine/render/Color.h"
+#include "engine/render/ShaderUtils.h"
 
 #include <chrono>
 #include <cmath>

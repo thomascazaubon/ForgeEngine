@@ -1,11 +1,11 @@
 #include "LandscapeComponent.h"
 
+#include "engine/components/MeshComponent.h"
 #include "engine/core/ForgeEngine.h"
-#include "engine/ui/ImGUI.h"
-#include "engine/misc/Texture.h"
-#include "common/helpers/InputHelper.h"
-#include "common/components/MeshComponent.h"
-#include "system/math/MathUtils.h"
+#include "engine/debug/ImGUI.h"
+#include "engine/input/InputHelper.h"
+#include "engine/math/MathUtils.h"
+#include "engine/render/Texture.h"
 
 #include <cstdlib>
 #include <vector>

@@ -1,17 +1,18 @@
 #include "papierkraft.h"
 
-#include "common/components/CameraComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
-#include "common/helpers/InputHelper.h"
-#include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/DebugManager.h"
+
+#include "engine/components/CameraComponent.h"
 #include "engine/core/ForgeEngine.h"
-#include "engine/shader/ShaderUtils.h"
+#include "engine/input/InputHelper.h"
+#include "engine/worldcomponents/DebugManager.h"
+#include "engine/worldcomponents/InputManager.h"
+#include "engine/render/Color.h"
+#include "engine/render/ShaderUtils.h"
+
 #include "projects/papierkraft/components/BlockComponent.h"
 #include "projects/papierkraft/components/ChunkComponent.h"
 #include "projects/papierkraft/worldcomponents/BlockTextureManager.h"
-#include "system/misc/Color.h"
-
 /*
 int main()
 {

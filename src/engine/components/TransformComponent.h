@@ -1,8 +1,8 @@
 #pragma once
 
-#include "engine/core/Component.h"
-#include "system/math/Matrix4.h"
-#include "system/math/Vector3.h"
+#include "engine/components/Component.h"
+#include "engine/math/Matrix4.h"
+#include "engine/math/Vector3.h"
 
 namespace ForgeEngine
 {

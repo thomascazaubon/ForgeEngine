@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/core/WorldComponent.h"
-#include "system/misc/Color.h"
+#include "engine/worldcomponents/WorldComponent.h"
+#include "engine/render/Color.h"
 
 namespace ForgeEngine
 {

@@ -1,8 +1,9 @@
 #include "ChunkComponent.h"
 
 #include "engine/core/ForgeEngine.h"
+#include "engine/math/MathUtils.h"
+
 #include "projects/papierkraft/components/BlockComponent.h"
-#include "system/math/MathUtils.h"
 
 namespace PapierKraft
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/core/Object.h"
-#include "engine/misc/Texture.h"
+#include "engine/render/Texture.h"
 
 #include <memory>
 #include <string>

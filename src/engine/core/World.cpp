@@ -1,13 +1,11 @@
 #include "engine/core/World.h"
 
-#include "common/worldcomponents/DebugManager.h"
 #include "engine/components/TransformComponent.h"
 #include "engine/core/Entity.h"
-#include "engine/core/WorldComponent.h"
-#include "engine/core/WorldComponent.h"
+#include "engine/worldcomponents/DebugManager.h"
 
 #ifdef FORGE_DEBUG_ENABLED
-#include "engine/ui/ImGUI.h"
+#include "engine/debug/ImGUI.h"
 #endif //FORGE_DEBUG_ENABLED
 
 #include <algorithm>

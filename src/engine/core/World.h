@@ -3,7 +3,7 @@
 #include "engine/core/ManagedObject.h"
 
 #include "engine/core/Entity.h"
-#include "engine/core/WorldComponent.h"
+#include "engine/worldcomponents/WorldComponent.h"
 
 #include <memory>
 #include <vector>

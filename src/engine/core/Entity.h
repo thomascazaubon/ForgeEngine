@@ -1,8 +1,8 @@
 #pragma once
 
-#include "engine/core/Component.h"
+#include "engine/components/Component.h"
 #include "engine/core/ManagedObject.h"
-#include "system/math/Vector3.h"
+#include "engine/math/Vector3.h"
 
 #include <memory>
 #include <vector>

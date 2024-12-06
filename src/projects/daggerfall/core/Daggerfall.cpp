@@ -1,18 +1,16 @@
 #include "Daggerfall.h"
 
+#include "engine/components/CameraComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
-#include "common/components/CameraComponent.h"
-#include "common/components/MeshComponent.h"
-#include "common/helpers/InputHelper.h"
-#include "common/helpers/MeshUtils.h"
-#include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/DebugManager.h"
-
+#include "engine/components/MeshComponent.h"
 #include "engine/core/ForgeEngine.h"
-#include "engine/misc/Texture.h"
-#include "engine/shader/ShaderUtils.h"
-
-#include "system/misc/Color.h"
+#include "engine/input/InputHelper.h"
+#include "engine/render/Color.h"
+#include "engine/render/MeshUtils.h"
+#include "engine/render/ShaderUtils.h"
+#include "engine/render/Texture.h"
+#include "engine/worldcomponents/InputManager.h"
+#include "engine/worldcomponents/DebugManager.h"
 
 void mained()
 {

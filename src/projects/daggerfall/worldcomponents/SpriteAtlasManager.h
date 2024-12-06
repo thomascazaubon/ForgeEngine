@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/WorldComponent.h"
+#include "engine/worldcomponents/WorldComponent.h"
 
 namespace ForgeEngine
 {

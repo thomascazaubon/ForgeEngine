@@ -1,14 +1,15 @@
 #include "BasicGameHandler.h"
 
-#include "common/worldcomponents/DebugManager.h"
-#include "common/worldcomponents/InputManager.h"
-#include "common/worldcomponents/LightManager.h"
-#include "common/worldcomponents/MaterialLoader.h"
-#include "common/worldcomponents/ShaderLoader.h"
 #include "common/worldcomponents/SkyboxComponent.h"
-#include "common/worldcomponents/TextureLoader.h"
+#include "engine/assetloaders/MaterialLoader.h"
+#include "engine/assetloaders/ShaderLoader.h"
+#include "engine/assetloaders/TextureLoader.h"
 #include "engine/core/ForgeEngine.h"
-#include "engine/shader/ShaderUtils.h"
+#include "engine/debug/ImGui.h"
+#include "engine/render/ShaderUtils.h"
+#include "engine/worldcomponents/DebugManager.h"
+#include "engine/worldcomponents/InputManager.h"
+#include "engine/worldcomponents/LightManager.h"
 
 namespace ForgeEngine
 {

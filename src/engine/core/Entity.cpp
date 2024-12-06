@@ -1,10 +1,10 @@
 #include "Entity.h"
 
 #include "engine/components/TransformComponent.h"
-#include "system/math/Vector3.h"
+#include "engine/math/Vector3.h"
 
 #ifdef FORGE_DEBUG_ENABLED
-#include "engine/ui/ImGUI.h"
+#include "engine/debug/ImGUI.h"
 #endif //FORGE_DEBUG_ENABLED
 
 #include <algorithm>

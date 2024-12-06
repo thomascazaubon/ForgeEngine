@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/WorldComponent.h"
+#include "engine/worldcomponents/WorldComponent.h"
 #include "projects/papierkraft/data/BlockTextureData.h"
 
 #include <memory>

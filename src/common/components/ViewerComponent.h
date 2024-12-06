@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/Component.h"
+#include "engine/components/Component.h"
 
 namespace ForgeEngine
 {
