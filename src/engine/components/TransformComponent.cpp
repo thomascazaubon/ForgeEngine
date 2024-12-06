@@ -89,7 +89,7 @@ namespace ForgeEngine
 
 	void TransformComponent::Rotate(const Vector3& euleurAngles)
 	{
-		Rotate(euleurAngles.x, VECTOR3_SIDE);
+		Rotate(euleurAngles.x, VECTOR3_RIGHT);
 		Rotate(euleurAngles.y, VECTOR3_UP);
 		Rotate(euleurAngles.z, VECTOR3_FORWARD);
         m_Dirty = true;

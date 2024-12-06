@@ -6,6 +6,7 @@
 #include "engine/components/LightComponent.h"
 #include "engine/components/MeshComponent.h"
 #include "engine/core/ForgeEngine.h"
+#include "engine/debug/DebugUtils.h"
 #include "engine/input/InputHelper.h"
 #include "engine/render/MeshUtils.h"
 #include "engine/render/OpenGL.h"
@@ -46,7 +47,7 @@ namespace Torch
         m_Light = world.RegisterEntity("Light");
         m_Light->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, "assets\\materials\\white.mat"), "assets\\shaders\\emissive"));
         m_Light->RegisterComponent(new LightComponent(30.f, 100000.f, lightColor));
-        m_Light->GetTransform().Translate(VECTOR3_UP * 2.f + VECTOR3_SIDE * 2.f);
+        m_Light->GetTransform().Translate(VECTOR3_UP * 2.f + VECTOR3_RIGHT * 2.f);
 
         Entity* cube1 = world.RegisterEntity("MarbleCube");
         cube1->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\marble.mat"), "assets\\shaders\\lit"));
@@ -68,6 +69,7 @@ namespace Torch
         Vector3 position = m_Light->GetPosition();
         m_Light->GetTransform().SetPosition(Vector3(position.x, 2.f + (sin(static_cast<float>(glfwGetTime()) * 2.0f)), position.z));
         m_Cube->GetTransform().Rotate(VECTOR3_UP * 180.f * dT);
+        DebugUtils::DrawLine(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.5f, 0.f), COLOR_RED);
     }
 
     void Torch::OnTermination() /*override*/

@@ -123,12 +123,10 @@ namespace ForgeEngine
 			
             m_Shader->SetMaterial(*m_Mesh.GetMaterial());
 
-			if (CameraComponent::GetActiveCamera() != nullptr)
-			{
-				m_Shader->SetMatrix4(DEFAULT_PROJECTION_NAME, CameraComponent::GetActiveCamera()->GetProjection());
-				m_Shader->SetMatrix4(DEFAULT_VIEW_NAME, CameraComponent::GetActiveCamera()->GetView());
-				m_Shader->SetVector4(DEFAULT_CAMERA_POSITION_NAME, CameraComponent::GetActiveCamera()->GetOwner()->GetPosition());
-			}
+			const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
+			m_Shader->SetMatrix4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection());
+			m_Shader->SetMatrix4(DEFAULT_VIEW_NAME, activeCamera.GetView());
+			m_Shader->SetVector4(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition());
 
 			glBindVertexArray(m_VertexArrayObject);
             //TODO: Fix this

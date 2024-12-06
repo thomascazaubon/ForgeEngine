@@ -9,7 +9,7 @@
 
 namespace ForgeEngine
 {
-	#define VECTOR3_SIDE Vector3(1.f, 0.f, 0.f)
+	#define VECTOR3_RIGHT Vector3(1.f, 0.f, 0.f)
 	#define VECTOR3_UP Vector3(0.f, 1.f, 0.f)
 	#define VECTOR3_FORWARD Vector3(0.f, 0.f, 1.f)
 

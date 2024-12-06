@@ -2,6 +2,11 @@
 
 #include "engine/assetloaders/AssetLoader.h"
 
+#define DEFAULT_SHADER_PATH		                "assets\\shaders\\default"
+#define TEXTURED_SHADER_PATH		            "assets\\shaders\\textured"
+#define LIT_SHADER_PATH		                    "assets\\shaders\\lit"
+#define DEBUG_SHADER_PATH		                "assets\\shaders\\debug"
+
 namespace ForgeEngine
 {
     class Shader;

@@ -22,7 +22,7 @@ namespace ForgeEngine
 
 		void Rotate(Matrix4& matrix, const Vector3& eulerAngles)
 		{
-			Rotate(matrix, eulerAngles.x, VECTOR3_SIDE);
+			Rotate(matrix, eulerAngles.x, VECTOR3_RIGHT);
 			Rotate(matrix, eulerAngles.y, VECTOR3_UP);
 			Rotate(matrix, eulerAngles.z, VECTOR3_FORWARD);
 		}

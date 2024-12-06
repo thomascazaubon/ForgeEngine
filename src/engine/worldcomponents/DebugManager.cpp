@@ -1,6 +1,8 @@
 #include "DebugManager.h"
 
+#include "engine/assetloaders/ShaderLoader.h"
 #include "engine/core/ForgeEngine.h"
+#include "engine/debug/DebugDrawer.h"
 #include "engine/debug/ImGUI.h"
 #include "engine/input/InputHelper.h"
 
@@ -15,11 +17,26 @@ namespace ForgeEngine
         glPolygonMode(GL_FRONT_AND_BACK, m_CurrentDrawMode);
 	}
 
+	DebugManager::~DebugManager()
+	{
+		delete(m_DebugDrawer);
+	}
+
+	bool DebugManager::OnInit() /*override*/
+	{
+		m_DebugDrawer = new DebugDrawer(*GameHandler::Get().GetWorld().GetComponentByType<ShaderLoader>()->GetOrLoadResource(DEBUG_SHADER_PATH));
+		return true;
+	}
     void DebugManager::OnUpdate(float dT) /*override*/
     {
         ProcessDebugInput();
         ComputeFramerate(dT);
     }
+
+	void DebugManager::OnPostUpdate(float dT) /*override*/
+	{
+		m_DebugDrawer->Update();
+	}
 
 	void DebugManager::OnDrawDebug(float dT) const  /*override*/
 	{
@@ -87,6 +104,14 @@ namespace ForgeEngine
 		int newDrawMode = ((m_CurrentDrawMode == GL_LINE) ? GL_FILL : GL_LINE);
 		glPolygonMode(GL_FRONT_AND_BACK, newDrawMode);
 		m_CurrentDrawMode = newDrawMode;
+	}
+
+	void DebugManager::CreateLine(const Vector3& lineStart, const Vector3& lineEnd, const Color& color, unsigned int duration)
+	{
+		if (m_DebugDrawer != nullptr)
+		{
+			m_DebugDrawer->CreateLine(lineStart, lineEnd, color, duration);
+		}
 	}
 #endif //FORGE_DEBUG_ENABLED
 }

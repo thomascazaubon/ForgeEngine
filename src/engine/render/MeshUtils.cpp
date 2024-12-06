@@ -120,7 +120,7 @@ namespace ForgeEngine
 
         /********PLANE********/
 
-        std::vector<Vector3> GetPlaneVerticesCoordinates(float height = 1.f, float width = 1.f, bool flat = true)
+        std::vector<Vector3> GetPlaneVerticesCoordinates(float length = 1.f, float width = 1.f, bool flat = true)
         {
             return std::vector<Vector3>
             {
@@ -130,10 +130,10 @@ namespace ForgeEngine
                                 A------B'
                 */
 
-                Vector3(-width / 2.f, flat ? 0.f : -height / 2.f, flat ? -height / 2.f : 0.f), //0 - A
-                Vector3(width / 2.f, flat ? 0.f : -height / 2.f, flat ? -height / 2.f : 0.f),  //1 - B
-                Vector3(width / 2.f, flat ? 0.f : height / 2.f, flat ? height / 2.f : 0.f),  //2 - C
-                Vector3(-width / 2.f, flat ? 0.f : height / 2.f, flat ? height / 2.f : 0.f)  //3 - D
+                Vector3(-width / 2.f, flat ? 0.f : -length / 2.f, flat ? -length / 2.f : 0.f), //0 - A
+                Vector3(width / 2.f, flat ? 0.f : -length / 2.f, flat ? -length / 2.f : 0.f),  //1 - B
+                Vector3(width / 2.f, flat ? 0.f : length / 2.f, flat ? length / 2.f : 0.f),  //2 - C
+                Vector3(-width / 2.f, flat ? 0.f : length / 2.f, flat ? length / 2.f : 0.f)  //3 - D
             };
         }
 
