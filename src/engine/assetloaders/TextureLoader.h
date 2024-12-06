@@ -1,14 +1,14 @@
 #pragma once
 
-#include "engine/assetloaders/ResourceLoader.h"
+#include "engine/assetloaders/AssetLoader.h"
 
 namespace ForgeEngine
 {
     class Texture;
 
-    class TextureLoader : public ResourceLoader<Texture>
+    class TextureLoader : public AssetLoader<Texture>
     {
-        using Mother = ResourceLoader<Texture>;
+        using Mother = AssetLoader<Texture>;
 
         public:
     #ifdef FORGE_DEBUG_ENABLED

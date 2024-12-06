@@ -27,9 +27,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\engine\assetloaders\LoadableResource.h" />
+    <ClInclude Include="src\engine\assetloaders\LoadableAsset.h" />
     <ClInclude Include="src\engine\assetloaders\MaterialLoader.h" />
-    <ClInclude Include="src\engine\assetloaders\ResourceLoader.h" />
+    <ClInclude Include="src\engine\assetloaders\AssetLoader.h" />
     <ClInclude Include="src\engine\assetloaders\ShaderLoader.h" />
     <ClInclude Include="src\engine\assetloaders\TextureLoader.h" />
     <ClInclude Include="src\engine\components\CameraComponent.h" />
@@ -395,9 +395,9 @@
     <ClInclude Include="src\projects\torch\Torch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\engine\assetloaders\LoadableResource.cpp" />
+    <ClCompile Include="src\engine\assetloaders\LoadableAsset.cpp" />
     <ClCompile Include="src\engine\assetloaders\MaterialLoader.cpp" />
-    <ClCompile Include="src\engine\assetloaders\ResourceLoader.cpp" />
+    <ClCompile Include="src\engine\assetloaders\AssetLoader.cpp" />
     <ClCompile Include="src\engine\assetloaders\ShaderLoader.cpp" />
     <ClCompile Include="src\engine\assetloaders\TextureLoader.cpp" />
     <ClCompile Include="src\engine\components\CameraComponent.cpp" />

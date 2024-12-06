@@ -1,15 +1,15 @@
 #pragma once
 
-#include "engine/assetloaders/LoadableResource.h"
+#include "engine/assetloaders/LoadableAsset.h"
 #include "engine/core/OpenGL.h"
 
 #include <string>
 
 namespace ForgeEngine
 {
-	class Texture : public LoadableResource
+	class Texture : public LoadableAsset
 	{
-		using Mother = LoadableResource;
+		using Mother = LoadableAsset;
 
 		public:
 			Texture(const std::string& texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);

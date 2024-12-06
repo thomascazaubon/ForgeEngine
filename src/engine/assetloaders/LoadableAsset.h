@@ -4,7 +4,7 @@
 
 namespace ForgeEngine
 {
-    class LoadableResource : public Object
+    class LoadableAsset : public Object
     {
         public:
             virtual bool IsValid() const = 0;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/assetloaders/LoadableResource.h"
+#include "engine/assetloaders/LoadableAsset.h"
 #include "engine/math/Matrix4.h"
 
 #include <utility>
@@ -51,7 +51,7 @@ namespace ForgeEngine
 	class Material;
 	class Texture;
 
-	class Shader : public LoadableResource
+	class Shader : public LoadableAsset
 	{
         public:
             Shader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);

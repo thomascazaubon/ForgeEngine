@@ -1,14 +1,14 @@
 #pragma once
 
-#include "engine/assetloaders/ResourceLoader.h"
+#include "engine/assetloaders/AssetLoader.h"
 
 namespace ForgeEngine
 {
     class Shader;
 
-	class ShaderLoader : public ResourceLoader<Shader>
+	class ShaderLoader : public AssetLoader<Shader>
 	{
-		using Mother = ResourceLoader<Shader>;
+		using Mother = AssetLoader<Shader>;
 
     public:
 #ifdef FORGE_DEBUG_ENABLED

@@ -14,7 +14,7 @@
 namespace ForgeEngine
 {
     template <typename T>
-    class ResourceLoader : public WorldComponent
+    class AssetLoader : public WorldComponent
     {
         using Mother = WorldComponent;
 #define DEFAULT_RESOURCE_NAME "_default"
