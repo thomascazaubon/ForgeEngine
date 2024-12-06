@@ -1,6 +1,5 @@
 #include "engine/core/World.h"
 
-#include "engine/components/TransformComponent.h"
 #include "engine/core/Entity.h"
 #include "engine/worldcomponents/DebugManager.h"
 
@@ -24,7 +23,7 @@ namespace ForgeEngine
         }
 #endif //FORGE_DEBUG_ENABLED
 
-        Entity* entity = new Entity(*this, new TransformComponent(), finalDebugName);
+        Entity* entity = new Entity(*this, finalDebugName);
 		m_RegisteredEntities.push_back(std::unique_ptr<Entity>(entity));
 		return entity;
 	}

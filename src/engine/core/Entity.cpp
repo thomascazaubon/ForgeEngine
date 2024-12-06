@@ -1,6 +1,5 @@
 #include "Entity.h"
 
-#include "engine/components/TransformComponent.h"
 #include "engine/math/Vector3.h"
 
 #ifdef FORGE_DEBUG_ENABLED
@@ -11,19 +10,12 @@
 
 namespace ForgeEngine
 {
-    Entity::Entity(World& world, TransformComponent* transform, const std::string& debugName)
+    Entity::Entity(World& world, const std::string& debugName)
         : m_World(world)
-        , m_Transform(*transform)
 #ifdef FORGE_DEBUG_ENABLED
         , m_DebugName(debugName)
 #endif //FORGE_DEBUG_ENABLED
     {
-        m_RegisteredComponents.push_back(std::unique_ptr<TransformComponent>(transform));
-    }
-
-    const Vector3& Entity::GetPosition() const
-    {
-        return GetTransform().GetPosition(); 
     }
 
 	bool Entity::OnPreInit() /*override*/
@@ -136,6 +128,8 @@ namespace ForgeEngine
 
 		Mother::OnPostUpdate(dT);
 
+		m_Transform.Update();
+
 		for (auto& component : m_RegisteredComponents)
 		{
 			if (component != nullptr && component->IsActive())
@@ -155,6 +149,9 @@ namespace ForgeEngine
 	void Entity::OnDrawDebug(float dT) const  /*override*/
 	{
 		Mother::OnDrawDebug(dT);
+
+		m_Transform.DebugImGUI();
+		m_Transform.Draw();
 
         ImGui::PushID(static_cast<int>(GetID()));
 		for (auto& component : m_RegisteredComponents)

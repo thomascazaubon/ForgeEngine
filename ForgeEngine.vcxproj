@@ -36,7 +36,6 @@
     <ClInclude Include="src\engine\components\Component.h" />
     <ClInclude Include="src\engine\components\LightComponent.h" />
     <ClInclude Include="src\engine\components\MeshComponent.h" />
-    <ClInclude Include="src\engine\components\TransformComponent.h" />
     <ClInclude Include="src\common\utils\BasicGameHandler.h" />
     <ClInclude Include="src\common\worldcomponents\SkyboxComponent.h" />
     <ClInclude Include="src\engine\debug\Assert.h" />
@@ -394,6 +393,7 @@
     <ClInclude Include="src\engine\misc\Texture.h" />
     <ClInclude Include="src\common\components\ViewerComponent.h" />
     <ClInclude Include="src\projects\torch\Torch.h" />
+    <ClInclude Include="src\engine\math\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\assetloaders\LoadableAsset.cpp" />
@@ -405,7 +405,6 @@
     <ClCompile Include="src\engine\components\Component.cpp" />
     <ClCompile Include="src\engine\components\LightComponent.cpp" />
     <ClCompile Include="src\engine\components\MeshComponent.cpp" />
-    <ClCompile Include="src\engine\components\TransformComponent.cpp" />
     <ClCompile Include="src\common\utils\BasicGameHandler.cpp" />
     <ClCompile Include="src\common\worldcomponents\SkyboxComponent.cpp" />
     <ClCompile Include="src\engine\debug\Assert.cpp" />
@@ -461,6 +460,7 @@
     <ClCompile Include="src\extern\stb_image\stb_image.cpp" />
     <ClCompile Include="src\common\components\ViewerComponent.cpp" />
     <ClCompile Include="src\projects\torch\Torch.cpp" />
+    <ClCompile Include="src\engine\math\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

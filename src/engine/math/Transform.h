@@ -1,23 +1,19 @@
 #pragma once
 
-#include "engine/components/Component.h"
 #include "engine/math/Matrix4.h"
 #include "engine/math/Vector3.h"
 
 namespace ForgeEngine
 {
-	class TransformComponent : public Component
-	{
-		using Mother = Component;
-
+    class Transform
+    {
         public:
-            TransformComponent();
+    #ifdef FORGE_DEBUG_ENABLED
+            void DebugImGUI() const;
+            void Draw() const;
+    #endif //FORGE_DEBUG_ENABLED
 
-#ifdef FORGE_DEBUG_ENABLED
-            void OnDrawDebug(float dT) const override;
-
-            const char* GetDebugName() const override { return "TransformComponent"; }
-#endif //FORGE_DEBUG_ENABLED
+            void Update();
 
             const Matrix4& GetMatrix() const { return m_Matrix; }
 
@@ -37,13 +33,13 @@ namespace ForgeEngine
 
             void Reset();
 
-		private:
-			Matrix4 m_Matrix;
+        private:
+            Matrix4 m_Matrix{ 1 };
 
-			mutable Vector3 m_Position{0.f};
-			mutable Vector3 m_Rotation{0.f};
-			mutable Vector3 m_Scale{1.f};
+            mutable Vector3 m_Position{ 0.f };
+            mutable Vector3 m_Rotation{ 0.f };
+            mutable Vector3 m_Scale{ 1.f };
 
             mutable bool m_Dirty{ true };
-	};
+    };
 }

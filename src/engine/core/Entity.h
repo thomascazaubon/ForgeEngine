@@ -2,7 +2,7 @@
 
 #include "engine/components/Component.h"
 #include "engine/core/ManagedObject.h"
-#include "engine/math/Vector3.h"
+#include "engine/math/Transform.h"
 
 #include <memory>
 #include <vector>
@@ -20,10 +20,10 @@ namespace ForgeEngine
 		using Mother = ManagedObject;
 
 		public:
-            TransformComponent& GetTransform() { return m_Transform; }
-            const TransformComponent& GetTransform() const { return m_Transform; }
+            Transform& GetTransform() { return m_Transform; }
+            const Transform& GetTransform() const { return m_Transform; }
 
-            const Vector3& GetPosition() const;
+			const Vector3& GetPosition() const { return m_Transform.GetPosition(); }
 
             World& GetWorld() { return m_World; }
             const World& GetWorld() const { return m_World; }
@@ -74,7 +74,7 @@ namespace ForgeEngine
 #endif //FORGE_DEBUG_ENABLED
 
 		protected:
-            Entity(World& world, TransformComponent* transform, const std::string& debugName);
+            Entity(World& world, const std::string& debugName);
 
 			virtual bool OnPreInit() override;
 			virtual bool OnInit() override;
@@ -88,7 +88,7 @@ namespace ForgeEngine
 
         private:
             World& m_World;
-            TransformComponent& m_Transform;
+            Transform m_Transform;
 
             std::vector<std::unique_ptr<Component>> m_RegisteredComponents;
 
