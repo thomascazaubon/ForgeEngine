@@ -1,40 +1,41 @@
 #pragma once
 
-#include "engine/core/Object.h"
-
 namespace ForgeEngine
 {
-	//TODO: This shouldn't need an update
-	//Time expressed in seconds
-	class Timer : public Object
+	class Timer
 	{
-		using Mother = Object;
-
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
-
-		private:
-			float m_Duration{ 0.f };
-			float m_ElapsedTime{ 0.f };
-			bool m_IsStarted{ false };
-			bool m_IsPaused{ false };
-			bool m_IsElapsed{ false };
-			bool m_IsInitialized{ false };
-
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
+		enum class State
+		{
+			Stopped,
+			Running,
+			Paused
+		};
 
 		public:
-			void Start(float duration);
-			void Pause() { m_IsStarted = false; }
+			void Start(int durationMs);
+			void Restart();
+			void Pause();
 			void Resume();
 			void Stop();
 
-			void Update(float dT);
+			bool IsStarted() const { return m_CurrentState == State::Running; }
+			bool IsPaused() const { return m_CurrentState == State::Paused; }
+			bool IsElapsed() const;
+			int GetElapsedTime() const;
+			int GetRemainingTime() const;
+			float GetProgressRatio() const;
+			int GetDuration() const { return m_Duration; }
+			int GetPauseTime() const;
 
-			bool IsStarted() const { return m_IsStarted; }
-			bool IsElapsed() const { return m_IsElapsed && m_IsStarted; }
+		private:
+			void Reset();
+			void SetState(State newState);
+			float GetCurrentPauseDuration() const;
+
+			unsigned int m_Duration{ 0 };
+			float m_StartTime{ 0.f };
+			float m_LastPauseTime{ 0.f };
+			float m_PausedTime{ 0.f};
+			State m_CurrentState{ State::Stopped };
 	};
 }

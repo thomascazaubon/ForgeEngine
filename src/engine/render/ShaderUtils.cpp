@@ -1,7 +1,7 @@
 #include "ShaderUtils.h"
 
-#include "engine/core/OpenGL.h"
 #include "engine/render/Color.h"
+#include "engine/render/OpenGL.h"
 
 #include <iostream>
 #include <stdarg.h>

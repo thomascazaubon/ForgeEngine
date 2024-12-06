@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/assetloaders/LoadableAsset.h"
-#include "engine/core/OpenGL.h"
+#include "engine/render/OpenGL.h"
 
 #include <string>
 

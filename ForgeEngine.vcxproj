@@ -39,6 +39,7 @@
     <ClInclude Include="src\engine\components\TransformComponent.h" />
     <ClInclude Include="src\common\utils\BasicGameHandler.h" />
     <ClInclude Include="src\common\worldcomponents\SkyboxComponent.h" />
+    <ClInclude Include="src\engine\debug\Assert.h" />
     <ClInclude Include="src\engine\debug\DebugDrawer.h" />
     <ClInclude Include="src\engine\debug\DebugElements.h" />
     <ClInclude Include="src\engine\debug\DebugUtils.h" />
@@ -55,6 +56,7 @@
     <ClInclude Include="src\engine\render\Material.h" />
     <ClInclude Include="src\engine\render\Mesh.h" />
     <ClInclude Include="src\engine\render\MeshUtils.h" />
+    <ClInclude Include="src\engine\render\OpenGL.h" />
     <ClInclude Include="src\engine\render\Shader.h" />
     <ClInclude Include="src\engine\render\ShaderUtils.h" />
     <ClInclude Include="src\engine\render\Texture.h" />
@@ -72,7 +74,6 @@
     <ClInclude Include="src\projects\alchemist\core\Alchemist.h" />
     <ClInclude Include="src\projects\alchemist\components\LandscapeComponent.h" />
     <ClInclude Include="src\engine\core\ForgeEngine.h" />
-    <ClInclude Include="src\engine\core\OpenGL.h" />
     <ClInclude Include="src\engine\ui\ImGUI.h" />
     <ClInclude Include="src\projects\papierkraft\core\PapierKraft.h" />
     <ClInclude Include="src\extern\imgui\imconfig.h" />
@@ -407,6 +408,7 @@
     <ClCompile Include="src\engine\components\TransformComponent.cpp" />
     <ClCompile Include="src\common\utils\BasicGameHandler.cpp" />
     <ClCompile Include="src\common\worldcomponents\SkyboxComponent.cpp" />
+    <ClCompile Include="src\engine\debug\Assert.cpp" />
     <ClCompile Include="src\engine\debug\DebugDrawer.cpp" />
     <ClCompile Include="src\engine\debug\DebugElements.cpp" />
     <ClCompile Include="src\engine\debug\DebugUtils.cpp" />
