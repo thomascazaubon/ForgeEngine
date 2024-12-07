@@ -46,11 +46,12 @@ namespace ForgeEngine
 
 		if (m_Window != nullptr)
 		{
-			OnInit();
-
+			OnPreInit();
 			m_World.PreInit();
+			OnInit();
 			m_World.Init();
 			m_World.PostInit();
+			OnPostInit();
 
 			while (!ShouldTerminate())
 			{
@@ -58,11 +59,12 @@ namespace ForgeEngine
 				dT = std::chrono::duration_cast<ns>(frameEnd - frameStart).count() / nanoToSecMultiplier;
 				frameStart = std::chrono::high_resolution_clock::now();
 
-				OnUpdate(dT);
-
 				m_World.PreUpdate(dT);
+				OnPreUpdate(dT);
                 m_World.Update(dT);
+				OnUpdate(dT);
                 m_World.PostUpdate(dT);
+				OnPostUpdate(dT);
 
 				// feed inputs to dear imgui, start new frame
 				#ifdef FORGE_DEBUG_ENABLED
@@ -106,7 +108,7 @@ namespace ForgeEngine
 		}
 	}
 
-	void GameHandler::OnUpdate(float dT)
+	void GameHandler::OnPreUpdate(float dT)
 	{
 		ShaderUtils::ClearScreen(COLOR_GREEN);
 	}

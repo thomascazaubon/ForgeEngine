@@ -44,8 +44,12 @@ namespace ForgeEngine
             static GameHandler& Get() { return *s_Instance; }
 
 		protected:
+			virtual void OnPreInit() {};
 			virtual void OnInit() {};
-			virtual void OnUpdate(float dT);
+			virtual void OnPostInit() {};
+			virtual void OnPreUpdate(float dT);
+			virtual void OnUpdate(float dT) {}
+			virtual void OnPostUpdate(float dT) {}
 			virtual void OnTermination();
 
 			virtual bool ShouldTerminate() = 0;

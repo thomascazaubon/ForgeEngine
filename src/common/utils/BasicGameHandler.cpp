@@ -13,9 +13,9 @@
 
 namespace ForgeEngine
 {
-	void BasicGameHandler::OnInit() /*override*/
+	void BasicGameHandler::OnPreInit() /*override*/
 	{
-		Mother::OnInit();
+		Mother::OnPreInit();
 
 		m_World.RegisterComponent(new ShaderLoader());
 		m_World.RegisterComponent(new InputManager());
@@ -39,9 +39,9 @@ namespace ForgeEngine
 #endif //#ifdef FORGE_DEBUG_ENABLED
 	}
 
-	void BasicGameHandler::OnUpdate(float dT) /*override*/
+	void BasicGameHandler::OnPreUpdate(float dT) /*override*/
 	{
-		Mother::OnUpdate(dT);
+		Mother::OnPreUpdate(dT);
 		ShaderUtils::ClearScreen(m_World.GetComponentByType<SkyboxComponent>()->GetCurrentSkyColor());
 	}
 

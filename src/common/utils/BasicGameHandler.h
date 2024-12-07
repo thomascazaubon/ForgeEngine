@@ -10,8 +10,8 @@ namespace ForgeEngine
         using Mother::Mother;
 
     protected:
-        virtual void OnInit() override;
-        virtual void OnUpdate(float dT) override;
+        virtual void OnPreInit() override;
+        virtual void OnPreUpdate(float dT) override;
 
         virtual bool ShouldTerminate() override;
     };

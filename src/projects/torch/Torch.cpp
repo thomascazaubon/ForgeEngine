@@ -29,9 +29,9 @@ namespace Torch
     {
     }
 
-    void Torch::OnInit() /*override*/
+    void Torch::OnPostInit() /*override*/
     {
-        Mother::OnInit();
+        Mother::OnPostInit();
 
         World& world = GetWorld();
         
@@ -61,6 +61,8 @@ namespace Torch
         npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8), "assets\\shaders\\lit"));
         npc->GetTransform().SetPosition(Vector3(3.f, 1.8f/2.f, 3.f));
         npc->GetTransform().Rotate(Vector3(0.f, 90.f, 0.f));
+
+        DebugUtils::DrawLine(Vector3(0.f, 0.f, 10.f), Vector3(10.f, 0.5f, 0.f), COLOR_MAGENTA, 10000);
     }
 
     void Torch::OnUpdate(float dT) /*override*/
@@ -69,7 +71,6 @@ namespace Torch
         Vector3 position = m_Light->GetPosition();
         m_Light->GetTransform().SetPosition(Vector3(position.x, 2.f + (sin(static_cast<float>(glfwGetTime()) * 2.0f)), position.z));
         m_Cube->GetTransform().Rotate(VECTOR3_UP * 180.f * dT);
-        DebugUtils::DrawLine(Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.5f, 0.f), COLOR_RED);
     }
 
     void Torch::OnTermination() /*override*/

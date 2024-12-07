@@ -1,7 +1,5 @@
 #include "Entity.h"
 
-#include "engine/math/Vector3.h"
-
 #ifdef FORGE_DEBUG_ENABLED
 #include "engine/debug/ImGUI.h"
 #endif //FORGE_DEBUG_ENABLED
