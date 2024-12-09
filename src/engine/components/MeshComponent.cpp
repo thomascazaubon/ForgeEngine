@@ -21,9 +21,10 @@
 
 namespace ForgeEngine
 {
-	MeshComponent::MeshComponent(const Mesh& mesh, const std::string& shaderPath)
+	MeshComponent::MeshComponent(const Mesh& mesh, const std::string& shaderPath, BillboardMode billboardMode /*= BillboardMode::Disabled*/)
         : Mother()
         , m_Mesh(mesh)
+        , m_BillboardMode(billboardMode)
 	{
         m_Shader = std::shared_ptr<Shader>(*(GameHandler::Get().GetWorld().GetComponentByType<ShaderLoader>()->GetOrLoadResource(shaderPath)));
 		InitRender();
@@ -88,6 +89,18 @@ namespace ForgeEngine
 
 	void MeshComponent::OnUpdate(float dT)
 	{
+		if (false/*m_BillboardMode != BillboardMode::Disabled*/)
+		{
+			const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
+			const Vector3 cameraPosition = activeCamera.GetOwner()->GetPosition();
+			const Vector3 cameraPositionFinal = m_BillboardMode == BillboardMode::Full ? cameraPosition : Vector3(cameraPosition.x, GetOwner()->GetPosition().y, cameraPosition.z);
+			const Vector3 direction = ForgeMaths::Normalize(cameraPositionFinal - GetOwner()->GetPosition());
+			GetOwner()->GetTransform().LookAt(direction);
+		}
+	}
+
+	void MeshComponent::OnPostUpdate(float dT)
+	{
 		Mother::OnUpdate(dT);
 
 		if (m_Shader != nullptr)
@@ -97,7 +110,18 @@ namespace ForgeEngine
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 			m_Shader->Use();
-			m_Shader->SetMatrix4(DEFAULT_TRANSFORM_NAME, m_Owner->GetTransform().GetMatrix());
+			Matrix4 matrix = GetOwner()->GetTransform().GetMatrix();
+
+			const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
+			if (m_BillboardMode != BillboardMode::Disabled)
+			{
+				const Vector3 cameraPosition = activeCamera.GetOwner()->GetPosition();
+				const Vector3 cameraPositionFinal = m_BillboardMode == BillboardMode::Full ? cameraPosition : Vector3(cameraPosition.x, GetOwner()->GetPosition().y, cameraPosition.z);
+				const Vector3 direction = ForgeMaths::Normalize(cameraPositionFinal - GetOwner()->GetPosition());
+				matrix = GetOwner()->GetTransform().MakeLookAt(direction);
+			}
+
+			m_Shader->SetMatrix4(DEFAULT_TRANSFORM_NAME, matrix);
             //TODO: Don't do this per frame
 			m_Shader->SetMatrix3(DEFAULT_NORMAL_MATRIX_NAME, glm::mat3(glm::transpose(glm::inverse(m_Owner->GetTransform().GetMatrix()))));
 
@@ -123,7 +147,7 @@ namespace ForgeEngine
 			
             m_Shader->SetMaterial(*m_Mesh.GetMaterial());
 
-			const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
+			//const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
 			m_Shader->SetMatrix4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection());
 			m_Shader->SetMatrix4(DEFAULT_VIEW_NAME, activeCamera.GetView());
 			m_Shader->SetVector4(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition());

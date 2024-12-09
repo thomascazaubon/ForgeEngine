@@ -18,9 +18,9 @@ namespace ForgeEngine
 
     void Transform::Draw() const
     {
-        DebugUtils::DrawLine(GetPosition(), GetPosition() + VECTOR3_UP, COLOR_GREEN);
-        DebugUtils::DrawLine(GetPosition(), GetPosition() + VECTOR3_FORWARD, COLOR_BLUE);
-        DebugUtils::DrawLine(GetPosition(), GetPosition() + VECTOR3_RIGHT, COLOR_RED);
+        DebugUtils::DrawLine(GetPosition(), GetPosition() + GetYAxis(), COLOR_GREEN);
+        DebugUtils::DrawLine(GetPosition(), GetPosition() + GetZAxis(), COLOR_BLUE);
+        DebugUtils::DrawLine(GetPosition(), GetPosition() + GetXAxis(), COLOR_RED);
     }
 #endif //FORGE_DEBUG_ENABLED
 
@@ -60,6 +60,21 @@ namespace ForgeEngine
             m_Dirty = false;
         }
         return m_Scale;
+    }
+
+    Vector3 Transform::GetXAxis() const
+    {
+        return Vector3(m_Matrix[0][0], m_Matrix[0][1], m_Matrix[0][2]);
+    }
+
+    Vector3  Transform::GetYAxis() const
+    {
+        return Vector3(m_Matrix[1][0], m_Matrix[1][1], m_Matrix[1][2]);
+    }
+
+    Vector3 Transform::GetZAxis() const
+    {
+        return Vector3(m_Matrix[2][0], m_Matrix[2][1], m_Matrix[2][2]);
     }
 
     void Transform::Reset()
@@ -116,5 +131,24 @@ namespace ForgeEngine
     {
         ForgeMaths::Scale(m_Matrix, scale);
         m_Dirty = true;
+    }
+
+    void Transform::LookAt(const Vector3& direction)
+    {
+        const Vector3 position = GetPosition();
+        ForgeMaths::LookAt(m_Matrix, position, position + direction, VECTOR3_UP);
+        SetPosition(position);
+        m_Dirty = true;
+    }
+
+    Matrix4 Transform::MakeLookAt(const Vector3& direction) const
+    {
+        const Vector3 position = GetPosition();
+        Matrix4 lookAtMatrix = m_Matrix;
+        ForgeMaths::LookAt(lookAtMatrix, position, position + direction, VECTOR3_UP);
+        lookAtMatrix[3][0] = position.x;
+        lookAtMatrix[3][1] = position.y;
+        lookAtMatrix[3][2] = position.z;
+        return lookAtMatrix;
     }
 }

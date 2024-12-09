@@ -54,15 +54,12 @@ namespace Torch
         cube1->GetTransform().Translate(VECTOR3_UP * 1.7f);
 
         m_Cube = world.RegisterEntity("MarbleCube2");
-        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\marble.mat"), "assets\\shaders\\lit"));
-        m_Cube->GetTransform().Translate(Vector3(4.f, 0.5f, 4.f));
+        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\marble.mat", Pivot::Bottom), "assets\\shaders\\lit"));
+        m_Cube->GetTransform().Translate(Vector3(4.f, 0.f, 4.f));
         
         Entity* npc = world.RegisterEntity("NPC");
-        npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8), "assets\\shaders\\lit"));
-        npc->GetTransform().SetPosition(Vector3(3.f, 1.8f/2.f, 3.f));
-        npc->GetTransform().Rotate(Vector3(0.f, 90.f, 0.f));
-
-        DebugUtils::DrawLine(Vector3(0.f, 0.f, 10.f), Vector3(10.f, 0.5f, 0.f), COLOR_MAGENTA, 10000);
+        npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\lit", BillboardMode::LockY));
+        npc->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
     }
 
     void Torch::OnUpdate(float dT) /*override*/
@@ -70,7 +67,7 @@ namespace Torch
         Mother::OnUpdate(dT);
         Vector3 position = m_Light->GetPosition();
         m_Light->GetTransform().SetPosition(Vector3(position.x, 2.f + (sin(static_cast<float>(glfwGetTime()) * 2.0f)), position.z));
-        m_Cube->GetTransform().Rotate(VECTOR3_UP * 180.f * dT);
+        m_Cube->GetTransform().Rotate(m_Cube->GetTransform().GetYAxis() * 180.f * dT);
     }
 
     void Torch::OnTermination() /*override*/

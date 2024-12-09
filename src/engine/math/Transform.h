@@ -20,6 +20,10 @@ namespace ForgeEngine
             const Vector3& GetPosition() const;
             const Vector3& GetRotation() const;
             const Vector3& GetScale() const;
+            Vector3 GetXAxis() const;
+            Vector3 GetYAxis() const;
+            Vector3 GetZAxis() const;
+            Matrix4 MakeLookAt(const Vector3& direction) const;
 
             void SetPosition(const Vector3& position);
             void SetRotation(const Vector3& rotation);
@@ -30,6 +34,7 @@ namespace ForgeEngine
             void Rotate(const Vector3& euleurAngles);
             void Scale(const Vector3& scale);
             void Scale(float scale);
+            void LookAt(const Vector3& direction);
 
             void Reset();
 

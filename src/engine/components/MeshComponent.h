@@ -12,14 +12,22 @@ namespace ForgeEngine
 	class Shader;
 	class Texture;
 
+	enum class BillboardMode
+	{
+		Disabled,
+		LockY,
+		Full
+	};
+
 	class MeshComponent : public Component
 	{
 		using Mother = Component;
 
 		public:
-			MeshComponent(const Mesh& mesh, const std::string& shaderPath);
+			MeshComponent(const Mesh& mesh, const std::string& shaderPath, BillboardMode billboardMode = BillboardMode::Disabled);
 
 			virtual void OnUpdate(float dT) override;
+			virtual void OnPostUpdate(float dT) override;
 			virtual void OnDestroy() override;
 
 #ifdef FORGE_DEBUG_ENABLED
@@ -43,5 +51,6 @@ namespace ForgeEngine
 			unsigned int m_VertexBufferObject{};
 			unsigned int m_VertexBufferElement{};
             unsigned int m_NumIndices{};
+			BillboardMode m_BillboardMode;
 	};
 }

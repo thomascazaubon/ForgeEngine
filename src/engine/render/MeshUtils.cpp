@@ -13,8 +13,10 @@ namespace ForgeEngine
     {
         /********CUBE********/
 
-        std::vector<Vector3> GetCubeVerticesCoordinates(float scale = 1.f)
+        std::vector<Vector3> GetCubeVerticesCoordinates(Pivot pivotType = Pivot::Geometry, float scale = 1.f)
         {
+            const Vector3 pivotOffset = pivotType == Pivot::Bottom ? Vector3(0.f, scale / 2.f, 0.f) : VECTOR3_NULL;
+
             return std::vector<Vector3>
             {
                 /*
@@ -26,15 +28,17 @@ namespace ForgeEngine
                                 |.'    | .'
                                 A------B'
                 */
+                
 
-                Vector3(-scale / 2.f, -scale / 2.f, -scale / 2.f), //0 - A
-                Vector3(scale / 2.f, -scale / 2.f, -scale / 2.f),  //1 - B
-                Vector3(scale / 2.f, -scale / 2.f, scale / 2.f),   //2 - C
-                Vector3(-scale / 2.f, -scale / 2.f, scale / 2.f),  //3 - D
-                Vector3(-scale / 2.f, scale / 2.f, -scale / 2.f),  //4 - E
-                Vector3(scale / 2.f, scale / 2.f, -scale / 2.f),   //5 - F
-                Vector3(scale / 2.f, scale / 2.f, scale / 2.f),    //6 - G
-                Vector3(-scale / 2.f, scale / 2.f, scale / 2.f)    //7 - H
+
+                Vector3(- scale / 2.f + pivotOffset.x, -scale / 2.f + pivotOffset.y, -scale / 2.f + pivotOffset.z), //0 - A
+                Vector3(scale / 2.f + pivotOffset.x, -scale / 2.f + pivotOffset.y, -scale / 2.f + pivotOffset.z),  //1 - B
+                Vector3(scale / 2.f + pivotOffset.x, -scale / 2.f + pivotOffset.y, scale / 2.f + pivotOffset.z),   //2 - C
+                Vector3(-scale / 2.f + pivotOffset.x, -scale / 2.f + pivotOffset.y, scale / 2.f + pivotOffset.z),  //3 - D
+                Vector3(-scale / 2.f + pivotOffset.x, scale / 2.f + pivotOffset.y, -scale / 2.f + pivotOffset.z),  //4 - E
+                Vector3(scale / 2.f + pivotOffset.x, scale / 2.f + pivotOffset.y, -scale / 2.f + pivotOffset.z),   //5 - F
+                Vector3(scale / 2.f + pivotOffset.x, scale / 2.f + pivotOffset.y, scale / 2.f + pivotOffset.z),    //6 - G
+                Vector3(-scale / 2.f + pivotOffset.x, scale / 2.f + pivotOffset.y, scale / 2.f + pivotOffset.z)    //7 - H
             };
         }
 
@@ -120,8 +124,10 @@ namespace ForgeEngine
 
         /********PLANE********/
 
-        std::vector<Vector3> GetPlaneVerticesCoordinates(float length = 1.f, float width = 1.f, bool flat = true)
+        std::vector<Vector3> GetPlaneVerticesCoordinates(float length = 1.f, float width = 1.f, Pivot pivotType = Pivot::Geometry, bool flat = true)
         {
+            const Vector3 pivotOffset = (pivotType == Pivot::Bottom && !flat) ? Vector3(0.f, length / 2.f, 0.f) : VECTOR3_NULL;
+
             return std::vector<Vector3>
             {
                 /*
@@ -130,10 +136,10 @@ namespace ForgeEngine
                                 A------B'
                 */
 
-                Vector3(-width / 2.f, flat ? 0.f : -length / 2.f, flat ? -length / 2.f : 0.f), //0 - A
-                Vector3(width / 2.f, flat ? 0.f : -length / 2.f, flat ? -length / 2.f : 0.f),  //1 - B
-                Vector3(width / 2.f, flat ? 0.f : length / 2.f, flat ? length / 2.f : 0.f),  //2 - C
-                Vector3(-width / 2.f, flat ? 0.f : length / 2.f, flat ? length / 2.f : 0.f)  //3 - D
+                Vector3(-width / 2.f + pivotOffset.x, (flat ? 0.f : -length / 2.f) + pivotOffset.y, (flat ? -length / 2.f : 0.f) + pivotOffset.z), //0 - A
+                Vector3(width / 2.f + pivotOffset.x, (flat ? 0.f : -length / 2.f) + pivotOffset.y, (flat ? -length / 2.f : 0.f) + pivotOffset.z),  //1 - B
+                Vector3(width / 2.f + pivotOffset.x, (flat ? 0.f : length / 2.f) + pivotOffset.y, (flat ? length / 2.f : 0.f) + pivotOffset.z),  //2 - C
+                Vector3(-width / 2.f + pivotOffset.x, (flat ? 0.f : length / 2.f) + pivotOffset.y, (flat ? length / 2.f : 0.f) + pivotOffset.z)  //3 - D
             };
         }
 
@@ -162,8 +168,10 @@ namespace ForgeEngine
 
         /********TRIANGLE********/
 
-        std::vector<Vector3> GetTriangleVerticesCoordinates(float scale/* = 1.f*/)
+        std::vector<Vector3> GetTriangleVerticesCoordinates(float scale = 1.f, Pivot pivotType = Pivot::Geometry)
         {
+            const Vector3 pivotOffset = pivotType == Pivot::Bottom ? Vector3(0.f, scale / 2.f, 0.f) : VECTOR3_NULL;
+
             return std::vector<Vector3>
             {
                 /*
@@ -172,9 +180,9 @@ namespace ForgeEngine
                                 A------B'
                 */
 
-                Vector3(-scale / 2.f, 0.f, -scale / 2.f), //A
-                Vector3( scale / 2.f, 0.f, -scale / 2.f), //B
-                Vector3( 0.f, 0.f, scale / 2.f)  //C
+                Vector3(-scale / 2.f + pivotOffset.x, pivotOffset.y, -scale / 2.f + pivotOffset.z), //A
+                Vector3( scale / 2.f + pivotOffset.x, pivotOffset.y, -scale / 2.f + pivotOffset.z), //B
+                Vector3( 0.f + pivotOffset.x, pivotOffset.y, scale / 2.f + pivotOffset.z)  //C
             };
         }
 
@@ -198,7 +206,7 @@ namespace ForgeEngine
 
         /********SPHERE********/
 
-        std::vector<Vector3> GetSphereVerticesCoordinates(float scale = 1.f)
+        std::vector<Vector3> GetSphereVerticesCoordinates(float scale = 1.f, Pivot pivotType = Pivot::Geometry)
         {
             return std::vector<Vector3>();
         }
@@ -215,17 +223,17 @@ namespace ForgeEngine
 
         /********HEADER FUNCTIONS********/
 
-        Mesh MakeCube(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
+        Mesh MakeCube(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/, Pivot pivotType /*= Pivot::Geometry*/)
         {
-            return Mesh(GetCubeVerticesCoordinates(scale), GetCubeVerticesIndexes(), GetCubeTextureCoordinates(scale), materialPath);
+            return Mesh(GetCubeVerticesCoordinates(pivotType, scale), GetCubeVerticesIndexes(), GetCubeTextureCoordinates(scale), materialPath);
         }
 
-        Mesh MakePlane(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
+        Mesh MakePlane(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/, Pivot pivotType /*= Pivot::Geometry*/)
         {
-            return Mesh(GetPlaneVerticesCoordinates(scale, scale), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(scale), materialPath);
+            return Mesh(GetPlaneVerticesCoordinates(scale, scale, pivotType), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(scale), materialPath);
         }
 
-        Mesh MakeSprite(const char* materialPath, float height /*= 1.f*/)
+        Mesh MakeSprite(const char* materialPath, float height /*= 1.f*/, Pivot pivotType /*= Pivot::Geometry*/)
         {
             const std::shared_ptr<Material>* material = GameHandler::Get().GetWorld().GetComponentByType<MaterialLoader>()->GetOrLoadResource(materialPath);
             float heightWidthRatio = 1.f;
@@ -235,17 +243,17 @@ namespace ForgeEngine
                 heightWidthRatio = texture->GetWidth() / static_cast<float>(texture->GetHeight());
             }
 
-            return Mesh(GetPlaneVerticesCoordinates(height, height * heightWidthRatio, false), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(1.f), *material);
+            return Mesh(GetPlaneVerticesCoordinates(height, height * heightWidthRatio, pivotType, false), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(1.f), *material);
         }
 
-        Mesh MakeTriangle(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
+        Mesh MakeTriangle(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/, Pivot pivotType /*= Pivot::Geometry*/)
         {
-            return Mesh(GetTriangleVerticesCoordinates(scale), GetTriangleVerticesIndexes(), GetTriangleTextureCoordinates(scale), materialPath);
+            return Mesh(GetTriangleVerticesCoordinates(scale, pivotType), GetTriangleVerticesIndexes(), GetTriangleTextureCoordinates(scale), materialPath);
         }
 
-        Mesh MakeSphere(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/)
+        Mesh MakeSphere(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/, Pivot pivotType /*= Pivot::Geometry*/)
         {
-            return Mesh(GetSphereVerticesCoordinates(scale), GetSphereVerticesIndexes(), GetSphereTextureCoordinates(scale), materialPath);
+            return Mesh(GetSphereVerticesCoordinates(scale, pivotType), GetSphereVerticesIndexes(), GetSphereTextureCoordinates(scale), materialPath);
         }
     }
 }

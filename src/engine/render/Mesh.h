@@ -12,6 +12,12 @@ namespace ForgeEngine
     class Material;
     class Texture;
 
+    enum class Pivot
+    {
+        Geometry,
+        Bottom
+    };
+
     //TODO: TEXTURE MEMORY LEAK
     //TODO: MAKE NON COPYABLE
     class Mesh
