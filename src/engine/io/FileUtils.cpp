@@ -9,7 +9,7 @@ namespace ForgeEngine
 {
     namespace FileUtils
     {
-        bool TryLoadFileContent(const std::string& filePath, std::string& fileContent)
+        bool TryLoadFileContent(const std::string& filePath, std::string& fileContent, bool verbose /*= false*/)
         {
             //TODO: make this a util function
             std::ifstream sourceFile;
@@ -31,7 +31,10 @@ namespace ForgeEngine
             }
             catch (std::ifstream::failure failure)
             {
-                std::cout << "FileUtils: Cannot open source path " << filePath << "." << std::endl;
+				if (verbose)
+				{
+					std::cout << "FileUtils: Cannot open source path " << filePath << "." << std::endl;
+				}
 
                 return false;
             }

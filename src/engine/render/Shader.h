@@ -11,17 +11,18 @@ namespace ForgeEngine
 {
 	#define GLSL_ATTRIBUTE_TOKEN			        "//ATTRIBUTE"
 
-	#define DEFAULT_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\default.glslv"
-	#define DEFAULT_FRAGMENT_SHADER_PATH	        "assets\\shaders\\fragment\\default.glslf"
+	#define DEFAULT_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\default.vert"
+	#define DEFAULT_FRAGMENT_SHADER_PATH	        "assets\\shaders\\fragment\\default.frag"
 
-	#define TEXTURED_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\textured.glslv"
-	#define TEXTURED_FRAGMENT_SHADER_PATH	        "assets\\shaders\\fragment\\textured.glslf"
+	#define TEXTURED_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\textured.vert"
+	#define TEXTURED_FRAGMENT_SHADER_PATH	        "assets\\shaders\\fragment\\textured.frag"
 
-    #define LIT_VERTEX_SHADER_PATH		            "assets\\shaders\\vertex\\lit.glslv"
-    #define LIT_FRAGMENT_SHADER_PATH	            "assets\\shaders\\fragment\\lit.glslf"
+    #define LIT_VERTEX_SHADER_PATH		            "assets\\shaders\\vertex\\lit.vert"
+    #define LIT_GEOMETRY_SHADER_PATH		        "assets\\shaders\\vertex\\lit.geom"
+    #define LIT_FRAGMENT_SHADER_PATH	            "assets\\shaders\\fragment\\lit.frag"
 
-    #define DEBUG_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\debug.glslv"
-    #define DEBUG_FRAGMENT_SHADER_PATH	            "assets\\shaders\\fragment\\debug.glslf"
+    #define DEBUG_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\debug.vert"
+    #define DEBUG_FRAGMENT_SHADER_PATH	            "assets\\shaders\\fragment\\debug.frag"
 
 	#define DEFAULT_RENDER_COLOR_NAME		        "RenderColor"
 	#define DEFAULT_RENDER_TEXTURE_NAME		        "RenderTexture"
@@ -54,7 +55,7 @@ namespace ForgeEngine
 	class Shader : public LoadableAsset
 	{
         public:
-            Shader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
+            Shader(const std::string& shaderPath);
             ~Shader();
 
             //TODO: fix this
@@ -88,6 +89,8 @@ namespace ForgeEngine
             unsigned int m_ProgramID{};
             unsigned int m_VertexID{};
             unsigned int m_FragmentID{};
+            //TODO: Why the fuck can't I put this above
+            unsigned int m_GeometryID{};
 
 			//Stores the attributes declared in the shader source using the GLSL_ATTRIBUTE_TOKEN (must be declared in the right order !
 			std::vector<unsigned int> m_AttributesSizes{};

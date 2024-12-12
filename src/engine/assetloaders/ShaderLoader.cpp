@@ -7,13 +7,7 @@ namespace ForgeEngine
 {
     bool ShaderLoader::AddResource(const std::string& resourcePath)
     {
-        const std::string vertexPath = resourcePath + ".vert";
-        const std::string fragPath = resourcePath + ".frag";
-
-        std::string vertexContent;
-        std::string fragContent;
-
-        Shader* shader = new Shader(vertexPath.c_str(), fragPath.c_str());
+        Shader* shader = new Shader(resourcePath);
 
         if (shader->IsValid())
         {

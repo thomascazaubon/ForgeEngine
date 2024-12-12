@@ -7,7 +7,7 @@ namespace ForgeEngine
 {
     namespace FileUtils
     {
-        bool TryLoadFileContent(const std::string& filePath, std::string& fileContent);
+        bool TryLoadFileContent(const std::string& filePath, std::string& fileContent, bool verbose = false);
 
         //Extract all lines beginning by the given pattern from the given source
         std::vector<std::string> ExtractLines(const std::string& pattern, std::string source);

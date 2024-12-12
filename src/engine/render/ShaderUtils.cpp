@@ -10,9 +10,9 @@ namespace ForgeEngine
 {
 	namespace ShaderUtils
 	{
-		#define LOG_SIZE 512
+		#define LOG_SIZE 1024
 
-		bool TryCompileShader(unsigned int& shader, const char* shaderPath, const char* shaderSource, int shaderType, bool outputLogs /* = true*/)
+		bool TryCompileShader(unsigned int& shader, const char* shaderSource, int shaderType, std::string& logs)
 		{
 			//Compile shader
 			shader = glCreateShader(shaderType);
@@ -25,18 +25,18 @@ namespace ForgeEngine
 			glGetShaderiv(shader, GL_COMPILE_STATUS, &compilationSuccess);
 
 			//Output log if needed
-			if (!compilationSuccess && outputLogs)
+			if (!compilationSuccess)
 			{
                 //TODO: Add detailed logs
 				glGetShaderInfoLog(shader, LOG_SIZE, nullptr, infoLog);
-				std::cout << shaderPath << "\n" << infoLog << std::endl;
+				logs = infoLog;
                 exit(-1);
 			}
 
 			return static_cast<bool>(compilationSuccess);
 		}
 
-		bool TryLinkShaderProgram(unsigned int& shaderProgram, bool outputLogs, const unsigned int* shaders, ...)
+		bool TryLinkShaderProgram(unsigned int& shaderProgram, std::string& logs, const unsigned int* shaders, ...)
 		{
 			va_list args;
 
@@ -55,16 +55,15 @@ namespace ForgeEngine
 
 			glLinkProgram(shaderProgram);
 
-			//Check if linking was successful
+			//Check if linkage was successful
 			int compilationSuccess;
 			char infoLog[LOG_SIZE];
 			glGetProgramiv(shaderProgram, GL_LINK_STATUS, &compilationSuccess);
 
-			//Output log if needed
-			if (!compilationSuccess && outputLogs)
+			if (!compilationSuccess)
 			{
 				glGetShaderInfoLog(shaderProgram, LOG_SIZE, nullptr, infoLog);
-				std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+				logs = infoLog;
 			}
 
 			return static_cast<bool>(compilationSuccess);

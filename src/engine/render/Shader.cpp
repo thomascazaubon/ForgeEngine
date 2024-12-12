@@ -8,10 +8,12 @@
 #include "engine/render/Texture.h"
 
 #ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/DebugUtils.h"
 #include "engine/debug/ImGUI.h"
 #endif //FORGE_DEBUG_ENABLED
 
 #include <fstream>
+#include <format>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <numeric>
@@ -19,16 +21,32 @@
 
 namespace ForgeEngine
 {
-	Shader::Shader(const std::string& vsPath, const std::string& fsPath)
+	Shader::Shader(const std::string& shaderPath)
 	{
+		const std::string vsPath = shaderPath + ".vert";
+		std::string gsPath = shaderPath + ".geom";
+		const std::string fsPath = shaderPath + ".frag";
+
+		
+
 		std::ifstream vertexShaderFile;
+		std::ifstream geometryShaderFile;
 		std::ifstream fragmentShaderFile;
 
 		std::stringstream vertexShaderStream;
+		std::stringstream geometryShaderStream;
 		std::stringstream fragmentShaderStream;
 
         std::string vertexContent;
+        std::string geomContent;
         std::string fragContent;
+
+		if (!FileUtils::TryLoadFileContent(gsPath, geomContent))
+		{
+			gsPath = "";
+		}
+
+		const bool hasGeometryShaderPath = gsPath != "";
 
         if (FileUtils::TryLoadFileContent(vsPath, vertexContent) && FileUtils::TryLoadFileContent(fsPath, fragContent))
         {
@@ -42,18 +60,38 @@ namespace ForgeEngine
                 }
             }
 
-            if (!ShaderUtils::TryCompileShader(m_VertexID, vsPath.c_str(), vertexContent.c_str(), GL_VERTEX_SHADER) ||
-                !ShaderUtils::TryCompileShader(m_FragmentID, fsPath.c_str(), fragContent.c_str(), GL_FRAGMENT_SHADER) ||
-                !ShaderUtils::TryLinkShaderProgram(m_ProgramID, true, &m_VertexID, &m_FragmentID))
+			std::string vsLogs;
+			const bool vertexCompiled = ShaderUtils::TryCompileShader(m_VertexID, vertexContent.c_str(), GL_VERTEX_SHADER, vsLogs);
+			std::string gsLogs;
+			const bool geometryCompiled = hasGeometryShaderPath ? ShaderUtils::TryCompileShader(m_GeometryID, geomContent.c_str(), GL_GEOMETRY_SHADER, gsLogs) : true;
+			std::string fsLogs;
+			const bool fragmentCompiled = ShaderUtils::TryCompileShader(m_FragmentID, fragContent.c_str(), GL_FRAGMENT_SHADER, fsLogs);
+			std::string linkageLogs;
+			const bool programCompiled = ShaderUtils::TryLinkShaderProgram(m_ProgramID, linkageLogs, &m_VertexID, &m_GeometryID, &m_FragmentID);
+#ifdef FORGE_DEBUG_ENABLED
+            if (!vertexCompiled)
             {
-                std::cout << "Could not compile shaders!" << std::endl;
+				DebugUtils::LogError(std::format("Could not compile shader {}:\n{}", vsPath, vsLogs));
             }
+			if (!geometryCompiled)
+			{
+				DebugUtils::LogError(std::format("Could not compile shader {}:\n{}", gsPath, gsLogs));
+			}
+			if (!fragmentCompiled)
+			{
+				DebugUtils::LogError(std::format("Could not compile shader {}:\n{}", fsPath, fsLogs));
+			}
+			if (!programCompiled)
+			{
+				DebugUtils::LogError(std::format("Could not link shaders {}:\n{}", shaderPath, linkageLogs));
+			}
+#endif //FORGE_DEBUG_ENABLED
         }
 	}
 
 	Shader::~Shader()
 	{
-		ShaderUtils::DeleteShaders(&m_VertexID, &m_FragmentID);
+		ShaderUtils::DeleteShaders(&m_VertexID, &m_GeometryID, &m_FragmentID);
 		ShaderUtils::DeletePrograms(&m_ProgramID);
 	}
 
@@ -134,7 +172,11 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
     void Shader::OnDrawDebug() const
     {
+        ImGui::Text("Program ID: %d", m_ProgramID);
         ImGui::Text("Input Data Size: %d", GetInputDataSize());
+        ImGui::Text("Vertex ID: %d", m_VertexID);
+        ImGui::Text("Geometry ID: %d", m_GeometryID);
+        ImGui::Text("FragmentID ID: %d", m_FragmentID);
     }
 #endif //FORGE_DEBUG_ENABLED
 }

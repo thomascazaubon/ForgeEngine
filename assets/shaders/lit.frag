@@ -22,9 +22,9 @@ struct MaterialData {
   
 uniform MaterialData Material;
 
-in vec3 ourNormal;
-in vec4 ourFragmentPosition;
-in vec2 ourTextureCoordinates;
+layout (location = 0) in vec2 ourTextureCoordinates;
+layout (location = 1) in vec3 ourNormal;
+layout (location = 2) in vec4 ourFragmentPosition;
 
 out vec4 FragColor;
 
