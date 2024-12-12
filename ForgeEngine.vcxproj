@@ -465,6 +465,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="assets\shaders\fragment\textured.glslf" />
+    <None Include="assets\shaders\lit.geom" />
     <None Include="assets\shaders\vertex\textured.glslv" />
     <None Include="imgui.ini" />
     <None Include="README.md" />
