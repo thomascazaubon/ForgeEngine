@@ -1,5 +1,9 @@
 #include "FileUtils.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/DebugUtils.h"
+#endif //FORGE_DEBUG_ENABLED
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -33,7 +37,9 @@ namespace ForgeEngine
             {
 				if (verbose)
 				{
-					std::cout << "FileUtils: Cannot open source path " << filePath << "." << std::endl;
+#ifdef FORGE_DEBUG_ENABLED
+					DebugUtils::LogWarning("FileUtils: Cannot open source path {}", filePath.c_str());
+#endif //FORGE_DEBUG_ENABLED
 				}
 
                 return false;

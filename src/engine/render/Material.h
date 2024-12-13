@@ -28,7 +28,11 @@ namespace ForgeEngine
             const Texture* GetTexture() const { return m_Texture.get(); }
 
         private:
-            Material(const std::string& source);
+            Material(const std::string& source
+#ifdef FORGE_DEBUG_ENABLED
+                , const char* path
+#endif //FORGE_DEBUG_ENABLED
+            );
             bool ResolveAttribute(const std::string& name, const std::string& value);
 
             void SetColor(Color color) { m_Color = color; }

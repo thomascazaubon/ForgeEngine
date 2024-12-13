@@ -700,6 +700,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>FORGE_DEBUG_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

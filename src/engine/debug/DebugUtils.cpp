@@ -1,7 +1,6 @@
 #include "DebugUtils.h"
 
 #include "engine/core/GameHandler.h"
-#include "engine/math/Vector3.h"
 #include "engine/render/Color.h"
 #include "engine/worldcomponents/DebugManager.h"
 
@@ -14,9 +13,9 @@ namespace ForgeEngine
     {
         namespace Private
         {
-            #define COLOR_RED 12
-            #define COLOR_YELLOW 6
-            #define COLOR_WHITE 7
+            #define LOG_COLOR_RED 12
+            #define LOG_COLOR_YELLOW 6
+            #define LOG_COLOR_WHITE 7
 
             /*
             1: blue
@@ -40,7 +39,7 @@ namespace ForgeEngine
                 HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
                 SetConsoleTextAttribute(h, color);
                 std::cout << text << std::endl;
-                SetConsoleTextAttribute(h, COLOR_WHITE);
+                SetConsoleTextAttribute(h, LOG_COLOR_WHITE);
             }
         }
 
@@ -54,17 +53,17 @@ namespace ForgeEngine
 
         void Log(const std::string& log)
         {
-            Private::WriteToConsole(log.c_str(), COLOR_WHITE);
+            Private::WriteToConsole(log.c_str(), LOG_COLOR_WHITE);
         }
 
         void LogWarning(const std::string& warning)
         {
-            Private::WriteToConsole(std::string("Warning: " + warning).c_str(), COLOR_YELLOW);
+            Private::WriteToConsole(std::string("Warning: " + warning).c_str(), LOG_COLOR_YELLOW);
         }
 
         void LogError(const std::string& error)
         {
-            Private::WriteToConsole(std::string("ERROR: " + error).c_str(), COLOR_RED);
+            Private::WriteToConsole(std::string("ERROR: " + error).c_str(), LOG_COLOR_RED);
         }
     }
 }

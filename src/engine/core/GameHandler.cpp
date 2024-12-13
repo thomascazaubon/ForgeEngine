@@ -1,9 +1,13 @@
 #include "GameHandler.h"
 
 #include "engine/core/ForgeEngine.h"
-#include "engine/debug/ImGUI.h"
 #include "engine/render/Color.h"
 #include "engine/render/ShaderUtils.h"
+
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/DebugUtils.h"
+#include "engine/debug/ImGUI.h"
+#endif //FORGE_DEBUG_ENABLED
 
 #include <chrono>
 #include <cmath>
@@ -23,13 +27,17 @@ namespace ForgeEngine
             m_Window = InitWindow(name, width, height);
             if (m_Window == nullptr)
             {
-                std::cout << "ERROR::GAMEHANDLER::CANNOT_CREATE_WINDOW" << std::endl;
+#ifdef FORGE_DEBUG_ENABLED
+                DebugUtils::LogError("GameHandler: Could not instantiate window.");
+#endif //FORGE_DEBUG_ENABLED
                 exit(-1);
             }
         }
         else
         {
-            std::cout << "ERROR::GAMEHANDLER::HANDLER_ALREADY_EXISTING" << std::endl;
+#ifdef FORGE_DEBUG_ENABLED
+			DebugUtils::LogError("GameHandler: Handler already exists.");
+#endif //FORGE_DEBUG_ENABLED
             exit(-1);
         }
     }

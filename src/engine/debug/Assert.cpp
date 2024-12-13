@@ -11,6 +11,7 @@ namespace ForgeEngine
 			std::cout << "Assert failed:\t" << msg << "\n"
 				<< "Expected:\t" << expr_str << "\n"
 				<< "Source:\t\t" << file << ", line " << line << "\n";
+
 			abort();
 		}
 	}

@@ -86,11 +86,10 @@ namespace ForgeEngine
             void SetMaterial(const Material& material) const;
 
 		private:
-            unsigned int m_ProgramID{};
-            unsigned int m_VertexID{};
-            unsigned int m_FragmentID{};
-            //TODO: Why the fuck can't I put this above
-            unsigned int m_GeometryID{};
+            unsigned int m_ProgramID{0};
+            unsigned int m_VertexID{0};
+            unsigned int m_GeometryID{0};
+            unsigned int m_FragmentID{0};
 
 			//Stores the attributes declared in the shader source using the GLSL_ATTRIBUTE_TOKEN (must be declared in the right order !
 			std::vector<unsigned int> m_AttributesSizes{};

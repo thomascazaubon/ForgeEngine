@@ -8,21 +8,21 @@ uniform mat4 Transform;
 uniform mat3 NormalMatrix;
 
 //ATTRIBUTE 3
-layout (location = 0) in vec3 aPositionIn;
+layout (location = 0) in vec3 inPosition;
 //ATTRIBUTE 3
-layout (location = 1) in vec3 aNormalIn;
+layout (location = 1) in vec3 inNormal;
 //ATTRIBUTE 2
-layout (location = 2) in vec2 aTextureCoordinatesIn;
+layout (location = 2) in vec2 inTextureCoordinates;
 
-layout (location = 0) out vec2 aTextureCoordinatesOut;
-layout (location = 1) out vec3 aNormalOut;
-layout (location = 2) out vec4 aFragmentPositionOut;
+layout (location = 0) out vec2 outTextureCoordinates;
+layout (location = 1) out vec3 outNormal;
+layout (location = 2) out vec4 outFragmentPosition;
 
 void main()
 {
-	gl_Position = Projection * View * Transform * vec4(aPositionIn, 1.0);
+	gl_Position = Projection * View * Transform * vec4(inPosition, 1.0);
 
-	aTextureCoordinatesOut = aTextureCoordinatesIn;
-	aNormalOut = NormalMatrix * aNormalIn;
-	aFragmentPositionOut = Transform * vec4(aPositionIn, 1.0);
+	outTextureCoordinates = inTextureCoordinates;
+	outNormal = NormalMatrix * inNormal;
+	outFragmentPosition = Transform * vec4(inPosition, 1.0);
 }

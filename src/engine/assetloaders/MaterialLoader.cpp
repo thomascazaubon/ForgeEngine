@@ -12,7 +12,11 @@ namespace ForgeEngine
 
         if (success)
         {
-            m_LoadedResources[resourcePath] = std::shared_ptr<Material>(new Material(resourceContent));
+            m_LoadedResources[resourcePath] = std::shared_ptr<Material>(new Material(resourceContent
+#ifdef FORGE_DEBUG_ENABLED
+                , resourcePath.c_str()
+#endif //FORGE_DEBUG_ENABLED            
+            ));
         }
 
         return success;

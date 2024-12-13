@@ -2,6 +2,10 @@
 
 #include "engine/core/ForgeEngine.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/DebugUtils.h"
+#endif //FORGE_DEBUG_ENABLED
+
 #include <iostream>
 
 namespace ForgeEngine
@@ -31,7 +35,9 @@ namespace ForgeEngine
 		GLFWwindow* window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
 		if (window == nullptr)
 		{
-			std::cout << "Failed to create GLFW window" << std::endl;
+#ifdef FORGE_DEBUG_ENABLED
+			DebugUtils::LogError("GameHandler: Failed to create GLFW window.");
+#endif //FORGE_DEBUG_ENABLED
 			glfwTerminate();
 			return nullptr;
 		}
@@ -41,7 +47,9 @@ namespace ForgeEngine
 		//glad: load all OpenGL function pointers
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
-			std::cout << "Failed to initialize GLAD" << std::endl;
+#ifdef FORGE_DEBUG_ENABLED
+			DebugUtils::LogError("GameHandler: Failed to initialize GLAD.");
+#endif //FORGE_DEBUG_ENABLED
 			return nullptr;
 		}
 

@@ -6,6 +6,7 @@
 #include "engine/render/Texture.h"
 
 #ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/DebugUtils.h"
 #include "engine/debug/ImGUI.h"
 #endif //FORGE_DEBUG_ENABLED
 
@@ -13,7 +14,11 @@
 
 namespace ForgeEngine
 {
-    Material::Material(const std::string& source)
+    Material::Material(const std::string& source
+#ifdef FORGE_DEBUG_ENABLED
+        , const char* path
+#endif //FORGE_DEBUG_ENABLED
+    )
     {
         std::vector<std::string> attributes = FileUtils::Split("\n", source);
 
@@ -28,12 +33,16 @@ namespace ForgeEngine
                 {
                     if (!ResolveAttribute(name, splittedAttribute[1]))
                     {
-                        std::cout << "Material: Cannot resolve attribute " << name << "." << std::endl;
+#ifdef FORGE_DEBUG_ENABLED
+                        DebugUtils::LogError("Material {}: Cannot resolve attribute \"{}\".", path, name.c_str());
+#endif //FORGE_DEBUG_ENABLED
                     }
                 }
                 else
                 {
-                    std::cout << "Material: Invalid syntax on line " << name << "." << std::endl;
+#ifdef FORGE_DEBUG_ENABLED
+                    DebugUtils::LogError("Material {}: Invalid syntax \"{}\".", path, name.c_str());
+#endif //FORGE_DEBUG_ENABLED
                 }
             }
         }

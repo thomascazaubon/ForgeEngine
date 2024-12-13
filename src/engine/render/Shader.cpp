@@ -27,8 +27,6 @@ namespace ForgeEngine
 		std::string gsPath = shaderPath + ".geom";
 		const std::string fsPath = shaderPath + ".frag";
 
-		
-
 		std::ifstream vertexShaderFile;
 		std::ifstream geometryShaderFile;
 		std::ifstream fragmentShaderFile;
@@ -41,12 +39,7 @@ namespace ForgeEngine
         std::string geomContent;
         std::string fragContent;
 
-		if (!FileUtils::TryLoadFileContent(gsPath, geomContent))
-		{
-			gsPath = "";
-		}
-
-		const bool hasGeometryShaderPath = gsPath != "";
+		const bool hasGeometryShaderPath = FileUtils::TryLoadFileContent(gsPath, geomContent);
 
         if (FileUtils::TryLoadFileContent(vsPath, vertexContent) && FileUtils::TryLoadFileContent(fsPath, fragContent))
         {
@@ -67,23 +60,24 @@ namespace ForgeEngine
 			std::string fsLogs;
 			const bool fragmentCompiled = ShaderUtils::TryCompileShader(m_FragmentID, fragContent.c_str(), GL_FRAGMENT_SHADER, fsLogs);
 			std::string linkageLogs;
-			const bool programCompiled = ShaderUtils::TryLinkShaderProgram(m_ProgramID, linkageLogs, &m_VertexID, &m_GeometryID, &m_FragmentID);
+			const bool programCompiled = ShaderUtils::TryLinkShaderProgram(m_ProgramID, linkageLogs, m_VertexID, m_GeometryID, m_FragmentID);
+
 #ifdef FORGE_DEBUG_ENABLED
             if (!vertexCompiled)
             {
-				DebugUtils::LogError(std::format("Could not compile shader {}:\n{}", vsPath, vsLogs));
+				DebugUtils::LogError("Could not compile shader {}:\n{}", vsPath.c_str(), vsLogs.c_str());
             }
 			if (!geometryCompiled)
 			{
-				DebugUtils::LogError(std::format("Could not compile shader {}:\n{}", gsPath, gsLogs));
+				DebugUtils::LogError("Could not compile shader {}:\n{}", gsPath.c_str(), gsLogs.c_str());
 			}
 			if (!fragmentCompiled)
 			{
-				DebugUtils::LogError(std::format("Could not compile shader {}:\n{}", fsPath, fsLogs));
+				DebugUtils::LogError("Could not compile shader {}:\n{}", fsPath.c_str(), fsLogs.c_str());
 			}
 			if (!programCompiled)
 			{
-				DebugUtils::LogError(std::format("Could not link shaders {}:\n{}", shaderPath, linkageLogs));
+				DebugUtils::LogError("Could not link shaders {}:\n{}", shaderPath.c_str(), linkageLogs.c_str());
 			}
 #endif //FORGE_DEBUG_ENABLED
         }
@@ -91,8 +85,8 @@ namespace ForgeEngine
 
 	Shader::~Shader()
 	{
-		ShaderUtils::DeleteShaders(&m_VertexID, &m_GeometryID, &m_FragmentID);
-		ShaderUtils::DeletePrograms(&m_ProgramID);
+		ShaderUtils::DeleteShaders(m_VertexID, m_GeometryID, m_FragmentID);
+		ShaderUtils::DeletePrograms(m_ProgramID);
 	}
 
 	void Shader::Use() const

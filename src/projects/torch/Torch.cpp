@@ -32,7 +32,6 @@ namespace Torch
     void Torch::OnPostInit() /*override*/
     {
         Mother::OnPostInit();
-
         World& world = GetWorld();
         
         Entity* ground = world.RegisterEntity("Ground");

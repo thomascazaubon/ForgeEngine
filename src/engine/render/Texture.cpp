@@ -1,6 +1,7 @@
 #include "Texture.h"
 
 #ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/DebugUtils.h"
 #include "engine/debug/ImGUI.h"
 #endif //FORGE_DEBUG_ENABLED
 
@@ -33,7 +34,9 @@ namespace ForgeEngine
 		}
 		else
 		{
-			std::cout << "Could not load texture " << texturePath << "." << std::endl;
+#ifdef FORGE_DEBUG_ENABLED
+			DebugUtils::LogError("Texture {}: Cannot load texture.", texturePath.c_str());
+#endif //FORGE_DEBUG_ENABLED
 		}
 		
 		stbi_image_free(data);
