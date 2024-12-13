@@ -75,7 +75,7 @@ namespace ForgeEngine
 			{
 				DebugUtils::LogError("Could not compile shader {}:\n{}", fsPath.c_str(), fsLogs.c_str());
 			}
-			if (!programCompiled)
+			if (vertexCompiled && geometryCompiled && fragmentCompiled && !programCompiled)
 			{
 				DebugUtils::LogError("Could not link shaders {}:\n{}", shaderPath.c_str(), linkageLogs.c_str());
 			}
@@ -149,9 +149,9 @@ namespace ForgeEngine
 		glUniformMatrix3fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-    void Shader::SetVector4(const char* which, const Vector3& vector) const
+    void Shader::SetVector3(const char* which, const Vector3& vector) const
     {
-        glUniform4f(glGetUniformLocation(m_ProgramID, which), vector.x, vector.y, vector.z, 0.f);
+        glUniform3f(glGetUniformLocation(m_ProgramID, which), vector.x, vector.y, vector.z);
     }
 
     void Shader::SetMaterial(const Material& material) const

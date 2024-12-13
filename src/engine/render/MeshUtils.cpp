@@ -135,11 +135,16 @@ namespace ForgeEngine
                                   .'      .'
                                 A------B'
                 */
-
+                /*
                 Vector3(-width / 2.f + pivotOffset.x, (flat ? 0.f : -length / 2.f) + pivotOffset.y, (flat ? -length / 2.f : 0.f) + pivotOffset.z), //0 - A
                 Vector3(width / 2.f + pivotOffset.x, (flat ? 0.f : -length / 2.f) + pivotOffset.y, (flat ? -length / 2.f : 0.f) + pivotOffset.z),  //1 - B
                 Vector3(width / 2.f + pivotOffset.x, (flat ? 0.f : length / 2.f) + pivotOffset.y, (flat ? length / 2.f : 0.f) + pivotOffset.z),  //2 - C
                 Vector3(-width / 2.f + pivotOffset.x, (flat ? 0.f : length / 2.f) + pivotOffset.y, (flat ? length / 2.f : 0.f) + pivotOffset.z)  //3 - D
+                */
+                Vector3(0.5f, 0.5f, 0.f), //0 - A
+                Vector3(0.5f, -0.5f, 0.f),  //1 - B
+                Vector3(-0.5f, -0.5f, 0.f),  //2 - C
+                Vector3(-0.5f, 0.5f, 0.f)  //3 - D
             };
         }
 
@@ -175,9 +180,9 @@ namespace ForgeEngine
             return std::vector<Vector3>
             {
                 /*
-                                    .D------C
-                                  .'      .'
-                                A------B'
+                                    .C.
+                                  .'   '.   
+                                A--------B
                 */
 
                 Vector3(-scale / 2.f + pivotOffset.x, pivotOffset.y, -scale / 2.f + pivotOffset.z), //A

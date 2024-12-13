@@ -41,8 +41,9 @@ namespace ForgeEngine
         std::vector<float> meshData = m_Mesh.MakeGLData();
 
 		//Generates buffer to store vertices
-		glGenBuffers(1, &m_VertexBufferObject);
 		glGenVertexArrays(1, &m_VertexArrayObject);
+		glGenBuffers(1, &m_VertexBufferObject);
+		glGenBuffers(1, &m_VertexBufferElement);
 
 		//Bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
 
@@ -55,11 +56,9 @@ namespace ForgeEngine
 		glBufferData(GL_ARRAY_BUFFER, meshDataSize, meshData.data(), GL_STATIC_DRAW);
 
 		//2.5. Use vertex buffer element
-		glGenBuffers(1, &m_VertexBufferElement);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexBufferElement);
         std::vector<unsigned int> indices = m_Mesh.GetTrianglesIndices();
         m_NumIndices = indices.size();
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexBufferElement);
         const GLintptr indicesSize = indices.size() * sizeof(unsigned int);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices.data(), GL_STATIC_DRAW);
 
@@ -130,11 +129,16 @@ namespace ForgeEngine
 			//TODO: support multiple lights
             if (!lights.empty())
             {
+				m_Shader->SetBool(DEFAULT_HAS_POINT_LIGHTS_NAME, true);
                 m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
-                m_Shader->SetVector4(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
+                m_Shader->SetVector3(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
                 m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity());
                 m_Shader->SetFloat(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange());
             }
+			else
+			{
+				m_Shader->SetBool(DEFAULT_HAS_POINT_LIGHTS_NAME, false);
+			}
 
 			float ambientLightIntensity = 1.f;
 
@@ -150,12 +154,18 @@ namespace ForgeEngine
 			//const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
 			m_Shader->SetMatrix4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection());
 			m_Shader->SetMatrix4(DEFAULT_VIEW_NAME, activeCamera.GetView());
-			m_Shader->SetVector4(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition());
+			m_Shader->SetVector3(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition());
 
 			glBindVertexArray(m_VertexArrayObject);
-            //TODO: Fix this
-			//glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
-            glDrawArrays(GL_TRIANGLES, 0, 3 * m_Mesh.GetTrianglesCount() * m_Shader->GetInputDataSize());
+			if (m_CurrentDrawMode == DrawMode::Elements)
+			{
+				//TODO: Fix this
+				glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
+			}
+			else
+			{
+				glDrawArrays(GL_TRIANGLES, 0, 3 * m_Mesh.GetTrianglesCount() * m_Shader->GetInputDataSize());
+			}
 		}
 	}
 
@@ -170,11 +180,33 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
     void MeshComponent::OnDrawDebug(float dT) const
     {
+		UpdateDrawModeCombo();
         ImGui::Text("VAO ID: %d", m_VertexArrayObject);
         ImGui::Text("VBO ID: %d", m_VertexBufferObject);
         ImGui::Text("VBE ID: %d", m_VertexBufferElement);
         ImGui::Text("Num Indices: %d", m_NumIndices);
 		m_Mesh.OnDrawDebug();
     }
+
+	void MeshComponent::UpdateDrawModeCombo() const
+	{
+		ImGui::PushID((int)this);
+		if (ImGui::BeginCombo("Current Draw Mode", m_CurrentDrawMode == DrawMode::Arrays ? "Arrays" : "Elements"))
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				const DrawMode drawMode = static_cast<DrawMode>(i);
+				const bool isSelected = drawMode == m_CurrentDrawMode;
+
+				if (ImGui::Selectable(drawMode == DrawMode::Arrays ? "Arrays" : "Elements", isSelected))
+					m_CurrentDrawMode = drawMode;
+
+				if (isSelected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
+		ImGui::PopID();
+	}
 #endif //FORGE_DEBUG_ENABLED
 }

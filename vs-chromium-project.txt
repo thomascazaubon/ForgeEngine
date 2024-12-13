@@ -1,5 +1,6 @@
 [SearchableFiles.include]
 src/
+src/extern/imgui/imgui_demo.cpp
 
 [SearchableFiles.ignore]
 src/extern/

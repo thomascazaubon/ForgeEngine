@@ -35,13 +35,13 @@ namespace Torch
         World& world = GetWorld();
         
         Entity* ground = world.RegisterEntity("Ground");
-        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(100.f, "assets\\materials\\grass.mat"), "assets\\shaders\\lit"));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f, "assets\\materials\\grass.mat"), "assets\\shaders\\lit"));
         
         Entity* player = world.RegisterEntity("Player");
         player->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
         player->RegisterComponent(new FirstPersonControllerComponent());
         player->GetTransform().SetPosition(Vector3(2.f, 1.7f, 2.f));
-        
+        /*
         Color lightColor = COLOR_WHITE;
         m_Light = world.RegisterEntity("Light");
         m_Light->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, "assets\\materials\\white.mat"), "assets\\shaders\\emissive"));
@@ -59,14 +59,17 @@ namespace Torch
         Entity* npc = world.RegisterEntity("NPC");
         npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\lit", BillboardMode::LockY));
         npc->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
+        */
     }
 
     void Torch::OnUpdate(float dT) /*override*/
     {
         Mother::OnUpdate(dT);
+        /*
         Vector3 position = m_Light->GetPosition();
         m_Light->GetTransform().SetPosition(Vector3(position.x, 2.f + (sin(static_cast<float>(glfwGetTime()) * 2.0f)), position.z));
         m_Cube->GetTransform().Rotate(m_Cube->GetTransform().GetYAxis() * 180.f * dT);
+        */
     }
 
     void Torch::OnTermination() /*override*/

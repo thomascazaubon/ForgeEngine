@@ -5,13 +5,14 @@
 uniform float AmbientLightIntensity;
 uniform vec4 RenderColor;
 uniform vec4 LightColor;
-uniform vec4 LightSourcePosition;
-uniform vec4 CameraPosition;
+uniform vec3 LightSourcePosition;
+uniform vec3 CameraPosition;
 uniform float LightRange;
 uniform sampler2D RenderTexture;
 uniform int Shininess;
 uniform float SpecularIntensity;
 uniform bool UseTexture;
+uniform bool HasPointLights;
 
 struct MaterialData {
     vec4 color;
@@ -24,17 +25,17 @@ uniform MaterialData Material;
 
 layout (location = 0) in vec2 inTextureCoordinates;
 layout (location = 1) in vec3 inNormal;
-layout (location = 2) in vec4 inFragmentPosition;
+layout (location = 2) in vec3 inFragmentPosition;
 
 out vec4 FragColor;
 
 void main()
 {
-    vec3 directionToLight = vec3(LightSourcePosition - inFragmentPosition);
+    vec3 directionToLight = LightSourcePosition - inFragmentPosition;
 	float distanceToLight = length(directionToLight);
 	float distanceRatio = distanceToLight / LightRange;
 	vec3 directionToLightNormalized = normalize(directionToLight);
-	vec3 eyeDirection = vec3(normalize(CameraPosition - inFragmentPosition));
+	vec3 eyeDirection = normalize(CameraPosition - inFragmentPosition);
 	vec3 lightRayReflection = reflect(-directionToLightNormalized, inNormal);
 	
 	float specularFactor = pow(max(dot(eyeDirection, lightRayReflection), 0), Material.shininess);
@@ -48,7 +49,16 @@ void main()
 	if (UseTexture)
 	{
 		vec4 texture = texture(RenderTexture, inTextureCoordinates).rgba;
-		result = texture * Material.color * (diffuseLight + specularLight + AmbientLightIntensity);
+
+		if (HasPointLights)
+		{
+			result = texture * Material.color * (diffuseLight + specularLight + AmbientLightIntensity);
+		}
+		else
+		{
+		result = texture * Material.color * AmbientLightIntensity;
+		}
+		
 		result.w = texture.w * Material.color.w;
 	}
 	else

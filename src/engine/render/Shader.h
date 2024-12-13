@@ -35,6 +35,7 @@ namespace ForgeEngine
     #define DEFAULT_LIGHT_SOURCE_RANGE_NAME	        "LightRange"
     #define DEFAULT_SHININESS_NAME	                "Shininess"
     #define DEFAULT_SPECULAR_INTENSITY_NAME	        "SpecularIntensity"
+    #define DEFAULT_HAS_POINT_LIGHTS_NAME	        "HasPointLights"
 
 	#define DEFAULT_TRANSFORM_NAME			        "Transform"
 	#define DEFAULT_PROJECTION_NAME			        "Projection"
@@ -82,7 +83,7 @@ namespace ForgeEngine
             void SetTexture(unsigned int which, const Texture* texture) const;
             void SetMatrix4(const char* which, const glm::mat4& matrix) const;
             void SetMatrix3(const char* which, const glm::mat3& matrix) const;
-            void SetVector4(const char* which, const Vector3& vector) const;
+            void SetVector3(const char* which, const Vector3& vector) const;
             void SetMaterial(const Material& material) const;
 
 		private:

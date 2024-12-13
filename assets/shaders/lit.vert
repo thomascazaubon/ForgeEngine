@@ -16,7 +16,7 @@ layout (location = 2) in vec2 inTextureCoordinates;
 
 layout (location = 0) out vec2 outTextureCoordinates;
 layout (location = 1) out vec3 outNormal;
-layout (location = 2) out vec4 outFragmentPosition;
+layout (location = 2) out vec3 outFragmentPosition;
 
 void main()
 {
@@ -24,5 +24,5 @@ void main()
 
 	outTextureCoordinates = inTextureCoordinates;
 	outNormal = NormalMatrix * inNormal;
-	outFragmentPosition = Transform * vec4(inPosition, 1.0);
+	outFragmentPosition = vec3(Transform * vec4(inPosition, 1.0));
 }

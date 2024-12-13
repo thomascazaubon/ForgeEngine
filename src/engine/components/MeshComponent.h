@@ -19,6 +19,12 @@ namespace ForgeEngine
 		Full
 	};
 
+	enum class DrawMode
+	{
+		Elements,
+		Arrays
+	};
+
 	class MeshComponent : public Component
 	{
 		using Mother = Component;
@@ -36,13 +42,17 @@ namespace ForgeEngine
 
             Mesh& GetMesh() { return m_Mesh; }
 
-    protected:
+		protected:
 #ifdef FORGE_DEBUG_ENABLED
         void OnDrawDebug(float dT) const override;
 #endif //FORGE_DEBUG_ENABLED
 
 		private:
 			void InitRender();
+
+#ifdef FORGE_DEBUG_ENABLED
+			void UpdateDrawModeCombo() const;
+#endif //FORGE_DEBUG_ENABLED
 
             Mesh m_Mesh{};
             std::shared_ptr<Shader> m_Shader{};
@@ -52,5 +62,6 @@ namespace ForgeEngine
 			unsigned int m_VertexBufferElement{};
             unsigned int m_NumIndices{};
 			BillboardMode m_BillboardMode;
+			mutable DrawMode m_CurrentDrawMode{ DrawMode::Arrays };
 	};
 }
