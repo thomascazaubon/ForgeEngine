@@ -9,6 +9,6 @@ namespace ForgeEngine
 #else
 #   define Assert(Expr, Msg) ;
 #endif
-
+	//TODO: Hide
 	void Assert(const char* expr_str, bool expr, const char* file, int line, const char* msg);
 }

@@ -41,7 +41,7 @@ namespace Torch
         player->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
         player->RegisterComponent(new FirstPersonControllerComponent());
         player->GetTransform().SetPosition(Vector3(2.f, 1.7f, 2.f));
-        /*
+        
         Color lightColor = COLOR_WHITE;
         m_Light = world.RegisterEntity("Light");
         m_Light->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, "assets\\materials\\white.mat"), "assets\\shaders\\emissive"));
@@ -55,11 +55,10 @@ namespace Torch
         m_Cube = world.RegisterEntity("MarbleCube2");
         m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\marble.mat", Pivot::Bottom), "assets\\shaders\\lit"));
         m_Cube->GetTransform().Translate(Vector3(4.f, 0.f, 4.f));
-        
+
         Entity* npc = world.RegisterEntity("NPC");
         npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\lit", BillboardMode::LockY));
         npc->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
-        */
     }
 
     void Torch::OnUpdate(float dT) /*override*/

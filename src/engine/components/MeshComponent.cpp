@@ -38,7 +38,7 @@ namespace ForgeEngine
             return;
         }
 
-        std::vector<float> meshData = m_Mesh.MakeGLData();
+        std::vector<float> meshData = m_Mesh.MakeGLData(m_CurrentDrawMode);
 
 		//Generates buffer to store vertices
 		glGenVertexArrays(1, &m_VertexArrayObject);
@@ -185,7 +185,7 @@ namespace ForgeEngine
         ImGui::Text("VBO ID: %d", m_VertexBufferObject);
         ImGui::Text("VBE ID: %d", m_VertexBufferElement);
         ImGui::Text("Num Indices: %d", m_NumIndices);
-		m_Mesh.OnDrawDebug();
+		m_Mesh.OnDrawDebug(m_CurrentDrawMode);
     }
 
 	void MeshComponent::UpdateDrawModeCombo() const
@@ -199,7 +199,30 @@ namespace ForgeEngine
 				const bool isSelected = drawMode == m_CurrentDrawMode;
 
 				if (ImGui::Selectable(drawMode == DrawMode::Arrays ? "Arrays" : "Elements", isSelected))
+				{
 					m_CurrentDrawMode = drawMode;
+					std::vector<float> meshData = m_Mesh.MakeGLData(m_CurrentDrawMode);
+					glDeleteBuffers(1, &m_VertexBufferObject);
+
+					//Generates buffer to store vertices
+					glGenBuffers(1, &m_VertexBufferObject);
+
+					//Bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+
+					//1. Bind Vertex Array Object
+					glBindVertexArray(m_VertexArrayObject);
+
+					//2. Copy our vertices array in a buffer for OpenGL to use
+					glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObject);
+					const GLintptr meshDataSize = meshData.size() * sizeof(float);
+					glBufferData(GL_ARRAY_BUFFER, meshDataSize, meshData.data(), GL_STATIC_DRAW);
+
+					//Note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
+					glBindBuffer(GL_ARRAY_BUFFER, 0);
+					//You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
+					//VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+					glBindVertexArray(0);
+				}
 
 				if (isSelected)
 					ImGui::SetItemDefaultFocus();

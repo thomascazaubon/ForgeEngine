@@ -80,45 +80,45 @@ namespace ForgeEngine
                 Vector2(scale, 1.f), //F -> EFB
                 Vector2(scale, 0.f), //B -> EFB
                 /******************RIGHT*******************/
-                    Vector2(0.f, 0.f),   //A -> ABE
-                    Vector2(scale, 0.f), //B -> ABE
-                    Vector2(0.f, scale), //E -> ABE
+                Vector2(0.f, 0.f),   //A -> ABE
+                Vector2(scale, 0.f), //B -> ABE
+                Vector2(0.f, scale), //E -> ABE
 
-                    Vector2(0.f, scale), //E -> EFB
-                    Vector2(scale, 1.f), //F -> EFB
-                    Vector2(scale, 0.f), //B -> EFB
+                Vector2(0.f, scale), //E -> EFB
+                Vector2(scale, 1.f), //F -> EFB
+                Vector2(scale, 0.f), //B -> EFB
                 /******************BACK********************/
-                    Vector2(0.f, 0.f),   //A -> ABE
-                    Vector2(scale, 0.f), //B -> ABE
-                    Vector2(0.f, scale), //E -> ABE
+                Vector2(0.f, 0.f),   //A -> ABE
+                Vector2(scale, 0.f), //B -> ABE
+                Vector2(0.f, scale), //E -> ABE
 
-                    Vector2(0.f, scale), //E -> EFB
-                    Vector2(scale, 1.f), //F -> EFB
-                    Vector2(scale, 0.f), //B -> EFB
+                Vector2(0.f, scale), //E -> EFB
+                Vector2(scale, 1.f), //F -> EFB
+                Vector2(scale, 0.f), //B -> EFB
                 /******************LEFT********************/
-                    Vector2(0.f, 0.f),   //A -> ABE
-                    Vector2(scale, 0.f), //B -> ABE
-                    Vector2(0.f, scale), //E -> ABE
+                Vector2(0.f, 0.f),   //A -> ABE
+                Vector2(scale, 0.f), //B -> ABE
+                Vector2(0.f, scale), //E -> ABE
 
-                    Vector2(0.f, scale), //E -> EFB
-                    Vector2(scale, 1.f), //F -> EFB
-                    Vector2(scale, 0.f), //B -> EFB
+                Vector2(0.f, scale), //E -> EFB
+                Vector2(scale, 1.f), //F -> EFB
+                Vector2(scale, 0.f), //B -> EFB
                 /******************TOP*********************/
-                    Vector2(0.f, 0.f),   //A -> ABE
-                    Vector2(scale, 0.f), //B -> ABE
-                    Vector2(0.f, scale), //E -> ABE
+                Vector2(0.f, 0.f),   //A -> ABE
+                Vector2(scale, 0.f), //B -> ABE
+                Vector2(0.f, scale), //E -> ABE
 
-                    Vector2(0.f, scale), //E -> EFB
-                    Vector2(scale, 1.f), //F -> EFB
-                    Vector2(scale, 0.f), //B -> EFB
+                Vector2(0.f, scale), //E -> EFB
+                Vector2(scale, 1.f), //F -> EFB
+                Vector2(scale, 0.f), //B -> EFB
                 /******************BOTTOM******************/
-                    Vector2(0.f, 0.f),   //A -> ABE
-                    Vector2(scale, 0.f), //B -> ABE
-                    Vector2(0.f, scale), //E -> ABE
+                Vector2(0.f, 0.f),   //A -> ABE
+                Vector2(scale, 0.f), //B -> ABE
+                Vector2(0.f, scale), //E -> ABE
 
-                    Vector2(0.f, scale), //E -> EFB
-                    Vector2(scale, 1.f), //F -> EFB
-                    Vector2(scale, 0.f), //B -> EFB
+                Vector2(0.f, scale), //E -> EFB
+                Vector2(scale, 1.f), //F -> EFB
+                Vector2(scale, 0.f), //B -> EFB
             };
         }
 
@@ -135,16 +135,11 @@ namespace ForgeEngine
                                   .'      .'
                                 A------B'
                 */
-                /*
+
                 Vector3(-width / 2.f + pivotOffset.x, (flat ? 0.f : -length / 2.f) + pivotOffset.y, (flat ? -length / 2.f : 0.f) + pivotOffset.z), //0 - A
                 Vector3(width / 2.f + pivotOffset.x, (flat ? 0.f : -length / 2.f) + pivotOffset.y, (flat ? -length / 2.f : 0.f) + pivotOffset.z),  //1 - B
                 Vector3(width / 2.f + pivotOffset.x, (flat ? 0.f : length / 2.f) + pivotOffset.y, (flat ? length / 2.f : 0.f) + pivotOffset.z),  //2 - C
                 Vector3(-width / 2.f + pivotOffset.x, (flat ? 0.f : length / 2.f) + pivotOffset.y, (flat ? length / 2.f : 0.f) + pivotOffset.z)  //3 - D
-                */
-                Vector3(0.5f, 0.5f, 0.f), //0 - A
-                Vector3(0.5f, -0.5f, 0.f),  //1 - B
-                Vector3(-0.5f, -0.5f, 0.f),  //2 - C
-                Vector3(-0.5f, 0.5f, 0.f)  //3 - D
             };
         }
 

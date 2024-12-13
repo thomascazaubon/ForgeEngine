@@ -3,6 +3,7 @@
 #include "engine/assetloaders/MaterialLoader.h"
 #include "engine/core/GameHandler.h"
 #include "engine/core/World.h"
+#include "engine/debug/Assert.h"
 #include "engine/render/Material.h"
 
 #include <iostream>
@@ -14,7 +15,6 @@ namespace ForgeEngine
         const std::vector<unsigned int>& triangleIndices,
         const std::vector<Vector2>& textureCoordinates,
         const char* materialPath /*= nullptr*/)
-        : m_Vertices(vertices)
     {
         if (materialPath == nullptr)
         {
@@ -25,100 +25,90 @@ namespace ForgeEngine
             m_Material = std::shared_ptr<Material>(*(GameHandler::Get().GetWorld().GetComponentByType<MaterialLoader>()->GetOrLoadResource(materialPath)));
         }
 
-        BuildTriangles(triangleIndices, textureCoordinates);
+        BuildMesh(vertices, triangleIndices, textureCoordinates);
     }
 
     Mesh::Mesh(const std::vector<Vector3>& vertices,
         const std::vector<unsigned int>& triangleIndices,
         const std::vector<Vector2>& textureCoordinates,
         const std::shared_ptr<Material>& material)
-        : m_Vertices(vertices)
+        : m_Material(material)
     {
-        m_Material = material;
-
-        BuildTriangles(triangleIndices, textureCoordinates);
+        BuildMesh(vertices, triangleIndices, textureCoordinates);
     }
 
-    void Mesh::BuildTriangles(const std::vector<unsigned int>& triangleIndices, const std::vector<Vector2>& textureCoordinates)
+    void Mesh::BuildMesh(const std::vector<Vector3>& vertices,
+        const std::vector<unsigned int>& triangleIndices,
+        const std::vector<Vector2>& textureCoordinates)
     {
-        for (unsigned int i = 0; i < triangleIndices.size(); i += 3)
-        {
-            unsigned int indices[3];
-            Vector2 texture[3];
+        ASSERT(triangleIndices.size() % 3 == 0, "Invalid triangles count");
 
-            for (unsigned int j = 0; j < 3; j++)
-            {
-                indices[j] = triangleIndices[i + j];
-                texture[j] = textureCoordinates[i + j];
-            }
-
-            m_Triangles.push_back(Triangle(*this, indices, texture));
-        }
-    }
-
-    Mesh::Triangle::Triangle(const Mesh& owningMesh, const unsigned int indices[3], const Vector2 textureCoordinates[3])
-    {
-        for (unsigned int i = 0; i < 3; i++)
+        for (unsigned int i = 0; i < vertices.size(); i++)
         {
             Vertex vertex;
-            vertex.m_Index = indices[i];
+            vertex.m_Position = vertices[i];
             vertex.m_TextureCoordinates = textureCoordinates[i];
-            m_Vertices[i] = vertex;
+            m_Vertices.push_back(vertex);
         }
 
-        ComputeNormal(owningMesh);
-    }
-
-    void Mesh::Triangle::ComputeNormal(const Mesh& owningMesh)
-    {
-        const std::vector<Vector3>& verticesCoordinates = owningMesh.GetVertices();
-
-        const Vector3& v1 = verticesCoordinates[m_Vertices[0].m_Index];
-        const Vector3& v2 = verticesCoordinates[m_Vertices[1].m_Index];
-        const Vector3& v3 = verticesCoordinates[m_Vertices[2].m_Index];
-
-        const Vector3 directionToMeshOrigin = ForgeMaths::Normalize(-(v1 + v2 + v3) / 3.f);
-        m_Normal = ForgeMaths::Normalize(ForgeMaths::Cross(v2 - v1, v3 - v1));
-
-        //Flip inward facing normals
-        if (directionToMeshOrigin.y == 0.f || ForgeMaths::Dot(m_Normal, directionToMeshOrigin) > 0.f)
+        for (unsigned int i = 0; i < triangleIndices.size(); i += 3)
         {
-            m_Normal = -m_Normal;
-        }
-    }
-
-    std::vector<float> Mesh::Triangle::ToGLData(const Mesh& owningMesh) const
-    {
-        std::vector<float> data;
-        
-        const std::vector<Vector3>& verticesCoordinates = owningMesh.GetVertices();
-
-        for (unsigned int i = 0; i < 3; i++)
-        {
-            const Vector3& vertexCoordinates = verticesCoordinates[m_Vertices[i].m_Index];
-            data.push_back(vertexCoordinates.x);
-            data.push_back(vertexCoordinates.y);
-            data.push_back(vertexCoordinates.z);
-            data.push_back(m_Normal.x);
-            data.push_back(m_Normal.y);
-            data.push_back(m_Normal.z);
-            data.push_back(m_Vertices[i].m_TextureCoordinates.x);
-            data.push_back(m_Vertices[i].m_TextureCoordinates.y);
-        }
-
-        return data;
-    }
-
-    std::vector<float> Mesh::MakeGLData() const
-    {
-        std::vector<float> data;
-
-        for (unsigned int i = 0; i < GetTrianglesCount(); i++)
-        {
-            const std::vector<float> triangleData = m_Triangles[i].ToGLData(*this);
-            for (unsigned int j = 0; j < triangleData.size(); j++)
+            unsigned int indices[3]{ triangleIndices[i], triangleIndices[i + 1], triangleIndices[i + 2] };
+            Vector2 coordinates[3]{ textureCoordinates[i], textureCoordinates[i + 1], textureCoordinates[i + 2] };
+            Triangle triangle(*this, indices, coordinates);
+            for (unsigned int j = 0; j < 3; j++)
             {
-                data.push_back(triangleData[j]);
+                m_Vertices[indices[j]].m_Normal = triangle.m_Normal;
+            }
+            m_Triangles.push_back(triangle);
+        }
+    }
+
+    std::vector<float> Mesh::Vertex::ToGLData() const
+    {
+        return std::vector<float>{
+            m_Position.x,
+            m_Position.y,
+            m_Position.z,
+            m_Normal.x,
+            m_Normal.y,
+            m_Normal.z,
+            m_TextureCoordinates.x,
+            m_TextureCoordinates.y
+        };
+    }
+
+    std::vector<float> Mesh::MakeGLData(DrawMode drawMode) const
+    {
+        std::vector<float> data;
+
+        if (drawMode == DrawMode::Elements)
+        {
+            for (unsigned int i = 0; i < m_Vertices.size(); i++)
+            {
+                const std::vector<float> vertexData = m_Vertices[i].ToGLData();
+                for (unsigned int j = 0; j < vertexData.size(); j++)
+                {
+                    data.push_back(vertexData[j]);
+                }
+            }
+        }
+        else
+        {
+            for (unsigned int i = 0; i < m_Triangles.size(); i++)
+            {
+                const Triangle& triangle = m_Triangles[i];
+                for (unsigned int j = 0; j < 3; j++)
+                {
+                    Vertex vertex = m_Vertices[triangle.m_Indices[j]];
+                    vertex.m_TextureCoordinates = triangle.m_TextureCoordinates[j];
+                    const std::vector<float> vertexData = vertex.ToGLData();
+
+                    for (unsigned int k = 0; k < vertexData.size(); k++)
+                    {
+                        data.push_back(vertexData[k]);
+                    }
+                }
             }
         }
 
@@ -132,10 +122,9 @@ namespace ForgeEngine
         for (unsigned int i = 0; i < GetTrianglesCount(); i++)
         {
             const Triangle& triangle = m_Triangles[i];
-            unsigned int startIndex = i * 3;
             for (unsigned int j = 0; j < 3; j++)
             {
-                indices.push_back(triangle.m_Vertices[j].m_Index);
+                indices.push_back(triangle.m_Indices[j]);
             }
         }
 
@@ -143,15 +132,15 @@ namespace ForgeEngine
     }
 
 #ifdef FORGE_DEBUG_ENABLED
-    void Mesh::OnDrawDebug() const
+    void Mesh::OnDrawDebug(DrawMode drawMode) const
     {
         if (ImGui::CollapsingHeader("Vertices"))
         {
             ImGui::Indent();
             {
-                for (const Vector3& vertex : m_Vertices)
+                for (const Vertex& vertex : m_Vertices)
                 {
-                    ImGui::Text("(%.2f, %.2f, %.2f)", vertex.x, vertex.y, vertex.z);
+                    ImGui::Text("(%.2f, %.2f, %.2f)", vertex.m_Position.x, vertex.m_Position.y, vertex.m_Position.z);
                 }
             }
             ImGui::Unindent();
@@ -172,8 +161,8 @@ namespace ForgeEngine
             ImGui::Indent();
             {
                 std::string stringData = "";
-                const unsigned int dataSize = Triangle::Vertex::GetGLDataSize();
-                const std::vector<float> glData = MakeGLData();
+                const unsigned int dataSize = Vertex::GetGLDataSize();
+                const std::vector<float> glData = MakeGLData(drawMode);
                 unsigned int numVertices = 0;
 
                 for (unsigned int i = 0; i < glData.size(); i++)
@@ -181,8 +170,7 @@ namespace ForgeEngine
                     //New vertex
                     if (i > 0 && i % dataSize == 0)
                     {
-                        numVertices++;
-                        stringData += numVertices > 0 && numVertices % 3 == 0 ? "\n\n" : "\n";
+                        stringData += "\n";
                     }
                     
                     stringData += std::format("[{:.2f}]", glData[i]);
@@ -195,7 +183,36 @@ namespace ForgeEngine
 
     void Mesh::Triangle::OnDrawDebug() const
     {
-        ImGui::Text("%i - %i - %i", m_Vertices[0].m_Index, m_Vertices[1].m_Index, m_Vertices[2].m_Index);
+        ImGui::Text("%i - %i - %i", m_Indices[0], m_Indices[1], m_Indices[2]);
     }
 #endif //FORGE_DEBUG_ENABLED
+
+    Mesh::Triangle::Triangle(const Mesh& owningMesh, const unsigned int indices[3], const Vector2 textureCoordinates[3])
+    {
+        for (unsigned int i = 0; i < 3; i++)
+        {
+            m_Indices[i] = indices[i];
+            m_TextureCoordinates[i] = textureCoordinates[i];
+        }
+
+        ComputeNormal(owningMesh);
+    }
+
+    void Mesh::Triangle::ComputeNormal(const Mesh& owningMesh)
+    {
+        const std::vector<Vertex>& verticesCoordinates = owningMesh.GetVertices();
+
+        const Vector3& v1 = verticesCoordinates[m_Indices[0]].m_Position;
+        const Vector3& v2 = verticesCoordinates[m_Indices[1]].m_Position;
+        const Vector3& v3 = verticesCoordinates[m_Indices[2]].m_Position;
+
+        const Vector3 directionToMeshOrigin = ForgeMaths::Normalize(-(v1 + v2 + v3) / 3.f);
+        m_Normal = ForgeMaths::Normalize(ForgeMaths::Cross(v2 - v1, v3 - v1));
+
+        //Flip inward facing normals
+        if (directionToMeshOrigin.y == 0.f || ForgeMaths::Dot(m_Normal, directionToMeshOrigin) > 0.f)
+        {
+            m_Normal = -m_Normal;
+        }
+    }
 }

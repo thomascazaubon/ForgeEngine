@@ -19,12 +19,6 @@ namespace ForgeEngine
 		Full
 	};
 
-	enum class DrawMode
-	{
-		Elements,
-		Arrays
-	};
-
 	class MeshComponent : public Component
 	{
 		using Mother = Component;
@@ -58,7 +52,7 @@ namespace ForgeEngine
             std::shared_ptr<Shader> m_Shader{};
 
             unsigned int m_VertexArrayObject{};
-			unsigned int m_VertexBufferObject{};
+			mutable unsigned int m_VertexBufferObject{};
 			unsigned int m_VertexBufferElement{};
             unsigned int m_NumIndices{};
 			BillboardMode m_BillboardMode;
