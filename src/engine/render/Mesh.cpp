@@ -102,6 +102,7 @@ namespace ForgeEngine
                 {
                     Vertex vertex = m_Vertices[triangle.m_Indices[j]];
                     vertex.m_TextureCoordinates = triangle.m_TextureCoordinates[j];
+                    vertex.m_Normal = triangle.m_Normal;
                     const std::vector<float> vertexData = vertex.ToGLData();
 
                     for (unsigned int k = 0; k < vertexData.size(); k++)
