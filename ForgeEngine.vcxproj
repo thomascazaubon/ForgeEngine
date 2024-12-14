@@ -43,6 +43,7 @@
     <ClInclude Include="src\engine\debug\DebugElements.h" />
     <ClInclude Include="src\engine\debug\DebugUtils.h" />
     <ClInclude Include="src\engine\debug\ImGUI.h" />
+    <ClInclude Include="src\engine\debug\ImGUIUtils.h" />
     <ClInclude Include="src\engine\input\InputAction.h" />
     <ClInclude Include="src\engine\input\InputHelper.h" />
     <ClInclude Include="src\engine\io\FileUtils.h" />
@@ -411,6 +412,7 @@
     <ClCompile Include="src\engine\debug\DebugDrawer.cpp" />
     <ClCompile Include="src\engine\debug\DebugElements.cpp" />
     <ClCompile Include="src\engine\debug\DebugUtils.cpp" />
+    <ClCompile Include="src\engine\debug\ImGUIUtils.cpp" />
     <ClCompile Include="src\engine\input\InputAction.cpp" />
     <ClCompile Include="src\engine\input\InputHelper.cpp" />
     <ClCompile Include="src\engine\io\FileUtils.cpp" />

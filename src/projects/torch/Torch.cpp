@@ -35,7 +35,7 @@ namespace Torch
         World& world = GetWorld();
         
         Entity* ground = world.RegisterEntity("Ground");
-        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(1.f, "assets\\materials\\grass.mat"), "assets\\shaders\\lit"));
+        ground->RegisterComponent(new MeshComponent(MeshUtils::MakePlane(100.f, "assets\\materials\\grass.mat"), "assets\\shaders\\lit"));
         
         Entity* player = world.RegisterEntity("Player");
         player->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
@@ -64,11 +64,9 @@ namespace Torch
     void Torch::OnUpdate(float dT) /*override*/
     {
         Mother::OnUpdate(dT);
-        /*
         Vector3 position = m_Light->GetPosition();
         m_Light->GetTransform().SetPosition(Vector3(position.x, 2.f + (sin(static_cast<float>(glfwGetTime()) * 2.0f)), position.z));
         m_Cube->GetTransform().Rotate(m_Cube->GetTransform().GetYAxis() * 180.f * dT);
-        */
     }
 
     void Torch::OnTermination() /*override*/

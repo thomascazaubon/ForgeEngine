@@ -10,6 +10,7 @@
 namespace ForgeEngine
 {
 	#define GLSL_ATTRIBUTE_TOKEN			        "//ATTRIBUTE"
+	#define GLSL_UNIFORM_TOKEN			            "uniform"
 
 	#define DEFAULT_VERTEX_SHADER_PATH		        "assets\\shaders\\vertex\\default.vert"
 	#define DEFAULT_FRAGMENT_SHADER_PATH	        "assets\\shaders\\fragment\\default.frag"
@@ -87,14 +88,29 @@ namespace ForgeEngine
             void SetMaterial(const Material& material) const;
 
 		private:
+#ifdef FORGE_DEBUG_ENABLED
+            struct UniformData
+            {
+                std::string m_VariableName;
+                std::string m_VariableType;
+            };
+
+            void ParseUniforms(const std::string& fileContent);
+            void OrderUniforms();
+
+            Color GetUniformTypeColor(const std::string& type) const;
+            const UniformData* GetUniformData(const std::string& uniformName) const;
+
+			std::vector<UniformData> m_UniformsData{};
+#endif //FORGE_DEBUG_ENABLED
+           
+			//Stores the attributes declared in the shader source using the GLSL_ATTRIBUTE_TOKEN (must be declared in the right order !
+			std::vector<unsigned int> m_AttributesSizes{};
+
             unsigned int m_ProgramID{0};
             unsigned int m_VertexID{0};
             unsigned int m_GeometryID{0};
             unsigned int m_FragmentID{0};
-
-			//Stores the attributes declared in the shader source using the GLSL_ATTRIBUTE_TOKEN (must be declared in the right order !
-			std::vector<unsigned int> m_AttributesSizes{};
-
 			mutable int m_InputDataSize{-1};
 	};
 }

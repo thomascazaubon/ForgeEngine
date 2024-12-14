@@ -10,8 +10,10 @@
 #ifdef FORGE_DEBUG_ENABLED
 #include "engine/debug/DebugUtils.h"
 #include "engine/debug/ImGUI.h"
+#include "engine/debug/ImGUIUtils.h"
 #endif //FORGE_DEBUG_ENABLED
 
+#include <algorithm>
 #include <fstream>
 #include <format>
 #include <glm/gtc/type_ptr.hpp>
@@ -21,6 +23,29 @@
 
 namespace ForgeEngine
 {
+	namespace Private
+	{
+#ifdef FORGE_DEBUG_ENABLED
+		ImVec4 GetUniformTypeColor(const std::string& type)
+		{
+			if (type == "bool")
+			{
+				return ImGUIUtils::ToImColor(COLOR_BLUE);
+			}
+			if (type == "float")
+			{
+				return ImGUIUtils::ToImColor(COLOR_GREEN);
+			}
+			if (type == "vec3")
+			{
+				return ImGUIUtils::ToImColor(COLOR_PURPLE);
+			}
+			return ImGUIUtils::ToImColor(COLOR_ORANGE);
+			
+		}
+#endif //FORGE_DEBUG_ENABLED
+	}
+
 	Shader::Shader(const std::string& shaderPath)
 	{
 		const std::string vsPath = shaderPath + ".vert";
@@ -63,21 +88,31 @@ namespace ForgeEngine
 			const bool programCompiled = ShaderUtils::TryLinkShaderProgram(m_ProgramID, linkageLogs, m_VertexID, m_GeometryID, m_FragmentID);
 
 #ifdef FORGE_DEBUG_ENABLED
-            if (!vertexCompiled)
-            {
-				DebugUtils::LogError("Could not compile shader {}:\n{}", vsPath.c_str(), vsLogs.c_str());
-            }
-			if (!geometryCompiled)
+			if (vertexCompiled && geometryCompiled && fragmentCompiled && programCompiled)
 			{
-				DebugUtils::LogError("Could not compile shader {}:\n{}", gsPath.c_str(), gsLogs.c_str());
+				ParseUniforms(vertexContent);
+				ParseUniforms(geomContent);
+				ParseUniforms(fragContent);
+				OrderUniforms();
 			}
-			if (!fragmentCompiled)
+			else
 			{
-				DebugUtils::LogError("Could not compile shader {}:\n{}", fsPath.c_str(), fsLogs.c_str());
-			}
-			if (vertexCompiled && geometryCompiled && fragmentCompiled && !programCompiled)
-			{
-				DebugUtils::LogError("Could not link shaders {}:\n{}", shaderPath.c_str(), linkageLogs.c_str());
+				if (!vertexCompiled)
+				{
+					DebugUtils::LogError("Could not compile shader {}:\n{}", vsPath.c_str(), vsLogs.c_str());
+				}
+				if (!geometryCompiled)
+				{
+					DebugUtils::LogError("Could not compile shader {}:\n{}", gsPath.c_str(), gsLogs.c_str());
+				}
+				if (!fragmentCompiled)
+				{
+					DebugUtils::LogError("Could not compile shader {}:\n{}", fsPath.c_str(), fsLogs.c_str());
+				}
+				if (vertexCompiled && geometryCompiled && fragmentCompiled && !programCompiled)
+				{
+					DebugUtils::LogError("Could not link shaders {}:\n{}", shaderPath.c_str(), linkageLogs.c_str());
+				}
 			}
 #endif //FORGE_DEBUG_ENABLED
         }
@@ -164,6 +199,45 @@ namespace ForgeEngine
     }
 
 #ifdef FORGE_DEBUG_ENABLED
+	void Shader::ParseUniforms(const std::string& fileContent)
+	{
+		for (const std::string& str : FileUtils::ExtractLines(GLSL_UNIFORM_TOKEN, fileContent))
+		{
+			std::vector<std::string> splitted = FileUtils::Split(" ", str);
+			if (splitted.size() == 3)
+			{
+				const std::string name = FileUtils::Split(";", splitted[2])[0];
+				if (GetUniformData(name) == nullptr)
+				{
+					UniformData data;
+					data.m_VariableName = name;
+					data.m_VariableType = splitted[1].c_str();
+					m_UniformsData.push_back(data);
+				}
+			}
+		}
+	}
+
+	const Shader::UniformData* Shader::GetUniformData(const std::string& uniformName) const
+	{
+		for (const UniformData& data : m_UniformsData)
+		{
+			if (data.m_VariableName == uniformName)
+			{
+				return &data;
+			}
+		}
+		return nullptr;
+	}
+
+	void Shader::OrderUniforms()
+	{
+		std::sort(m_UniformsData.begin(), m_UniformsData.end(), [&](const UniformData& a, const UniformData& b)
+			{
+				return (a.m_VariableName < b.m_VariableName);
+			});
+	}
+
     void Shader::OnDrawDebug() const
     {
         ImGui::Text("Program ID: %d", m_ProgramID);
@@ -171,6 +245,11 @@ namespace ForgeEngine
         ImGui::Text("Vertex ID: %d", m_VertexID);
         ImGui::Text("Geometry ID: %d", m_GeometryID);
         ImGui::Text("FragmentID ID: %d", m_FragmentID);
+
+		for (const UniformData& data : m_UniformsData)
+		{
+			ImGui::TextColored(Private::GetUniformTypeColor(data.m_VariableType), "%s (%s)", data.m_VariableName.c_str(), data.m_VariableType.c_str());
+		}
     }
 #endif //FORGE_DEBUG_ENABLED
 }
