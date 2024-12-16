@@ -20,20 +20,6 @@ namespace ForgeEngine
 
 	class Color
 	{
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
-
-		private:
-			unsigned int m_R{};
-			unsigned int m_G{};
-			unsigned int m_B{};
-			float m_A{};
-
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
-
 		public:
 			Color(unsigned int r, unsigned int g, unsigned int b, float a = 1.f);
 
@@ -51,6 +37,14 @@ namespace ForgeEngine
 
 			Color operator*(float multiplier);
 
+#ifdef FORGE_DEBUG_ENABLED
 			friend std::ostream& operator<<(std::ostream& os, const Color& c);
+			std::string ToString() const;
+#endif
+		private:
+			unsigned int m_R{};
+			unsigned int m_G{};
+			unsigned int m_B{};
+			float m_A{};
 	};
 }

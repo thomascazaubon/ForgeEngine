@@ -65,6 +65,25 @@ namespace ForgeEngine
         {
             Private::WriteToConsole(std::string("ERROR: " + error).c_str(), LOG_COLOR_RED);
         }
+
+        std::string ToString(const Vector3& vector)
+        {
+            return std::format("[{:.2f};{:.2f};{:.2f}]", vector.x, vector.y, vector.z);
+        }
+
+        std::string ToString(const Vector4& vector)
+        {
+            return std::format("[{:.2f};{:.2f};{:.2f};{:.2f}]", vector.x, vector.y, vector.z, vector.w);
+        }
+
+        std::string ToString(const Matrix4& matrix)
+        {
+            return std::format("{:.2f};{:.2f};{:.2f};{:.2f}\n{:.2f};{:.2f};{:.2f};{:.2f}\n{:.2f};{:.2f};{:.2f};{:.2f}\n{:.2f};{:.2f};{:.2f};{:.2f}", 
+                matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3],
+                matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3],
+                matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3],
+                matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
+        }
     }
 }
 #endif //FORGE_DEBUG_ENABLED

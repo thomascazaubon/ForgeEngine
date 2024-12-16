@@ -18,6 +18,8 @@ namespace ForgeEngine
     public:
 #ifdef FORGE_DEBUG_ENABLED
         const char* GetDebugName() const override { return "ShaderLoader"; }
+
+        void OnPreUpdate(float dT) override;
 #endif //FORGE_DEBUG_ENABLED
 
     protected:

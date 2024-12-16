@@ -2,6 +2,10 @@
 
 #include "engine/math/MathUtils.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+#include <format>
+#endif
+
 namespace ForgeEngine
 {
 	Color::Color(unsigned int r, unsigned int g, unsigned int b, float a /*= 1.f*/) :
@@ -29,9 +33,16 @@ namespace ForgeEngine
 		return Color(m_R * clampedMultiplier, m_G * clampedMultiplier, m_B * clampedMultiplier);
 	}
 
+#ifdef FORGE_DEBUG_ENABLED
+	std::string Color::ToString() const
+	{
+		return std::format("R{} G{} B{} A{}", GetR(), GetG(), GetB(), GetA());
+	}
+
 	std::ostream& operator<<(std::ostream& os, const Color& c)
 	{
-		os << "{R" << c.GetR() << ", G" << c.GetG() << ", B" << c.GetB() << ", A" << c.GetA() << "}";
+		os << c.ToString();
 		return os;
 	}
+#endif
 }

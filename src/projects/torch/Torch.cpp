@@ -45,7 +45,7 @@ namespace Torch
         Color lightColor = COLOR_WHITE;
         m_Light = world.RegisterEntity("Light");
         m_Light->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(0.1f, "assets\\materials\\white.mat"), "assets\\shaders\\emissive"));
-        m_Light->RegisterComponent(new LightComponent(30.f, 100000.f, lightColor));
+        m_Light->RegisterComponent(new LightComponent(30.f, 1.f, lightColor));
         m_Light->GetTransform().Translate(VECTOR3_UP * 2.f + VECTOR3_RIGHT * 2.f);
 
         Entity* cube1 = world.RegisterEntity("MarbleCube");

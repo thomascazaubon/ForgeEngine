@@ -46,6 +46,7 @@ namespace ForgeEngine
 
 #ifdef FORGE_DEBUG_ENABLED
 			void UpdateDrawModeCombo() const;
+			void DebugShaderRecords() const;
 #endif //FORGE_DEBUG_ENABLED
 
             Mesh m_Mesh{};
@@ -57,5 +58,9 @@ namespace ForgeEngine
             unsigned int m_NumIndices{};
 			BillboardMode m_BillboardMode;
 			mutable DrawMode m_CurrentDrawMode{ DrawMode::Arrays };
+
+#ifdef FORGE_DEBUG_ENABLED
+			mutable bool m_RecordEnabled{false};
+#endif //FORGE_DEBUG_ENABLED
 	};
 }

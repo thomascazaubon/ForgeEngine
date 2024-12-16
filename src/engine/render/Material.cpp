@@ -101,7 +101,7 @@ namespace ForgeEngine
         ImGui::Text("Shininess: %d", m_Shininess);
         ImGui::Text("Color: ");
         ImGui::SameLine();
-        ImGui::ColorButton("Color##3c", ImVec4(m_Color.GetR(), m_Color.GetG(), m_Color.GetB(), m_Color.GetA()), 0, ImVec2(50, 15));
+        ImGui::ColorButton("Color##3c", ImGUIUtils::ToImColor(m_Color), 0, ImVec2(50, 15));
         if (m_Texture != nullptr)
         {
             ImGui::Text("Texture: %s", m_Texture->GetDebugName());

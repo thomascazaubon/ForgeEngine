@@ -13,7 +13,7 @@ namespace ForgeEngine
 		public:
 			DebugElement(const Color& color, unsigned int durationMs);
 
-			void Draw(const Shader& shader) const;
+			void Draw(Shader& shader) const;
 			bool HasExpired() const { return m_Timer.IsElapsed(); }
 
 		protected:

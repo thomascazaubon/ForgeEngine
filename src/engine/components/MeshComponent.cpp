@@ -120,24 +120,56 @@ namespace ForgeEngine
 				matrix = GetOwner()->GetTransform().MakeLookAt(direction);
 			}
 
-			m_Shader->SetMatrix4(DEFAULT_TRANSFORM_NAME, matrix);
+			m_Shader->SetMatrix4(DEFAULT_TRANSFORM_NAME, matrix
+#ifdef FORGE_DEBUG_ENABLED
+				, m_RecordEnabled ? this : nullptr
+#endif
+			);
             //TODO: Don't do this per frame
-			m_Shader->SetMatrix3(DEFAULT_NORMAL_MATRIX_NAME, glm::mat3(glm::transpose(glm::inverse(m_Owner->GetTransform().GetMatrix()))));
+			m_Shader->SetMatrix3(DEFAULT_NORMAL_MATRIX_NAME, glm::mat3(glm::transpose(glm::inverse(m_Owner->GetTransform().GetMatrix())))
+#ifdef FORGE_DEBUG_ENABLED
+				, m_RecordEnabled ? this : nullptr
+#endif
+			);
 
             //Lighting
             std::vector<const LightComponent*> lights = GameHandler::Get().GetWorld().GetComponentByType<LightManager>()->GetLightsInRange(GetOwner()->GetPosition());
 			//TODO: support multiple lights
             if (!lights.empty())
             {
-				m_Shader->SetBool(DEFAULT_HAS_POINT_LIGHTS_NAME, true);
-                m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
-                m_Shader->SetVector3(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
-                m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity());
-                m_Shader->SetFloat(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange());
+				m_Shader->SetBool(DEFAULT_HAS_POINT_LIGHTS_NAME, true
+#ifdef FORGE_DEBUG_ENABLED
+					, m_RecordEnabled ? this : nullptr
+#endif
+					);
+                m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor()
+#ifdef FORGE_DEBUG_ENABLED
+					, m_RecordEnabled ? this : nullptr
+#endif
+				);
+                m_Shader->SetVector3(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition()
+#ifdef FORGE_DEBUG_ENABLED
+					, m_RecordEnabled ? this : nullptr
+#endif
+				);
+                m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity()
+#ifdef FORGE_DEBUG_ENABLED
+					, m_RecordEnabled ? this : nullptr
+#endif
+				);
+                m_Shader->SetFloat(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange()
+#ifdef FORGE_DEBUG_ENABLED
+					, m_RecordEnabled ? this : nullptr
+#endif
+				);
             }
 			else
 			{
-				m_Shader->SetBool(DEFAULT_HAS_POINT_LIGHTS_NAME, false);
+				m_Shader->SetBool(DEFAULT_HAS_POINT_LIGHTS_NAME, false
+#ifdef FORGE_DEBUG_ENABLED
+					, m_RecordEnabled ? this : nullptr
+#endif
+				);
 			}
 
 			float ambientLightIntensity = 1.f;
@@ -147,14 +179,33 @@ namespace ForgeEngine
 				ambientLightIntensity = skybox->GetAmbientLightIntensity();
 			}
 
-            m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, ambientLightIntensity);
+            m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, ambientLightIntensity
+#ifdef FORGE_DEBUG_ENABLED
+				, m_RecordEnabled ? this : nullptr
+#endif
+			);
 			
-            m_Shader->SetMaterial(*m_Mesh.GetMaterial());
+            m_Shader->SetMaterial(*m_Mesh.GetMaterial()
+#ifdef FORGE_DEBUG_ENABLED
+				, m_RecordEnabled ? this : nullptr
+#endif
+			);
 
-			//const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
-			m_Shader->SetMatrix4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection());
-			m_Shader->SetMatrix4(DEFAULT_VIEW_NAME, activeCamera.GetView());
-			m_Shader->SetVector3(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition());
+			m_Shader->SetMatrix4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection()
+#ifdef FORGE_DEBUG_ENABLED
+				, m_RecordEnabled ? this : nullptr
+#endif
+			);
+			m_Shader->SetMatrix4(DEFAULT_VIEW_NAME, activeCamera.GetView()
+#ifdef FORGE_DEBUG_ENABLED
+				, m_RecordEnabled ? this : nullptr
+#endif
+			);
+			m_Shader->SetVector3(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition()
+#ifdef FORGE_DEBUG_ENABLED
+				, m_RecordEnabled ? this : nullptr
+#endif
+			);
 
 			glBindVertexArray(m_VertexArrayObject);
 			if (m_CurrentDrawMode == DrawMode::Elements)
@@ -186,6 +237,15 @@ namespace ForgeEngine
         ImGui::Text("VBE ID: %d", m_VertexBufferElement);
         ImGui::Text("Num Indices: %d", m_NumIndices);
 		m_Mesh.OnDrawDebug(m_CurrentDrawMode);
+		if (ImGui::CollapsingHeader("FrameDataRecords"))
+		{
+			m_RecordEnabled = true;
+			DebugShaderRecords();
+		}
+		else
+		{
+			m_RecordEnabled = false;
+		}
     }
 
 	void MeshComponent::UpdateDrawModeCombo() const
@@ -230,6 +290,28 @@ namespace ForgeEngine
 			ImGui::EndCombo();
 		}
 		ImGui::PopID();
+	}
+
+	void MeshComponent::DebugShaderRecords() const
+	{
+		if (const Shader::RecordData* records = m_Shader->GetRecordData(this))
+		{
+			if (ImGui::BeginTable("table", 2, ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders))
+			{
+				ImGui::TableSetupColumn("Name");
+				ImGui::TableSetupColumn("Value");
+				ImGui::TableHeadersRow();
+				for (const auto& pair : records->m_Data)
+				{
+					ImGui::TableNextRow();
+					ImGui::TableSetColumnIndex(0);
+					ImGui::Text("%s", pair.first.c_str());
+					ImGui::TableSetColumnIndex(1);
+					ImGui::Text("%s", pair.second.c_str());
+				}
+				ImGui::EndTable();
+			}
+		}
 	}
 #endif //FORGE_DEBUG_ENABLED
 }

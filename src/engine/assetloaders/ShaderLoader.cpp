@@ -3,6 +3,10 @@
 #include "engine/io/FileUtils.h"
 #include "engine/render/Shader.h"
 
+#ifdef FORGE_DEBUG_ENABLED
+//#include <memory>
+#endif //FORGE_DEBUG_ENABLED
+
 namespace ForgeEngine
 {
     bool ShaderLoader::AddResource(const std::string& resourcePath)
@@ -26,6 +30,14 @@ namespace ForgeEngine
     void ShaderLoader::DebugResource(const Shader& resource) const
     {
         resource.OnDrawDebug();
+    }
+
+    void ShaderLoader::OnPreUpdate(float dT)
+    {
+        for (const auto& shader : m_LoadedResources)
+        {
+            shader.second.get()->ClearRecordedData();
+        }
     }
 #endif //FORGE_DEBUG_ENABLED
 }

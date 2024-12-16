@@ -3,9 +3,11 @@
 #include "engine/assetloaders/LoadableAsset.h"
 #include "engine/math/Matrix4.h"
 
+#include <map>
+#include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
-#include <string>
 
 namespace ForgeEngine
 {
@@ -52,11 +54,19 @@ namespace ForgeEngine
 
 	class Color;
 	class Material;
+	class MeshComponent;
 	class Texture;
 
 	class Shader : public LoadableAsset
 	{
         public:
+#ifdef FORGE_DEBUG_ENABLED
+            struct RecordData
+            {
+                std::map<std::string, std::string> m_Data;
+            };
+#endif //FORGE_DEBUG_ENABLED
+
             Shader(const std::string& shaderPath);
             ~Shader();
 
@@ -64,6 +74,9 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
             const char* GetDebugName() const override { return "TODO"; }
             void OnDrawDebug() const override;
+            void ClearRecordedData() { m_RecordedData.clear(); }
+
+            const RecordData* GetRecordData(const MeshComponent* dataOwner) const;
 #endif //FORGE_DEBUG_ENABLED
 
             void Use() const;
@@ -77,15 +90,15 @@ namespace ForgeEngine
             const auto& GetAttributesSizes() const { return m_AttributesSizes; }
 
             //Use should be called before calling any of the following!
-            void SetFloat(const char* which, float value) const;
-            void SetBool(const char* which, bool value) const;
-            void SetInt(const char* which, int value) const;
-            void SetColor(const char* which, const Color& value) const;
-            void SetTexture(unsigned int which, const Texture* texture) const;
-            void SetMatrix4(const char* which, const glm::mat4& matrix) const;
-            void SetMatrix3(const char* which, const glm::mat3& matrix) const;
-            void SetVector3(const char* which, const Vector3& vector) const;
-            void SetMaterial(const Material& material) const;
+            void SetFloat(const char* which, float value, const MeshComponent* callerAdress = nullptr);
+            void SetBool(const char* which, bool value, const MeshComponent* callerAdress = nullptr);
+            void SetInt(const char* which, int value, const MeshComponent* callerAdress = nullptr);
+            void SetColor(const char* which, const Color& value, const MeshComponent* callerAdress = nullptr);
+            void SetTexture(unsigned int which, const Texture* texture, const MeshComponent* callerAdress = nullptr);
+            void SetMatrix4(const char* which, const glm::mat4& matrix, const MeshComponent* callerAdress = nullptr);
+            void SetMatrix3(const char* which, const glm::mat3& matrix, const MeshComponent* callerAdress = nullptr);
+            void SetVector3(const char* which, const Vector3& vector, const MeshComponent* callerAdress = nullptr);
+            void SetMaterial(const Material& material, const MeshComponent* callerAdress = nullptr);
 
 		private:
 #ifdef FORGE_DEBUG_ENABLED
@@ -98,10 +111,10 @@ namespace ForgeEngine
             void ParseUniforms(const std::string& fileContent);
             void OrderUniforms();
 
-            Color GetUniformTypeColor(const std::string& type) const;
             const UniformData* GetUniformData(const std::string& uniformName) const;
 
 			std::vector<UniformData> m_UniformsData{};
+            std::unordered_map<const MeshComponent*, RecordData> m_RecordedData;
 #endif //FORGE_DEBUG_ENABLED
            
 			//Stores the attributes declared in the shader source using the GLSL_ATTRIBUTE_TOKEN (must be declared in the right order !

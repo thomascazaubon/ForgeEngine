@@ -44,7 +44,7 @@ namespace ForgeEngine
 		glBindVertexArray(0);
 	}
 
-	void DebugElement::Draw(const Shader& shader) const
+	void DebugElement::Draw(Shader& shader) const
 	{
 		glDisable(GL_DEPTH_TEST);
 

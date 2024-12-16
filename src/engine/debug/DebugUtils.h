@@ -1,6 +1,8 @@
 #pragma once
 
+#include "engine/math/Matrix4.h"
 #include "engine/math/Vector3.h"
+#include "engine/math/Vector4.h"
 
 #include <format>
 #include <string>
@@ -34,6 +36,10 @@ namespace ForgeEngine
         {
             LogError(std::vformat(format, std::make_format_args(args...)));
         }
+
+        std::string ToString(const Vector3& vector);
+        std::string ToString(const Vector4& vector);
+        std::string ToString(const Matrix4& matrix);
     }
 #endif //FORGE_DEBUG_ENABLED
 }

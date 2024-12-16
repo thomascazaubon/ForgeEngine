@@ -22,29 +22,6 @@
 
 namespace ForgeEngine
 {
-	namespace Private
-	{
-#ifdef FORGE_DEBUG_ENABLED
-		ImVec4 GetUniformTypeColor(const std::string& type)
-		{
-			if (type == "bool")
-			{
-				return ImGUIUtils::ToImColor(COLOR_BLUE);
-			}
-			if (type == "float")
-			{
-				return ImGUIUtils::ToImColor(COLOR_GREEN);
-			}
-			if (type == "vec3")
-			{
-				return ImGUIUtils::ToImColor(COLOR_PURPLE);
-			}
-			return ImGUIUtils::ToImColor(COLOR_ORANGE);
-			
-		}
-#endif //FORGE_DEBUG_ENABLED
-	}
-
 	Shader::Shader(const std::string& shaderPath)
 	{
 		const std::string vsPath = shaderPath + ".vert";
@@ -146,58 +123,114 @@ namespace ForgeEngine
 		return -1;
 	}
 
-	void Shader::SetFloat(const char* which, float value) const
+	void Shader::SetFloat(const char* which, float value, const MeshComponent* callerAdress /*= nullptr*/) 
 	{
 		glUniform1f(glGetUniformLocation(m_ProgramID, which), value);
+		#ifdef FORGE_DEBUG_ENABLED
+		if (callerAdress != nullptr)
+		{
+			m_RecordedData[callerAdress].m_Data[which] = std::format("{:2}", value);
+		}
+		#endif //FORGE_DEBUG_ENABLED
 	}
 
-	void Shader::SetBool(const char* which, bool value) const
+	void Shader::SetBool(const char* which, bool value, const MeshComponent* callerAdress /*= nullptr*/) 
 	{
 		glUniform1i(glGetUniformLocation(m_ProgramID, which), static_cast<int>(value));
+#ifdef FORGE_DEBUG_ENABLED
+		if (callerAdress != nullptr)
+		{
+			m_RecordedData[callerAdress].m_Data[which] = std::format("{}", value ? "true" : false);
+		}
+#endif //FORGE_DEBUG_ENABLED
 	}
 
-	void Shader::SetInt(const char* which, int value) const
+	void Shader::SetInt(const char* which, int value, const MeshComponent* callerAdress /*= nullptr*/) 
 	{
 		glUniform1i(glGetUniformLocation(m_ProgramID, which), value);
+
+#ifdef FORGE_DEBUG_ENABLED
+		if (callerAdress != nullptr)
+		{
+			m_RecordedData[callerAdress].m_Data[which] = std::format("{}", value);
+		}
+#endif //FORGE_DEBUG_ENABLED
 	}
 
-	void Shader::SetColor(const char* which, const Color& value) const
+	void Shader::SetColor(const char* which, const Color& value, const MeshComponent* callerAdress /*= nullptr*/) 
 	{
 		glUniform4f(glGetUniformLocation(m_ProgramID, which), value.GetRRatio(), value.GetGRatio(), value.GetBRatio(), value.GetA());
+#ifdef FORGE_DEBUG_ENABLED
+		if (callerAdress != nullptr)
+		{
+			m_RecordedData[callerAdress].m_Data[which] = value.ToString();
+		}
+#endif //FORGE_DEBUG_ENABLED
 	}
 
-	void Shader::SetTexture(unsigned int which, const Texture* texture) const
+	void Shader::SetTexture(unsigned int which, const Texture* texture, const MeshComponent* callerAdress /*= nullptr*/) 
 	{
         SetBool(DEFAULT_USE_TEXTURE_NAME, texture != nullptr);
         glActiveTexture(texture != nullptr ? which : 0); // activate the texture unit first before binding texture
         glBindTexture(GL_TEXTURE_2D, texture != nullptr ? texture->GetGLTexture() : 0);
 	}
 
-	void Shader::SetMatrix4(const char* which, const glm::mat4& matrix) const
+	void Shader::SetMatrix4(const char* which, const glm::mat4& matrix, const MeshComponent* callerAdress /*= nullptr*/) 
 	{
 		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(matrix));
+#ifdef FORGE_DEBUG_ENABLED
+		if (callerAdress != nullptr)
+		{
+			m_RecordedData[callerAdress].m_Data[which] = DebugUtils::ToString(matrix);
+		}
+#endif //FORGE_DEBUG_ENABLED
 	}
 
-	void Shader::SetMatrix3(const char* which, const glm::mat3& matrix) const
+	void Shader::SetMatrix3(const char* which, const glm::mat3& matrix, const MeshComponent* callerAdress /*= nullptr*/) 
 	{
 		glUniformMatrix3fv(glGetUniformLocation(m_ProgramID, which), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-    void Shader::SetVector3(const char* which, const Vector3& vector) const
+    void Shader::SetVector3(const char* which, const Vector3& vector, const MeshComponent* callerAdress /*= nullptr*/) 
     {
         glUniform3f(glGetUniformLocation(m_ProgramID, which), vector.x, vector.y, vector.z);
+#ifdef FORGE_DEBUG_ENABLED
+		if (callerAdress != nullptr)
+		{
+			m_RecordedData[callerAdress].m_Data[which] = DebugUtils::ToString(vector);
+		}
+#endif //FORGE_DEBUG_ENABLED
     }
 
-    void Shader::SetMaterial(const Material& material) const
+    void Shader::SetMaterial(const Material& material, const MeshComponent* callerAdress /*= nullptr*/) 
     {
         SetColor(DEFAULT_MATERIAL_COLOR_NAME, material.GetColor());
         SetFloat(DEFAULT_MATERIAL_DIFFUSE_NAME, material.GetDiffuse());
         SetFloat(DEFAULT_MATERIAL_SPECULAR_NAME, material.GetSpecular());
         SetInt(DEFAULT_MATERIAL_SHININESS_NAME,material.GetShininess());
         SetTexture(GL_TEXTURE0, material.GetTexture());
+#ifdef FORGE_DEBUG_ENABLED
+		if (callerAdress != nullptr)
+		{
+			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_COLOR_NAME] = material.GetColor().ToString();
+			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_DIFFUSE_NAME] = std::format("{}", material.GetDiffuse());
+			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_SPECULAR_NAME] = std::format("{}", material.GetSpecular());
+			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_SHININESS_NAME] = std::format("{}", material.GetShininess());
+		}
+#endif //FORGE_DEBUG_ENABLED
     }
 
 #ifdef FORGE_DEBUG_ENABLED
+	const Shader::RecordData* Shader::GetRecordData(const MeshComponent* dataOwner) const
+	{
+		auto itr = m_RecordedData.find(dataOwner);
+		if (itr != m_RecordedData.end())
+		{
+			return &itr->second;
+		}
+		return nullptr;
+	}
+
 	void Shader::ParseUniforms(const std::string& fileContent)
 	{
 		for (const std::string& str : FileUtils::ExtractLines(GLSL_UNIFORM_TOKEN, fileContent))
@@ -240,14 +273,19 @@ namespace ForgeEngine
     void Shader::OnDrawDebug() const
     {
         ImGui::Text("Program ID: %d", m_ProgramID);
-        ImGui::Text("Input Data Size: %d", GetInputDataSize());
         ImGui::Text("Vertex ID: %d", m_VertexID);
         ImGui::Text("Geometry ID: %d", m_GeometryID);
         ImGui::Text("FragmentID ID: %d", m_FragmentID);
+        ImGui::Text("Input Data Size: %d", GetInputDataSize());
 
-		for (const UniformData& data : m_UniformsData)
+		if (ImGui::CollapsingHeader("Variables"))
 		{
-			ImGui::TextColored(Private::GetUniformTypeColor(data.m_VariableType), "%s (%s)", data.m_VariableName.c_str(), data.m_VariableType.c_str());
+			ImGui::Indent();
+			for (const UniformData& data : m_UniformsData)
+			{
+				ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(data.m_VariableType), "%s (%s)", data.m_VariableName.c_str(), data.m_VariableType.c_str());
+			}
+			ImGui::Unindent();
 		}
     }
 #endif //FORGE_DEBUG_ENABLED
