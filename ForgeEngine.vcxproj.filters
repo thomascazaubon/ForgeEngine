@@ -1113,9 +1113,6 @@
     <ClInclude Include="src\engine\math\Transform.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\debug\ImGUIUtils.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\debug\ImGUICore.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -1316,7 +1313,7 @@
     <ClCompile Include="src\engine\math\Transform.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\debug\ImGUIUtils.cpp">
+    <ClCompile Include="src\engine\debug\ImGUICore.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

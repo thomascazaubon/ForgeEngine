@@ -9,7 +9,7 @@
 
 #ifdef FORGE_DEBUG_ENABLED
 #include "engine/debug/DebugUtils.h"
-#include "engine/debug/ImGUIUtils.h"
+#include "engine/debug/ImGUICore.h"
 #endif //FORGE_DEBUG_ENABLED
 
 #include <algorithm>
