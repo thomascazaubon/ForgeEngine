@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef FORGE_DEBUG_ENABLED
-#include "engine/debug/ImGUI.h"
+#include "engine/debug/ImGUICore.h"
 
 namespace ForgeEngine
 {

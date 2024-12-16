@@ -1038,9 +1038,6 @@
     <ClInclude Include="src\engine\debug\DebugUtils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\debug\ImGUI.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\input\InputAction.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -1117,6 +1114,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\debug\ImGUIUtils.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\debug\ImGUICore.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

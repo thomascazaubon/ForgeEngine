@@ -3,7 +3,7 @@
 #include "engine/assetloaders/ShaderLoader.h"
 #include "engine/core/ForgeEngine.h"
 #include "engine/debug/DebugDrawer.h"
-#include "engine/debug/ImGUI.h"
+#include "engine/debug/ImGUICore.h"
 #include "engine/input/InputHelper.h"
 
 #include <list>

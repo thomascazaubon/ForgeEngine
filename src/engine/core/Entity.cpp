@@ -1,7 +1,7 @@
 #include "Entity.h"
 
 #ifdef FORGE_DEBUG_ENABLED
-#include "engine/debug/ImGUI.h"
+#include "engine/debug/ImGUICore.h"
 #endif //FORGE_DEBUG_ENABLED
 
 #include <algorithm>

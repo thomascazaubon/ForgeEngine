@@ -5,7 +5,7 @@
 #include "engine/assetloaders/ShaderLoader.h"
 #include "engine/assetloaders/TextureLoader.h"
 #include "engine/core/ForgeEngine.h"
-#include "engine/debug/ImGui.h"
+#include "engine/debug/ImGUICore.h"
 #include "engine/render/ShaderUtils.h"
 #include "engine/worldcomponents/DebugManager.h"
 #include "engine/worldcomponents/InputManager.h"

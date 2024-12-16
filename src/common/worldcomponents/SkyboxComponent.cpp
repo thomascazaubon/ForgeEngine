@@ -1,7 +1,7 @@
 #include "SkyboxComponent.h"
 
 #include "engine/core/ForgeEngine.h"
-#include "engine/debug/ImGUI.h"
+#include "engine/debug/ImGUICore.h"
 #include "engine/math/MathUtils.h"
 
 #include <format>
