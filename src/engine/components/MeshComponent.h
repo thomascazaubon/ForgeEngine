@@ -10,26 +10,26 @@
 
 namespace ForgeEngine
 {
-    class Shader;
-    class Texture;
+	class Shader;
+	class Texture;
 
-    enum class BillboardMode
-    {
-        Disabled,
-        LockY,
-        Full
-    };
+	enum class BillboardMode
+	{
+		Disabled,
+		LockY,
+		Full
+	};
 
-    class MeshComponent : public Component
-    {
-        using Mother = Component;
+	class MeshComponent : public Component
+	{
+		using Mother = Component;
 
-        public:
-            MeshComponent(const Mesh& mesh, const std::string& shaderPath, BillboardMode billboardMode = BillboardMode::Disabled);
+		public:
+			MeshComponent(const Mesh& mesh, const std::string& shaderPath, BillboardMode billboardMode = BillboardMode::Disabled);
 
-            virtual void OnUpdate(float dT) override;
-            virtual void OnPostUpdate(float dT) override;
-            virtual void OnDestroy() override;
+			virtual void OnUpdate(float dT) override;
+			virtual void OnPostUpdate(float dT) override;
+			virtual void OnDestroy() override;
 
 #ifdef FORGE_DEBUG_ENABLED
             const char* GetDebugName() const override { return "MeshComponent"; }
@@ -37,31 +37,27 @@ namespace ForgeEngine
 
             Mesh& GetMesh() { return m_Mesh; }
 
-        protected:
+		protected:
 #ifdef FORGE_DEBUG_ENABLED
         void OnDrawDebug(float dT) const override;
 #endif //FORGE_DEBUG_ENABLED
 
-        private:
+		private:
 #ifdef FORGE_DEBUG_ENABLED
-            struct RecordData
-            {
-                struct Data
-                {
-                    Data() : m_Type(""), m_Value("") {}
-                    Data(const std::string& type, const std::string& value) : m_Type(type), m_Value(value) {}
+			struct RecordData
+			{
+				struct Data
+				{
+					Data() : m_Type(""), m_Value("") {}
+					Data(const std::string& type, const std::string& value) : m_Type(type), m_Value(value) {}
 
-                    std::string m_Type;
-                    std::string m_Value;
-                };
+					std::string m_Type;
+					std::string m_Value;
+				};
 
-                std::map<std::string, Data> m_Data;
-            };
-#endif //FORGE_DEBUG_ENABLED
+				std::map<std::string, Data> m_Data;
+			};
 
-            void InitRender();
-
-#ifdef FORGE_DEBUG_ENABLED
             void UpdateDrawModeCombo() const;
             void DebugShaderRecords() const;
 
@@ -76,20 +72,23 @@ namespace ForgeEngine
             void SetShaderMaterial(const char* which, const Material& material);
 #endif //FORGE_DEBUG_ENABLED
 
+            void ResetRender();
+            void InitRender();
 
             Mesh m_Mesh{};
             std::shared_ptr<Shader> m_Shader{};
 
             unsigned int m_VertexArrayObject{};
-            mutable unsigned int m_VertexBufferObject{};
-            unsigned int m_VertexBufferElement{};
+			mutable unsigned int m_VertexBufferObject{};
+			unsigned int m_VertexBufferElement{};
             unsigned int m_NumIndices{};
-            BillboardMode m_BillboardMode;
-            mutable DrawMode m_CurrentDrawMode{ DrawMode::Arrays };
+			BillboardMode m_BillboardMode;
+			mutable DrawMode m_CurrentDrawMode{ DrawMode::Arrays };
 
 #ifdef FORGE_DEBUG_ENABLED
-            mutable RecordData m_RecordData;
-            mutable bool m_RecordEnabled{false};
+			mutable RecordData m_RecordData;
+			mutable bool m_RecordEnabled{false};
+			mutable bool m_ResetRequested{false};
 #endif //FORGE_DEBUG_ENABLED
-    };
+	};
 }

@@ -52,6 +52,16 @@ namespace ForgeEngine
         InitRender();
     }
 
+    void MeshComponent::ResetRender()
+    {
+        glDeleteVertexArrays(1, &m_VertexArrayObject);
+        m_VertexArrayObject = 0;
+        glDeleteBuffers(1, &m_VertexBufferObject);
+        m_VertexBufferObject = 0;
+        glDeleteBuffers(1, &m_VertexBufferElement);
+        m_VertexBufferElement = 0;
+    }
+
     void MeshComponent::InitRender()
     {
         if (m_Shader == nullptr)
@@ -122,7 +132,16 @@ namespace ForgeEngine
 
     void MeshComponent::OnPostUpdate(float dT)
     {
-        Mother::OnUpdate(dT);
+        Mother::OnPostUpdate(dT);
+
+#ifdef FORGE_DEBUG_ENABLED
+        if (m_ResetRequested)
+        {
+            ResetRender();
+            InitRender();
+            m_ResetRequested = false;
+        }
+#endif //FORGE_DEBUG_ENABLED
 
         if (m_Shader != nullptr)
         {
@@ -192,9 +211,7 @@ namespace ForgeEngine
 
     void MeshComponent::OnDestroy() /*override*/
     {
-        glDeleteVertexArrays(1, &m_VertexArrayObject);
-        glDeleteBuffers(1, &m_VertexBufferObject);
-        glDeleteBuffers(1, &m_VertexBufferElement);
+        ResetRender();
         Mother::OnDestroy();
     }
 
@@ -308,27 +325,7 @@ namespace ForgeEngine
                 if (ImGui::Selectable(drawMode == DrawMode::Arrays ? "Arrays" : "Elements", isSelected))
                 {
                     m_CurrentDrawMode = drawMode;
-                    std::vector<float> meshData = m_Mesh.MakeGLData(m_CurrentDrawMode);
-                    glDeleteBuffers(1, &m_VertexBufferObject);
-
-                    //Generates buffer to store vertices
-                    glGenBuffers(1, &m_VertexBufferObject);
-
-                    //Bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-
-                    //1. Bind Vertex Array Object
-                    glBindVertexArray(m_VertexArrayObject);
-
-                    //2. Copy our vertices array in a buffer for OpenGL to use
-                    glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObject);
-                    const GLintptr meshDataSize = meshData.size() * sizeof(float);
-                    glBufferData(GL_ARRAY_BUFFER, meshDataSize, meshData.data(), GL_STATIC_DRAW);
-
-                    //Note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-                    glBindBuffer(GL_ARRAY_BUFFER, 0);
-                    //You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-                    //VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-                    glBindVertexArray(0);
+                    m_ResetRequested = true;
                 }
 
                 if (isSelected)
