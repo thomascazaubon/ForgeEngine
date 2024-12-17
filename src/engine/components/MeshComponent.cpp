@@ -296,18 +296,21 @@ namespace ForgeEngine
 	{
 		if (const Shader::RecordData* records = m_Shader->GetRecordData(this))
 		{
-			if (ImGui::BeginTable("table", 2, ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders))
+			if (ImGui::BeginTable("Records", 3, ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders))
 			{
 				ImGui::TableSetupColumn("Name");
+				ImGui::TableSetupColumn("Type");
 				ImGui::TableSetupColumn("Value");
 				ImGui::TableHeadersRow();
 				for (const auto& pair : records->m_Data)
 				{
 					ImGui::TableNextRow();
 					ImGui::TableSetColumnIndex(0);
-					ImGui::Text("%s", pair.first.c_str());
+					ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.first.c_str());
 					ImGui::TableSetColumnIndex(1);
-					ImGui::Text("%s", pair.second.c_str());
+					ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Type.c_str());
+					ImGui::TableSetColumnIndex(2);
+					ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Value.c_str());
 				}
 				ImGui::EndTable();
 			}

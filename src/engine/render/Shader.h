@@ -63,7 +63,16 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
             struct RecordData
             {
-                std::map<std::string, std::string> m_Data;
+                struct Data
+                {
+                    Data() : m_Type(""), m_Value("") {}
+                    Data(const std::string& type, const std::string& value) : m_Type(type), m_Value(value) {}
+
+                    std::string m_Type;
+                    std::string m_Value;
+                };
+
+                std::map<std::string, Data> m_Data;
             };
 #endif //FORGE_DEBUG_ENABLED
 

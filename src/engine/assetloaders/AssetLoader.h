@@ -4,6 +4,7 @@
 #include "engine/worldcomponents/WorldComponent.h"
 
 #ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/DebugUtils.h"
 #include "engine/debug/ImGUICore.h"
 #endif //FORGE_DEBUG_ENABLED
 
@@ -30,6 +31,9 @@ namespace ForgeEngine
                 {
                     if (!AddResource(resourcePath))
                     {
+#ifdef FORGE_DEBUG_ENABLED
+                        DebugUtils::LogWarning("{}: Cannot find resource \"{}\"", GetDebugName(), resourcePath);
+#endif
                         return GetDefault();
                     }
                 }

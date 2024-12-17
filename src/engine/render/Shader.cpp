@@ -129,7 +129,7 @@ namespace ForgeEngine
 		#ifdef FORGE_DEBUG_ENABLED
 		if (callerAdress != nullptr)
 		{
-			m_RecordedData[callerAdress].m_Data[which] = std::format("{:2}", value);
+			m_RecordedData[callerAdress].m_Data[which] = RecordData::Data("float", std::format("{:2}", value));
 		}
 		#endif //FORGE_DEBUG_ENABLED
 	}
@@ -140,7 +140,7 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
 		if (callerAdress != nullptr)
 		{
-			m_RecordedData[callerAdress].m_Data[which] = std::format("{}", value ? "true" : false);
+			m_RecordedData[callerAdress].m_Data[which] = RecordData::Data("bool", std::format("{}", value ? "true" : false));
 		}
 #endif //FORGE_DEBUG_ENABLED
 	}
@@ -152,7 +152,7 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
 		if (callerAdress != nullptr)
 		{
-			m_RecordedData[callerAdress].m_Data[which] = std::format("{}", value);
+			m_RecordedData[callerAdress].m_Data[which] = RecordData::Data("int", std::format("{}", value));
 		}
 #endif //FORGE_DEBUG_ENABLED
 	}
@@ -163,7 +163,7 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
 		if (callerAdress != nullptr)
 		{
-			m_RecordedData[callerAdress].m_Data[which] = value.ToString();
+			m_RecordedData[callerAdress].m_Data[which] = RecordData::Data("vec4", value.ToString());
 		}
 #endif //FORGE_DEBUG_ENABLED
 	}
@@ -181,7 +181,7 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
 		if (callerAdress != nullptr)
 		{
-			m_RecordedData[callerAdress].m_Data[which] = DebugUtils::ToString(matrix);
+			m_RecordedData[callerAdress].m_Data[which] = RecordData::Data("mat4", DebugUtils::ToString(matrix));
 		}
 #endif //FORGE_DEBUG_ENABLED
 	}
@@ -197,7 +197,7 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
 		if (callerAdress != nullptr)
 		{
-			m_RecordedData[callerAdress].m_Data[which] = DebugUtils::ToString(vector);
+			m_RecordedData[callerAdress].m_Data[which] = RecordData::Data("vec3", DebugUtils::ToString(vector));
 		}
 #endif //FORGE_DEBUG_ENABLED
     }
@@ -212,10 +212,10 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
 		if (callerAdress != nullptr)
 		{
-			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_COLOR_NAME] = material.GetColor().ToString();
-			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_DIFFUSE_NAME] = std::format("{}", material.GetDiffuse());
-			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_SPECULAR_NAME] = std::format("{}", material.GetSpecular());
-			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_SHININESS_NAME] = std::format("{}", material.GetShininess());
+			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_COLOR_NAME] = RecordData::Data("vec4", material.GetColor().ToString());
+			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_DIFFUSE_NAME] = RecordData::Data("float", std::format("{}", material.GetDiffuse()));
+			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_SPECULAR_NAME] = RecordData::Data("float", std::format("{}", material.GetSpecular()));
+			m_RecordedData[callerAdress].m_Data[DEFAULT_MATERIAL_SHININESS_NAME] = RecordData::Data("int", std::format("{}", material.GetShininess()));
 		}
 #endif //FORGE_DEBUG_ENABLED
     }
