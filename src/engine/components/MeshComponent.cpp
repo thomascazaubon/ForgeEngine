@@ -21,6 +21,28 @@
 
 namespace ForgeEngine
 {
+#ifdef FORGE_DEBUG_ENABLED
+	#define SET_SHADER_FLOAT(Identifier, Value) SetShaderFloat(Identifier, Value)
+	#define SET_SHADER_BOOL(Identifier, Value) SetShaderBool(Identifier, Value)
+	#define SET_SHADER_INT(Identifier, Value) SetShaderInt(Identifier, Value)
+	#define SET_SHADER_COLOR(Identifier, Value) SetShaderColor(Identifier, Value)
+	#define SET_SHADER_TEXTURE(Identifier, Value) SetShaderTexture(Identifier, Value)
+	#define SET_SHADER_MATRIX3(Identifier, Value) SetShaderMatrix3(Identifier, Value)
+	#define SET_SHADER_MATRIX4(Identifier, Value) SetShaderMatrix4(Identifier, Value)
+	#define SET_SHADER_VECTOR3(Identifier, Value) SetShaderVector3(Identifier, Value)
+	#define SET_SHADER_MATERIAL(Identifier, Value) SetShaderMaterial(Identifier, Value)
+#else
+	#define SET_SHADER_FLOAT(Identifier, Value) m_Shader->SetFloat(Identifier, Value)
+	#define SET_SHADER_BOOL(Identifier, Value) m_Shader->SetBool(Identifier, Value)
+	#define SET_SHADER_INT(Identifier, Value) m_Shader->SetInt(Identifier, Value)
+	#define SET_SHADER_COLOR(Identifier, Value) m_Shader->SetColor(Identifier, Value)
+	#define SET_SHADER_TEXTURE(Identifier, Value) m_Shader->SetTexture(Identifier, Value)
+	#define SET_SHADER_MATRIX3(Identifier, Value) m_Shader->SetMatrix3(Identifier, Value)
+	#define SET_SHADER_MATRIX4(Identifier, Value) m_Shader->SetMatrix4(Identifier, Value)
+	#define SET_SHADER_VECTOR3(Identifier, Value) m_Shader->SetVector3(Identifier, Value)
+	#define SET_SHADER_MATERIAL(Identifier, Value) m_Shader->SetMaterial(Identifier, Value)
+#endif //FORGE_DEBUG_ENABLED
+
 	MeshComponent::MeshComponent(const Mesh& mesh, const std::string& shaderPath, BillboardMode billboardMode /*= BillboardMode::Disabled*/)
         : Mother()
         , m_Mesh(mesh)
@@ -120,56 +142,24 @@ namespace ForgeEngine
 				matrix = GetOwner()->GetTransform().MakeLookAt(direction);
 			}
 
-			m_Shader->SetMatrix4(DEFAULT_TRANSFORM_NAME, matrix
-#ifdef FORGE_DEBUG_ENABLED
-				, m_RecordEnabled ? this : nullptr
-#endif
-			);
+			SET_SHADER_MATRIX4(DEFAULT_TRANSFORM_NAME, matrix);
             //TODO: Don't do this per frame
-			m_Shader->SetMatrix3(DEFAULT_NORMAL_MATRIX_NAME, glm::mat3(glm::transpose(glm::inverse(m_Owner->GetTransform().GetMatrix())))
-#ifdef FORGE_DEBUG_ENABLED
-				, m_RecordEnabled ? this : nullptr
-#endif
-			);
+			SET_SHADER_MATRIX3(DEFAULT_NORMAL_MATRIX_NAME, glm::mat3(glm::transpose(glm::inverse(m_Owner->GetTransform().GetMatrix()))));
 
             //Lighting
             std::vector<const LightComponent*> lights = GameHandler::Get().GetWorld().GetComponentByType<LightManager>()->GetLightsInRange(GetOwner()->GetPosition());
 			//TODO: support multiple lights
             if (!lights.empty())
             {
-				m_Shader->SetBool(DEFAULT_HAS_POINT_LIGHTS_NAME, true
-#ifdef FORGE_DEBUG_ENABLED
-					, m_RecordEnabled ? this : nullptr
-#endif
-					);
-                m_Shader->SetColor(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor()
-#ifdef FORGE_DEBUG_ENABLED
-					, m_RecordEnabled ? this : nullptr
-#endif
-				);
-                m_Shader->SetVector3(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition()
-#ifdef FORGE_DEBUG_ENABLED
-					, m_RecordEnabled ? this : nullptr
-#endif
-				);
-                m_Shader->SetFloat(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity()
-#ifdef FORGE_DEBUG_ENABLED
-					, m_RecordEnabled ? this : nullptr
-#endif
-				);
-                m_Shader->SetFloat(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange()
-#ifdef FORGE_DEBUG_ENABLED
-					, m_RecordEnabled ? this : nullptr
-#endif
-				);
+				SET_SHADER_BOOL(DEFAULT_HAS_POINT_LIGHTS_NAME, true);
+				SET_SHADER_COLOR(DEFAULT_LIGHT_COLOR_NAME, lights[0]->GetColor());
+				SET_SHADER_VECTOR3(DEFAULT_LIGHT_SOURCE_POSITION_NAME, lights[0]->GetOwner()->GetPosition());
+				SET_SHADER_FLOAT(DEFAULT_LIGHT_INTENSITY_NAME, lights[0]->GetIntensity());
+				SET_SHADER_FLOAT(DEFAULT_LIGHT_SOURCE_RANGE_NAME, lights[0]->GetRange());
             }
 			else
 			{
-				m_Shader->SetBool(DEFAULT_HAS_POINT_LIGHTS_NAME, false
-#ifdef FORGE_DEBUG_ENABLED
-					, m_RecordEnabled ? this : nullptr
-#endif
-				);
+				SET_SHADER_BOOL(DEFAULT_HAS_POINT_LIGHTS_NAME, false);
 			}
 
 			float ambientLightIntensity = 1.f;
@@ -179,33 +169,13 @@ namespace ForgeEngine
 				ambientLightIntensity = skybox->GetAmbientLightIntensity();
 			}
 
-            m_Shader->SetFloat(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, ambientLightIntensity
-#ifdef FORGE_DEBUG_ENABLED
-				, m_RecordEnabled ? this : nullptr
-#endif
-			);
+			SET_SHADER_FLOAT(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, ambientLightIntensity);
 			
-            m_Shader->SetMaterial(*m_Mesh.GetMaterial()
-#ifdef FORGE_DEBUG_ENABLED
-				, m_RecordEnabled ? this : nullptr
-#endif
-			);
+			SET_SHADER_MATERIAL(DEFAULT_MATERIAL_NAME, *m_Mesh.GetMaterial());
 
-			m_Shader->SetMatrix4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection()
-#ifdef FORGE_DEBUG_ENABLED
-				, m_RecordEnabled ? this : nullptr
-#endif
-			);
-			m_Shader->SetMatrix4(DEFAULT_VIEW_NAME, activeCamera.GetView()
-#ifdef FORGE_DEBUG_ENABLED
-				, m_RecordEnabled ? this : nullptr
-#endif
-			);
-			m_Shader->SetVector3(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition()
-#ifdef FORGE_DEBUG_ENABLED
-				, m_RecordEnabled ? this : nullptr
-#endif
-			);
+			SET_SHADER_MATRIX4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection());
+			SET_SHADER_MATRIX4(DEFAULT_VIEW_NAME, activeCamera.GetView());
+			SET_SHADER_VECTOR3(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition());
 
 			glBindVertexArray(m_VertexArrayObject);
 			if (m_CurrentDrawMode == DrawMode::Elements)
@@ -229,6 +199,83 @@ namespace ForgeEngine
 	}
 
 #ifdef FORGE_DEBUG_ENABLED
+	void MeshComponent::SetShaderFloat(const char* which, float value)
+	{
+		m_Shader->SetFloat(which, value);
+		if (m_RecordEnabled && m_Shader->HasUniform(which))
+		{
+			m_RecordData.m_Data[which] = RecordData::Data("float", std::format("{:2}", value));
+		}
+	}
+
+	void MeshComponent::SetShaderBool(const char* which, bool value)
+	{
+		m_Shader->SetBool(which, value);
+		if (m_RecordEnabled && m_Shader->HasUniform(which))
+		{
+			m_RecordData.m_Data[which] = RecordData::Data("bool", std::format("{}", value ? "true" : false));
+		}
+	}
+
+	void MeshComponent::SetShaderInt(const char* which, int value)
+	{
+		m_Shader->SetInt(which, value);
+
+		if (m_RecordEnabled && m_Shader->HasUniform(which))
+		{
+			m_RecordData.m_Data[which] = RecordData::Data("int", std::format("{}", value));
+		}
+	}
+
+	void MeshComponent::SetShaderColor(const char* which, const Color& value)
+	{
+		m_Shader->SetColor(which, value);
+		if (m_RecordEnabled && m_Shader->HasUniform(which))
+		{
+			m_RecordData.m_Data[which] = RecordData::Data("vec4", value.ToString());
+		}
+	}
+
+	void MeshComponent::SetShaderTexture(unsigned int which, const Texture* texture)
+	{
+		m_Shader->SetTexture(which, texture);
+	}
+
+	void MeshComponent::SetShaderMatrix4(const char* which, const glm::mat4& matrix)
+	{
+		m_Shader->SetMatrix4(which, matrix);
+		if (m_RecordEnabled && m_Shader->HasUniform(which))
+		{
+			m_RecordData.m_Data[which] = RecordData::Data("mat4", DebugUtils::ToString(matrix));
+		}
+	}
+
+	void MeshComponent::SetShaderMatrix3(const char* which, const glm::mat3& matrix)
+	{
+		m_Shader->SetMatrix3(which, matrix);
+	}
+
+	void MeshComponent::SetShaderVector3(const char* which, const Vector3& vector)
+	{
+		m_Shader->SetVector3(which, vector);
+		if (m_RecordEnabled && m_Shader->HasUniform(which))
+		{
+			m_RecordData.m_Data[which] = RecordData::Data("vec3", DebugUtils::ToString(vector));
+		}
+	}
+
+	void MeshComponent::SetShaderMaterial(const char* which, const Material& material)
+	{
+		m_Shader->SetMaterial(which, material);
+		if (m_RecordEnabled && m_Shader->HasUniform(which))
+		{
+			m_RecordData.m_Data[std::format("{}.{}", which, DEFAULT_MATERIAL_COLOR_NAME)] = RecordData::Data("vec4", material.GetColor().ToString());
+			m_RecordData.m_Data[std::format("{}.{}", which, DEFAULT_MATERIAL_DIFFUSE_NAME)] = RecordData::Data("float", std::format("{}", material.GetDiffuse()));
+			m_RecordData.m_Data[std::format("{}.{}", which, DEFAULT_MATERIAL_SPECULAR_NAME)] = RecordData::Data("float", std::format("{}", material.GetSpecular()));
+			m_RecordData.m_Data[std::format("{}.{}", which, DEFAULT_MATERIAL_SHININESS_NAME)] = RecordData::Data("int", std::format("{}", material.GetShininess()));
+		}
+	}
+
     void MeshComponent::OnDrawDebug(float dT) const
     {
 		UpdateDrawModeCombo();
@@ -237,7 +284,7 @@ namespace ForgeEngine
         ImGui::Text("VBE ID: %d", m_VertexBufferElement);
         ImGui::Text("Num Indices: %d", m_NumIndices);
 		m_Mesh.OnDrawDebug(m_CurrentDrawMode);
-		if (ImGui::CollapsingHeader("FrameDataRecords"))
+		if (ImGui::CollapsingHeader("Shader Records"))
 		{
 			m_RecordEnabled = true;
 			DebugShaderRecords();
@@ -294,27 +341,26 @@ namespace ForgeEngine
 
 	void MeshComponent::DebugShaderRecords() const
 	{
-		if (const Shader::RecordData* records = m_Shader->GetRecordData(this))
+		if (ImGui::BeginTable("Records", 3, ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders))
 		{
-			if (ImGui::BeginTable("Records", 3, ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders))
+			ImGui::TableSetupColumn("Name");
+			ImGui::TableSetupColumn("Type");
+			ImGui::TableSetupColumn("Value");
+			ImGui::TableHeadersRow();
+			for (const auto& pair : m_RecordData.m_Data)
 			{
-				ImGui::TableSetupColumn("Name");
-				ImGui::TableSetupColumn("Type");
-				ImGui::TableSetupColumn("Value");
-				ImGui::TableHeadersRow();
-				for (const auto& pair : records->m_Data)
-				{
-					ImGui::TableNextRow();
-					ImGui::TableSetColumnIndex(0);
-					ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.first.c_str());
-					ImGui::TableSetColumnIndex(1);
-					ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Type.c_str());
-					ImGui::TableSetColumnIndex(2);
-					ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Value.c_str());
-				}
-				ImGui::EndTable();
+				ImGui::TableNextRow();
+				ImGui::TableSetColumnIndex(0);
+				ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.first.c_str());
+				ImGui::TableSetColumnIndex(1);
+				ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Type.c_str());
+				ImGui::TableSetColumnIndex(2);
+				ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Value.c_str());
 			}
+			ImGui::EndTable();
 		}
+
+		m_RecordData.m_Data.clear();
 	}
 #endif //FORGE_DEBUG_ENABLED
 }

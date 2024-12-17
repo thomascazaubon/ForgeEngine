@@ -4,6 +4,7 @@
 #include "engine/render/Color.h"
 #include "engine/render/Mesh.h"
 
+#include <map>
 #include <memory>
 #include <string>
 
@@ -42,12 +43,39 @@ namespace ForgeEngine
 #endif //FORGE_DEBUG_ENABLED
 
 		private:
+#ifdef FORGE_DEBUG_ENABLED
+			struct RecordData
+			{
+				struct Data
+				{
+					Data() : m_Type(""), m_Value("") {}
+					Data(const std::string& type, const std::string& value) : m_Type(type), m_Value(value) {}
+
+					std::string m_Type;
+					std::string m_Value;
+				};
+
+				std::map<std::string, Data> m_Data;
+			};
+#endif //FORGE_DEBUG_ENABLED
+
 			void InitRender();
 
 #ifdef FORGE_DEBUG_ENABLED
 			void UpdateDrawModeCombo() const;
 			void DebugShaderRecords() const;
+
+			void SetShaderFloat(const char* which, float value);
+			void SetShaderBool(const char* which, bool value);
+			void SetShaderInt(const char* which, int value);
+			void SetShaderColor(const char* which, const Color& value);
+			void SetShaderTexture(unsigned int which, const Texture* texture);
+			void SetShaderMatrix4(const char* which, const glm::mat4& matrix);
+			void SetShaderMatrix3(const char* which, const glm::mat3& matrix);
+			void SetShaderVector3(const char* which, const Vector3& vector);
+			void SetShaderMaterial(const char* which, const Material& material);
 #endif //FORGE_DEBUG_ENABLED
+
 
             Mesh m_Mesh{};
             std::shared_ptr<Shader> m_Shader{};
@@ -60,6 +88,7 @@ namespace ForgeEngine
 			mutable DrawMode m_CurrentDrawMode{ DrawMode::Arrays };
 
 #ifdef FORGE_DEBUG_ENABLED
+			mutable RecordData m_RecordData;
 			mutable bool m_RecordEnabled{false};
 #endif //FORGE_DEBUG_ENABLED
 	};

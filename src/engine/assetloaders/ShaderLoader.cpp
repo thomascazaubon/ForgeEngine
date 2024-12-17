@@ -31,13 +31,5 @@ namespace ForgeEngine
     {
         resource.OnDrawDebug();
     }
-
-    void ShaderLoader::OnPreUpdate(float dT)
-    {
-        for (const auto& shader : m_LoadedResources)
-        {
-            shader.second.get()->ClearRecordedData();
-        }
-    }
 #endif //FORGE_DEBUG_ENABLED
 }

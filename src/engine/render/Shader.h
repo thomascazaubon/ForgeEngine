@@ -46,10 +46,11 @@ namespace ForgeEngine
 	#define DEFAULT_NORMAL_MATRIX_NAME				"NormalMatrix"
 	#define DEFAULT_CAMERA_POSITION_NAME			"CameraPosition"
 
-    #define DEFAULT_MATERIAL_COLOR_NAME	            "Material.color"
-    #define DEFAULT_MATERIAL_DIFFUSE_NAME	        "Material.diffuse"
-    #define DEFAULT_MATERIAL_SPECULAR_NAME	        "Material.specular"
-    #define DEFAULT_MATERIAL_SHININESS_NAME	        "Material.shininess"
+    #define DEFAULT_MATERIAL_NAME	                "Material"
+    #define DEFAULT_MATERIAL_COLOR_NAME	            "color"
+    #define DEFAULT_MATERIAL_DIFFUSE_NAME	        "diffuse"
+    #define DEFAULT_MATERIAL_SPECULAR_NAME	        "specular"
+    #define DEFAULT_MATERIAL_SHININESS_NAME	        "shininess"
 	
 
 	class Color;
@@ -60,22 +61,6 @@ namespace ForgeEngine
 	class Shader : public LoadableAsset
 	{
         public:
-#ifdef FORGE_DEBUG_ENABLED
-            struct RecordData
-            {
-                struct Data
-                {
-                    Data() : m_Type(""), m_Value("") {}
-                    Data(const std::string& type, const std::string& value) : m_Type(type), m_Value(value) {}
-
-                    std::string m_Type;
-                    std::string m_Value;
-                };
-
-                std::map<std::string, Data> m_Data;
-            };
-#endif //FORGE_DEBUG_ENABLED
-
             Shader(const std::string& shaderPath);
             ~Shader();
 
@@ -83,9 +68,8 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
             const char* GetDebugName() const override { return "TODO"; }
             void OnDrawDebug() const override;
-            void ClearRecordedData() { m_RecordedData.clear(); }
 
-            const RecordData* GetRecordData(const MeshComponent* dataOwner) const;
+            bool HasUniform(const std::string& name) const { return GetUniformData(name) != nullptr; }
 #endif //FORGE_DEBUG_ENABLED
 
             void Use() const;
@@ -99,15 +83,15 @@ namespace ForgeEngine
             const auto& GetAttributesSizes() const { return m_AttributesSizes; }
 
             //Use should be called before calling any of the following!
-            void SetFloat(const char* which, float value, const MeshComponent* callerAdress = nullptr);
-            void SetBool(const char* which, bool value, const MeshComponent* callerAdress = nullptr);
-            void SetInt(const char* which, int value, const MeshComponent* callerAdress = nullptr);
-            void SetColor(const char* which, const Color& value, const MeshComponent* callerAdress = nullptr);
-            void SetTexture(unsigned int which, const Texture* texture, const MeshComponent* callerAdress = nullptr);
-            void SetMatrix4(const char* which, const glm::mat4& matrix, const MeshComponent* callerAdress = nullptr);
-            void SetMatrix3(const char* which, const glm::mat3& matrix, const MeshComponent* callerAdress = nullptr);
-            void SetVector3(const char* which, const Vector3& vector, const MeshComponent* callerAdress = nullptr);
-            void SetMaterial(const Material& material, const MeshComponent* callerAdress = nullptr);
+            void SetFloat(const char* which, float value);
+            void SetBool(const char* which, bool value);
+            void SetInt(const char* which, int value);
+            void SetColor(const char* which, const Color& value);
+            void SetTexture(unsigned int which, const Texture* texture);
+            void SetMatrix4(const char* which, const glm::mat4& matrix);
+            void SetMatrix3(const char* which, const glm::mat3& matrix);
+            void SetVector3(const char* which, const Vector3& vector);
+            void SetMaterial(const char* which, const Material& material);
 
 		private:
 #ifdef FORGE_DEBUG_ENABLED
@@ -115,6 +99,10 @@ namespace ForgeEngine
             {
                 std::string m_VariableName;
                 std::string m_VariableType;
+
+                bool IsComplexType() const { return !m_SubData.empty(); }
+
+                std::vector<UniformData> m_SubData{};
             };
 
             void ParseUniforms(const std::string& fileContent);
@@ -123,7 +111,6 @@ namespace ForgeEngine
             const UniformData* GetUniformData(const std::string& uniformName) const;
 
 			std::vector<UniformData> m_UniformsData{};
-            std::unordered_map<const MeshComponent*, RecordData> m_RecordedData;
 #endif //FORGE_DEBUG_ENABLED
            
 			//Stores the attributes declared in the shader source using the GLSL_ATTRIBUTE_TOKEN (must be declared in the right order !
