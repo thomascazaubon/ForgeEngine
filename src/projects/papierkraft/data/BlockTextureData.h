@@ -52,7 +52,7 @@ namespace PapierKraft
 
             //TODO: fix this
 #ifdef FORGE_DEBUG_ENABLED
-            const char* GetDebugName() const override { return "TODO"; }
+            const char* GetDebugName() const override { return "?"; }
 #endif //FORGE_DEBUG_ENABLED
 
             TextureCoordinates GetSideTexture() const { return m_SideTextureCoordinates; }

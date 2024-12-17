@@ -82,7 +82,6 @@ namespace ForgeEngine
         }
         else if (name == "texture")
         {
-            //TODO: Reuse texture if already exists
             if (const std::shared_ptr<Texture>* texture = GameHandler::Get().GetWorld().GetComponentByType<TextureLoader>()->GetOrLoadResource(value))
             {
                 m_Texture = std::shared_ptr<Texture>(*(GameHandler::Get().GetWorld().GetComponentByType<TextureLoader>()->GetOrLoadResource(value)));

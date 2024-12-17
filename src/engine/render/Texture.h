@@ -13,10 +13,10 @@ namespace ForgeEngine
 
         public:
             Texture(const std::string& texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
+            //TODO: is this needed?
             Texture(void* data, unsigned int width, unsigned int height);
             ~Texture();
 
-            //TODO: fix this
 #ifdef FORGE_DEBUG_ENABLED
             const char* GetDebugName() const override { return m_Name.c_str(); }
             void OnDrawDebug() const override;
@@ -31,12 +31,14 @@ namespace ForgeEngine
             void Use();
 
         private:
+#ifdef FORGE_DEBUG_ENABLED
+            const std::string m_Name;
+#endif //FORGE_DEBUG_ENABLED
+
             unsigned int m_GLTexture{};
 
             int m_Width{};
             int m_Height{};
             int m_Channels{};
-
-            const std::string m_Name;
     };
 }

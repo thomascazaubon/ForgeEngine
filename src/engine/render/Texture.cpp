@@ -12,7 +12,9 @@ namespace ForgeEngine
 {
     Texture::Texture(const std::string& texturePath, unsigned int rgbaMode/*= GL_RGBA*/, bool flip/* = true*/) 
         : Mother()
+#ifdef FORGE_DEBUG_ENABLED
         , m_Name(texturePath)
+#endif //FORGE_DEBUG_ENABLED
     {
         stbi_set_flip_vertically_on_load(flip);
         unsigned char* data = stbi_load(texturePath.c_str(), &m_Width, &m_Height, &m_Channels, STBI_rgb_alpha);

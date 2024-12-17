@@ -66,7 +66,7 @@ namespace ForgeEngine
 
             //TODO: fix this
 #ifdef FORGE_DEBUG_ENABLED
-            const char* GetDebugName() const override { return "TODO"; }
+            const char* GetDebugName() const override { return "?"; }
             void OnDrawDebug() const override;
 
             bool HasUniform(const std::string& name) const { return GetUniformData(name) != nullptr; }

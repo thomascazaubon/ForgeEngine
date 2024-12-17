@@ -21,7 +21,6 @@ namespace ForgeEngine
             //Output log if needed
             if (!compilationSuccess)
             {
-                //TODO: Add detailed logs
                 glGetShaderInfoLog(shader, LOG_SIZE, nullptr, infoLog);
                 logs = infoLog;
             }

@@ -66,7 +66,9 @@ namespace ForgeEngine
     {
         if (m_Shader == nullptr)
         {
-            //TODO: Add error message
+#ifdef FORGE_DEBUG_ENABLED
+            DebugUtils::LogError("MeshComponent::InitRender: Shader is missing.");
+#endif //FORGE_DEBUG_ENABLED
             return;
         }
 
@@ -199,7 +201,6 @@ namespace ForgeEngine
             glBindVertexArray(m_VertexArrayObject);
             if (m_CurrentDrawMode == DrawMode::Elements)
             {
-                //TODO: Fix this
                 glDrawElements(GL_TRIANGLES, m_NumIndices, GL_UNSIGNED_INT, 0);
             }
             else

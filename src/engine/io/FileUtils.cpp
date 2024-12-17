@@ -15,7 +15,6 @@ namespace ForgeEngine
     {
         bool TryLoadFileContent(const std::string& filePath, std::string& fileContent, bool verbose /*= false*/)
         {
-            //TODO: make this a util function
             std::ifstream sourceFile;
             std::stringstream sourceStream;
             std::string sourceContent{};

@@ -70,7 +70,7 @@ namespace ForgeEngine
 
 #ifdef FORGE_DEBUG_ENABLED
             //TODO: Fix this
-            const char* GetDebugName() const override { return "TODO"; }
+            const char* GetDebugName() const override { return "?"; }
 #endif //FORGE_DEBUG_ENABLED
 
             virtual void Update(float dT);

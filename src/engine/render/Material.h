@@ -17,7 +17,7 @@ namespace ForgeEngine
         public:
             //TODO: fix this
 #ifdef FORGE_DEBUG_ENABLED
-            const char* GetDebugName() const override { return "TODO"; }
+            const char* GetDebugName() const override { return "?"; }
 #endif //FORGE_DEBUG_ENABLED
 
             bool IsValid() const override { return true; }
