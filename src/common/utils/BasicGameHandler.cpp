@@ -13,40 +13,40 @@
 
 namespace ForgeEngine
 {
-	void BasicGameHandler::OnPreInit() /*override*/
-	{
-		Mother::OnPreInit();
+    void BasicGameHandler::OnPreInit() /*override*/
+    {
+        Mother::OnPreInit();
 
-		m_World.RegisterComponent(new ShaderLoader());
-		m_World.RegisterComponent(new InputManager());
-		m_World.RegisterComponent(new LightManager());
-		m_World.RegisterComponent(new MaterialLoader());
-		m_World.RegisterComponent(new TextureLoader());
-		m_World.RegisterComponent(new SkyboxComponent(0.f, NOON_TIME));
+        m_World.RegisterComponent(new ShaderLoader());
+        m_World.RegisterComponent(new InputManager());
+        m_World.RegisterComponent(new LightManager());
+        m_World.RegisterComponent(new MaterialLoader());
+        m_World.RegisterComponent(new TextureLoader());
+        m_World.RegisterComponent(new SkyboxComponent(0.f, NOON_TIME));
 
 #ifdef FORGE_DEBUG_ENABLED
-		m_World.RegisterComponent(new DebugManager());
+        m_World.RegisterComponent(new DebugManager());
 
-		// Setup Dear ImGui context
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
+        // Setup Dear ImGui context
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
-		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
-		ImGui_ImplOpenGL3_Init("#version 150");
+        // Setup Dear ImGui style
+        ImGui::StyleColorsDark();
+        ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
+        ImGui_ImplOpenGL3_Init("#version 150");
 #endif //#ifdef FORGE_DEBUG_ENABLED
-	}
+    }
 
-	void BasicGameHandler::OnPreUpdate(float dT) /*override*/
-	{
-		Mother::OnPreUpdate(dT);
-		ShaderUtils::ClearScreen(m_World.GetComponentByType<SkyboxComponent>()->GetCurrentSkyColor());
-	}
+    void BasicGameHandler::OnPreUpdate(float dT) /*override*/
+    {
+        Mother::OnPreUpdate(dT);
+        ShaderUtils::ClearScreen(m_World.GetComponentByType<SkyboxComponent>()->GetCurrentSkyColor());
+    }
 
-	bool BasicGameHandler::ShouldTerminate()
-	{
-		return (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS);
-	}
+    bool BasicGameHandler::ShouldTerminate()
+    {
+        return (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS);
+    }
 }

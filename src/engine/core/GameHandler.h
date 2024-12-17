@@ -10,13 +10,13 @@ namespace ForgeEngine
 {
     class World;
 
-	class GameHandler
-	{
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
+    class GameHandler
+    {
+        /************************************/
+        /************ATTRIBUTES**************/
+        /************************************/
 
-		public:
+        public:
             static GameHandler* s_Instance;
 
         protected:
@@ -25,14 +25,14 @@ namespace ForgeEngine
             unsigned int m_WindowHeight;
             World m_World{};
 
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
+        /************************************/
+        /**************METHODS***************/
+        /************************************/
 
-		public:
+        public:
             GameHandler(std::string name, unsigned int width, unsigned int height);
-			//Handles the main loop
-			void HandleProcess();
+            //Handles the main loop
+            void HandleProcess();
 
             GLFWwindow* GetWindow() const { return m_Window; }
             unsigned int GetWindowWidth() const { return m_WindowWidth; }
@@ -43,15 +43,15 @@ namespace ForgeEngine
 
             static GameHandler& Get() { return *s_Instance; }
 
-		protected:
-			virtual void OnPreInit() {};
-			virtual void OnInit() {};
-			virtual void OnPostInit() {};
-			virtual void OnPreUpdate(float dT);
-			virtual void OnUpdate(float dT) {}
-			virtual void OnPostUpdate(float dT) {}
-			virtual void OnTermination();
+        protected:
+            virtual void OnPreInit() {};
+            virtual void OnInit() {};
+            virtual void OnPostInit() {};
+            virtual void OnPreUpdate(float dT);
+            virtual void OnUpdate(float dT) {}
+            virtual void OnPostUpdate(float dT) {}
+            virtual void OnTermination();
 
-			virtual bool ShouldTerminate() = 0;
-	};
+            virtual bool ShouldTerminate() = 0;
+    };
 }

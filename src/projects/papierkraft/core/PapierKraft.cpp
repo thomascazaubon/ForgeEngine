@@ -28,9 +28,9 @@ namespace PapierKraft
     {
     }
 
-	void PapierKraft::OnInit() /*override*/
-	{
-		Mother::OnInit();
+    void PapierKraft::OnInit() /*override*/
+    {
+        Mother::OnInit();
 
         World& world = GetWorld();
 
@@ -39,26 +39,26 @@ namespace PapierKraft
         Entity* block = world.RegisterEntity();
         block->RegisterComponent(new BlockComponent(EBlockType::Grass));
 
-		Entity* camera = world.RegisterEntity();
+        Entity* camera = world.RegisterEntity();
         camera->GetTransform().SetPosition(Vector3(0.f, 0.f, 10.f));
-		camera->RegisterComponent(new FirstPersonControllerComponent());
-		camera->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
-	}
+        camera->RegisterComponent(new FirstPersonControllerComponent());
+        camera->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
+    }
 
-	void PapierKraft::OnUpdate(float dT) /*override*/
-	{
-		Mother::OnUpdate(dT);
-		ShaderUtils::ClearScreen(COLOR_SKY_BLUE);
-	}
+    void PapierKraft::OnUpdate(float dT) /*override*/
+    {
+        Mother::OnUpdate(dT);
+        ShaderUtils::ClearScreen(COLOR_SKY_BLUE);
+    }
 
-	void PapierKraft::OnTermination() /*override*/
-	{
-		Mother::OnTermination();
-	}
+    void PapierKraft::OnTermination() /*override*/
+    {
+        Mother::OnTermination();
+    }
 
-	bool PapierKraft::ShouldTerminate() /*override*/
-	{
-		return Mother::ShouldTerminate()
-			|| InputHelper::IsInputActive(EInputAction::Exit);
-	}
+    bool PapierKraft::ShouldTerminate() /*override*/
+    {
+        return Mother::ShouldTerminate()
+            || InputHelper::IsInputActive(EInputAction::Exit);
+    }
 }

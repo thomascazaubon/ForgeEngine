@@ -4,8 +4,8 @@
 
 namespace ForgeEngine
 {
-	namespace ForgeMaths
-	{
+    namespace ForgeMaths
+    {
         Vector3 Flatten(const Vector3& v)
         {
             return Vector3(v.x, 0.f, v.z);
@@ -16,10 +16,10 @@ namespace ForgeEngine
             return Normalize(Flatten(v));
         }
 
-		Vector3 Cross(const Vector3& v1, const Vector3& v2)
-		{
-			return glm::cross(v1, v2);
-		}
+        Vector3 Cross(const Vector3& v1, const Vector3& v2)
+        {
+            return glm::cross(v1, v2);
+        }
 
         Vector3 Normalize(const Vector3& v)
         {
@@ -35,5 +35,5 @@ namespace ForgeEngine
         {
             return (v1 - v2).length();
         }
-	}
+    }
 }

@@ -7,14 +7,14 @@
 
 namespace ForgeEngine
 {
-	class Texture : public LoadableAsset
-	{
-		using Mother = LoadableAsset;
+    class Texture : public LoadableAsset
+    {
+        using Mother = LoadableAsset;
 
-		public:
-			Texture(const std::string& texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
-			Texture(void* data, unsigned int width, unsigned int height);
-			~Texture();
+        public:
+            Texture(const std::string& texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
+            Texture(void* data, unsigned int width, unsigned int height);
+            ~Texture();
 
             //TODO: fix this
 #ifdef FORGE_DEBUG_ENABLED
@@ -24,19 +24,19 @@ namespace ForgeEngine
 
             bool IsValid() const override { return m_GLTexture; }
 
-			int GetWidth() const { return m_Width; }
-			int GetHeight() const { return m_Height; }
+            int GetWidth() const { return m_Width; }
+            int GetHeight() const { return m_Height; }
 
-			unsigned int GetGLTexture() const { return m_GLTexture; }
-			void Use();
+            unsigned int GetGLTexture() const { return m_GLTexture; }
+            void Use();
 
         private:
-			unsigned int m_GLTexture{};
+            unsigned int m_GLTexture{};
 
             int m_Width{};
             int m_Height{};
             int m_Channels{};
 
             const std::string m_Name;
-	};
+    };
 }

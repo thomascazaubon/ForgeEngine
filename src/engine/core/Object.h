@@ -4,31 +4,31 @@
 
 namespace ForgeEngine
 {
-	typedef unsigned int ObjectID;
+    typedef unsigned int ObjectID;
 
-	class Object : public NonCopyable
-	{
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
+    class Object : public NonCopyable
+    {
+        /************************************/
+        /************ATTRIBUTES**************/
+        /************************************/
 
-		private:
-			ObjectID m_ID{};
+        private:
+            ObjectID m_ID{};
 
-			static ObjectID s_LastGivenID;
+            static ObjectID s_LastGivenID;
 
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
+        /************************************/
+        /**************METHODS***************/
+        /************************************/
 
-		public:
-			Object();
-			virtual ~Object() {}
+        public:
+            Object();
+            virtual ~Object() {}
 
 #ifdef FORGE_DEBUG_ENABLED
             virtual const char* GetDebugName() const = 0;
 #endif //FORGE_DEBUG_ENABLED
 
-			ObjectID GetID() const { return m_ID; }
-	};
+            ObjectID GetID() const { return m_ID; }
+    };
 }

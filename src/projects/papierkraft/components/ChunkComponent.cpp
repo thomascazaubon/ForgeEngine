@@ -7,11 +7,11 @@
 
 namespace PapierKraft
 {
-	ChunkComponent::ChunkComponent(EBiomeType biomeType, Vector3 position) :
-		Mother(),
-		m_BiomeType(biomeType)
-	{
-	}
+    ChunkComponent::ChunkComponent(EBiomeType biomeType, Vector3 position) :
+        Mother(),
+        m_BiomeType(biomeType)
+    {
+    }
 
     bool ChunkComponent::OnPreInit() //override
     {
@@ -30,26 +30,26 @@ namespace PapierKraft
         return Mother::OnPreInit();
     }
 
-	EBlockType ChunkComponent::ComputeBlockType(float yCoordinate)
-	{
-		EBlockType blockType;
+    EBlockType ChunkComponent::ComputeBlockType(float yCoordinate)
+    {
+        EBlockType blockType;
 
-		if (ForgeMaths::IsBetween(yCoordinate, static_cast<float>(CHUNK_HEIGHT - DIRT_LAYER_HEIGHT), static_cast<float>(CHUNK_HEIGHT - 1)))
-		{
-			if (yCoordinate == CHUNK_HEIGHT - 1)
-			{
-				blockType = EBlockType::Woodlog;
-			}
-			else
-			{
-				blockType = EBlockType::Dirt;
-			}
-		}
-		else
-		{
-			blockType = EBlockType::Sand;
-		}
+        if (ForgeMaths::IsBetween(yCoordinate, static_cast<float>(CHUNK_HEIGHT - DIRT_LAYER_HEIGHT), static_cast<float>(CHUNK_HEIGHT - 1)))
+        {
+            if (yCoordinate == CHUNK_HEIGHT - 1)
+            {
+                blockType = EBlockType::Woodlog;
+            }
+            else
+            {
+                blockType = EBlockType::Dirt;
+            }
+        }
+        else
+        {
+            blockType = EBlockType::Sand;
+        }
 
-		return blockType;
-	}
+        return blockType;
+    }
 }

@@ -8,12 +8,12 @@
 
 namespace ForgeEngine
 {
-	class Color;
+    class Color;
 
-	namespace ImGUIUtils
-	{
-		ImVec4 ToImColor(const Color& color);
-		ImVec4 GetShaderVariableTypeColor(const std::string& type);
-	}
+    namespace ImGUIUtils
+    {
+        ImVec4 ToImColor(const Color& color);
+        ImVec4 GetShaderVariableTypeColor(const std::string& type);
+    }
 }
 #endif //FORGE_DEBUG_ENABLED

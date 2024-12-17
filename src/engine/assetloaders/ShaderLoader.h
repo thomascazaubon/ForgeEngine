@@ -2,18 +2,18 @@
 
 #include "engine/assetloaders/AssetLoader.h"
 
-#define DEFAULT_SHADER_PATH		                "assets\\shaders\\default"
-#define TEXTURED_SHADER_PATH		            "assets\\shaders\\textured"
-#define LIT_SHADER_PATH		                    "assets\\shaders\\lit"
-#define DEBUG_SHADER_PATH		                "assets\\shaders\\debug"
+#define DEFAULT_SHADER_PATH                        "assets\\shaders\\default"
+#define TEXTURED_SHADER_PATH                    "assets\\shaders\\textured"
+#define LIT_SHADER_PATH                            "assets\\shaders\\lit"
+#define DEBUG_SHADER_PATH                        "assets\\shaders\\debug"
 
 namespace ForgeEngine
 {
     class Shader;
 
-	class ShaderLoader : public AssetLoader<Shader>
-	{
-		using Mother = AssetLoader<Shader>;
+    class ShaderLoader : public AssetLoader<Shader>
+    {
+        using Mother = AssetLoader<Shader>;
 
     public:
 #ifdef FORGE_DEBUG_ENABLED
@@ -26,5 +26,5 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
         void DebugResource(const Shader& resource) const override;
 #endif //FORGE_DEBUG_ENABLED
-	};
+    };
 }

@@ -36,94 +36,94 @@ namespace ForgeEngine
         else
         {
 #ifdef FORGE_DEBUG_ENABLED
-			DebugUtils::LogError("GameHandler: Handler already exists.");
+            DebugUtils::LogError("GameHandler: Handler already exists.");
 #endif //FORGE_DEBUG_ENABLED
             exit(-1);
         }
     }
 
-	void GameHandler::HandleProcess()
-	{
-		using ns = std::chrono::nanoseconds;
+    void GameHandler::HandleProcess()
+    {
+        using ns = std::chrono::nanoseconds;
 
-		std::chrono::time_point<std::chrono::high_resolution_clock> frameStart = std::chrono::high_resolution_clock::now();
-		std::chrono::time_point<std::chrono::high_resolution_clock> frameEnd = std::chrono::high_resolution_clock::now();
+        std::chrono::time_point<std::chrono::high_resolution_clock> frameStart = std::chrono::high_resolution_clock::now();
+        std::chrono::time_point<std::chrono::high_resolution_clock> frameEnd = std::chrono::high_resolution_clock::now();
 
-		float dT{};
-		const float nanoToSecMultiplier = (float)std::pow(10, 9);
+        float dT{};
+        const float nanoToSecMultiplier = (float)std::pow(10, 9);
 
-		if (m_Window != nullptr)
-		{
-			OnPreInit();
-			m_World.PreInit();
-			OnInit();
-			m_World.Init();
-			m_World.PostInit();
-			OnPostInit();
+        if (m_Window != nullptr)
+        {
+            OnPreInit();
+            m_World.PreInit();
+            OnInit();
+            m_World.Init();
+            m_World.PostInit();
+            OnPostInit();
 
-			while (!ShouldTerminate())
-			{
-				//deltaTime is defined using seconds
-				dT = std::chrono::duration_cast<ns>(frameEnd - frameStart).count() / nanoToSecMultiplier;
-				frameStart = std::chrono::high_resolution_clock::now();
+            while (!ShouldTerminate())
+            {
+                //deltaTime is defined using seconds
+                dT = std::chrono::duration_cast<ns>(frameEnd - frameStart).count() / nanoToSecMultiplier;
+                frameStart = std::chrono::high_resolution_clock::now();
 
-				m_World.PreUpdate(dT);
-				OnPreUpdate(dT);
+                m_World.PreUpdate(dT);
+                OnPreUpdate(dT);
                 m_World.Update(dT);
-				OnUpdate(dT);
+                OnUpdate(dT);
                 m_World.PostUpdate(dT);
-				OnPostUpdate(dT);
+                OnPostUpdate(dT);
 
-				// feed inputs to dear imgui, start new frame
-				#ifdef FORGE_DEBUG_ENABLED
-					ImGui_ImplOpenGL3_NewFrame();
-					ImGui_ImplGlfw_NewFrame();
-					ImGui::NewFrame();
-					if (ImGui::BeginMainMenuBar())
-					{
-						if (ImGui::BeginMenu("File"))
-						{
-							ImGui::EndMenu();
-						}
-						if (ImGui::BeginMenu("Edit"))
-						{
-							if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-							if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
-							ImGui::Separator();
-							if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-							if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-							if (ImGui::MenuItem("Paste", "CTRL+V")) {}
-							ImGui::EndMenu();
-						}
-						ImGui::EndMainMenuBar();
-					}
+                // feed inputs to dear imgui, start new frame
+                #ifdef FORGE_DEBUG_ENABLED
+                    ImGui_ImplOpenGL3_NewFrame();
+                    ImGui_ImplGlfw_NewFrame();
+                    ImGui::NewFrame();
+                    if (ImGui::BeginMainMenuBar())
+                    {
+                        if (ImGui::BeginMenu("File"))
+                        {
+                            ImGui::EndMenu();
+                        }
+                        if (ImGui::BeginMenu("Edit"))
+                        {
+                            if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+                            if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+                            ImGui::Separator();
+                            if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+                            if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+                            if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+                            ImGui::EndMenu();
+                        }
+                        ImGui::EndMainMenuBar();
+                    }
 
-					m_World.DrawDebug(dT);
+                    m_World.DrawDebug(dT);
 
-					// Render dear imgui into screen
-					ImGui::Render();
-					ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-				#endif // FORGE_DEBUG_ENABLED
+                    // Render dear imgui into screen
+                    ImGui::Render();
+                    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+                #endif // FORGE_DEBUG_ENABLED
 
-				// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-				glfwSwapBuffers(m_Window);
-				glfwPollEvents();
+                // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+                glfwSwapBuffers(m_Window);
+                glfwPollEvents();
 
-				frameEnd = std::chrono::high_resolution_clock::now();
-			}
+                frameEnd = std::chrono::high_resolution_clock::now();
+            }
 
-			OnTermination();
-		}
-	}
+            OnTermination();
+        }
+    }
 
-	void GameHandler::OnPreUpdate(float dT)
-	{
-		ShaderUtils::ClearScreen(COLOR_GREEN);
-	}
+    void GameHandler::OnPreUpdate(float dT)
+    {
+        ShaderUtils::ClearScreen(COLOR_GREEN);
+    }
 
-	void GameHandler::OnTermination()
-	{
-		// glfw: terminate, clearing all previously allocated GLFW resources.
-		glfwTerminate();
-	}
+    void GameHandler::OnTermination()
+    {
+        // glfw: terminate, clearing all previously allocated GLFW resources.
+        glfwTerminate();
+    }
 }

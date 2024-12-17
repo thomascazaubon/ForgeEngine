@@ -14,26 +14,26 @@ namespace ForgeEngine
     class GameHandler;
     class WorldComponent;
 
-	class World : ManagedObject
-	{
-		friend class GameHandler;
+    class World : ManagedObject
+    {
+        friend class GameHandler;
 
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
+        /************************************/
+        /************ATTRIBUTES**************/
+        /************************************/
 
-		private:
+        private:
             static const unsigned int K_MAX_INITIALIZATIONS_PER_FRAME = 1;
 
-			std::vector<std::unique_ptr<Entity>> m_RegisteredEntities{};
-			std::vector<std::unique_ptr<WorldComponent>> m_Components{};
-			
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
+            std::vector<std::unique_ptr<Entity>> m_RegisteredEntities{};
+            std::vector<std::unique_ptr<WorldComponent>> m_Components{};
+            
+        /************************************/
+        /**************METHODS***************/
+        /************************************/
 
-		public:
-			~World();
+        public:
+            ~World();
 
 #ifdef FORGE_DEBUG_ENABLED
             const char* GetDebugName() const override { return "Global Debug"; }
@@ -80,7 +80,7 @@ namespace ForgeEngine
                 return false;
             }
 
-		private:
+        private:
             bool PreInit();
             bool Init();
             bool PostInit();
@@ -89,12 +89,12 @@ namespace ForgeEngine
             void Update(float dT);
             void PostUpdate(float dT);
 
-			void OnDestroy();
+            void OnDestroy();
 
 #ifdef FORGE_DEBUG_ENABLED
             void DrawDebug(float dT);
 
             unsigned int m_LastCreatedEntityId = 1;
 #endif //FORGE_DEBUG_ENABLED
-	};
+    };
 }

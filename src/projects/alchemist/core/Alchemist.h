@@ -6,25 +6,25 @@ using namespace ForgeEngine;
 
 namespace Alchemist
 {
-	class Alchemist : public BasicGameHandler
-	{
-		using Mother = BasicGameHandler;
+    class Alchemist : public BasicGameHandler
+    {
+        using Mother = BasicGameHandler;
 
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
+        /************************************/
+        /************ATTRIBUTES**************/
+        /************************************/
 
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
+        /************************************/
+        /**************METHODS***************/
+        /************************************/
     public:
         Alchemist(std::string name, unsigned int width, unsigned int height);
 
-	protected:
-		virtual void OnInit() override;
-		virtual void OnUpdate(float dT) override;
-		virtual void OnTermination() override;
+    protected:
+        virtual void OnInit() override;
+        virtual void OnUpdate(float dT) override;
+        virtual void OnTermination() override;
 
-		virtual bool ShouldTerminate() override;
-	};
+        virtual bool ShouldTerminate() override;
+    };
 }

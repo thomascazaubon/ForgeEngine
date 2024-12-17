@@ -2,21 +2,21 @@
 
 namespace ForgeEngine
 {
-	ManagedObject::ManagedObject() :
-		Mother()
-	{
-	}
+    ManagedObject::ManagedObject() :
+        Mother()
+    {
+    }
 
-	void ManagedObject::SetActive(bool active)
-	{
-		m_IsActive = active;
-		if (m_IsActive)
-		{
-			OnActivate();
-		}
-		else
-		{
-			OnDeactivate();
-		}
-	}
+    void ManagedObject::SetActive(bool active)
+    {
+        m_IsActive = active;
+        if (m_IsActive)
+        {
+            OnActivate();
+        }
+        else
+        {
+            OnDeactivate();
+        }
+    }
 }

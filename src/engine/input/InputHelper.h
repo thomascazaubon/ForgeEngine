@@ -5,12 +5,12 @@
 
 namespace ForgeEngine
 {
-	enum class EInputAction;
+    enum class EInputAction;
 
-	namespace InputHelper
-	{
-		bool IsInputActive(EInputAction type);
-		Vector2 GetMouseVelocity();
-		Vector2 GetMousePosition();
-	}
+    namespace InputHelper
+    {
+        bool IsInputActive(EInputAction type);
+        Vector2 GetMouseVelocity();
+        Vector2 GetMousePosition();
+    }
 }

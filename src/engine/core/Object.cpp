@@ -2,10 +2,10 @@
 
 namespace ForgeEngine
 {
-	/*static*/ ObjectID Object::s_LastGivenID{};
+    /*static*/ ObjectID Object::s_LastGivenID{};
 
-	Object::Object() :
-		m_ID{ ++s_LastGivenID }
-	{
-	}
+    Object::Object() :
+        m_ID{ ++s_LastGivenID }
+    {
+    }
 }

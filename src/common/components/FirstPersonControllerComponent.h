@@ -4,18 +4,18 @@
 
 namespace ForgeEngine
 {
-	class CameraComponent;
+    class CameraComponent;
 
-	class FirstPersonControllerComponent : public Component
-	{
-		using Mother = Component;
+    class FirstPersonControllerComponent : public Component
+    {
+        using Mother = Component;
 
-	public:
-		FirstPersonControllerComponent(float moveSpeed = 10.f, float rotationSpeed = 10.f);
+    public:
+        FirstPersonControllerComponent(float moveSpeed = 10.f, float rotationSpeed = 10.f);
 
-		virtual bool OnInit() override;
-		virtual void OnUpdate(float dT) override;
-		virtual void OnDestroy() override;
+        virtual bool OnInit() override;
+        virtual void OnUpdate(float dT) override;
+        virtual void OnDestroy() override;
 
 #ifdef FORGE_DEBUG_ENABLED
         void OnDrawDebug(float dT) const override;
@@ -28,5 +28,5 @@ namespace ForgeEngine
         float m_RotationSpeed{10.f};
 
         CameraComponent* m_CameraComponent{};
-	};
+    };
 }

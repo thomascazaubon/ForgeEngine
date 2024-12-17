@@ -6,27 +6,27 @@ namespace ForgeEngine
 {
     class Entity;
 
-	class Component : public ManagedObject
-	{
-		using Mother = ManagedObject;
+    class Component : public ManagedObject
+    {
+        using Mother = ManagedObject;
 
-		friend class Entity;
+        friend class Entity;
 
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
+        /************************************/
+        /************ATTRIBUTES**************/
+        /************************************/
 
-		protected:
-			Entity* m_Owner{};
+        protected:
+            Entity* m_Owner{};
 
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
+        /************************************/
+        /**************METHODS***************/
+        /************************************/
 
-		public:
-			Entity* GetOwner() const { return m_Owner; }
+        public:
+            Entity* GetOwner() const { return m_Owner; }
 
-		protected:
-			void SetOwner(Entity* owner) { m_Owner = owner; }
-	};
+        protected:
+            void SetOwner(Entity* owner) { m_Owner = owner; }
+    };
 }

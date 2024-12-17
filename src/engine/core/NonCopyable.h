@@ -2,22 +2,22 @@
 
 namespace ForgeEngine
 {
-	class NonCopyable
-	{
-		/************************************/
-		/************ATTRIBUTES**************/
-		/************************************/
+    class NonCopyable
+    {
+        /************************************/
+        /************ATTRIBUTES**************/
+        /************************************/
 
-		/************************************/
-		/**************METHODS***************/
-		/************************************/
+        /************************************/
+        /**************METHODS***************/
+        /************************************/
 
-		public:
-			NonCopyable() {}
-			virtual ~NonCopyable() {}
-			NonCopyable(const NonCopyable& other) = delete;
-			NonCopyable& operator=(const NonCopyable& other) = delete;
-			NonCopyable(NonCopyable&&) = delete;
-			NonCopyable& operator=(NonCopyable&&) = delete;
-	};
+        public:
+            NonCopyable() {}
+            virtual ~NonCopyable() {}
+            NonCopyable(const NonCopyable& other) = delete;
+            NonCopyable& operator=(const NonCopyable& other) = delete;
+            NonCopyable(NonCopyable&&) = delete;
+            NonCopyable& operator=(NonCopyable&&) = delete;
+    };
 }

@@ -12,8 +12,8 @@
 
 namespace ForgeEngine
 {
-	Entity* World::RegisterEntity(const char* debugName /*= nullptr*/)
-	{
+    Entity* World::RegisterEntity(const char* debugName /*= nullptr*/)
+    {
         std::string finalDebugName{ debugName != nullptr ? debugName : "" };
 #ifdef FORGE_DEBUG_ENABLED
         if (debugName == nullptr)
@@ -24,24 +24,24 @@ namespace ForgeEngine
 #endif //FORGE_DEBUG_ENABLED
 
         Entity* entity = new Entity(*this, finalDebugName);
-		m_RegisteredEntities.push_back(std::unique_ptr<Entity>(entity));
-		return entity;
-	}
+        m_RegisteredEntities.push_back(std::unique_ptr<Entity>(entity));
+        return entity;
+    }
 
     World::~World()
     {
         OnDestroy();
     }
 
-	bool World::PreInit()
-	{
-		for (auto& entity : m_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnPreInit();
-			}
-		}
+    bool World::PreInit()
+    {
+        for (auto& entity : m_RegisteredEntities)
+        {
+            if (entity != nullptr)
+            {
+                entity->OnPreInit();
+            }
+        }
         for (auto& component : m_Components)
         {
             if (component != nullptr)
@@ -54,17 +54,17 @@ namespace ForgeEngine
             }
         }
         return true;
-	}
+    }
 
-	bool World::Init()
-	{
-		for (auto& entity : m_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnInit();
-			}
-		}
+    bool World::Init()
+    {
+        for (auto& entity : m_RegisteredEntities)
+        {
+            if (entity != nullptr)
+            {
+                entity->OnInit();
+            }
+        }
         for (auto& component : m_Components)
         {
             if (component != nullptr)
@@ -76,18 +76,18 @@ namespace ForgeEngine
                 }
             }
         }
-		return true;
-	}
+        return true;
+    }
 
-	bool World::PostInit()
-	{
-		for (auto& entity : m_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				entity->OnPostInit();
-			}
-		}
+    bool World::PostInit()
+    {
+        for (auto& entity : m_RegisteredEntities)
+        {
+            if (entity != nullptr)
+            {
+                entity->OnPostInit();
+            }
+        }
         for (auto& component : m_Components)
         {
             if (component != nullptr)
@@ -99,27 +99,27 @@ namespace ForgeEngine
                 }
             }
         }
-		return true;
-	}
+        return true;
+    }
 
-	void World::PreUpdate(float dT)
-	{
-		unsigned int initializedEntitiesThisFrame = 0;
-		for (auto& entity : m_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				if (entity->IsInitialized())
-				{
-					entity->OnPreUpdate(dT);
-				}
-				else if (entity->NeedsPreInit() && initializedEntitiesThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
-				{
-					entity->OnPreInit();
-					initializedEntitiesThisFrame++;
-				}
-			}
-		}
+    void World::PreUpdate(float dT)
+    {
+        unsigned int initializedEntitiesThisFrame = 0;
+        for (auto& entity : m_RegisteredEntities)
+        {
+            if (entity != nullptr)
+            {
+                if (entity->IsInitialized())
+                {
+                    entity->OnPreUpdate(dT);
+                }
+                else if (entity->NeedsPreInit() && initializedEntitiesThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+                {
+                    entity->OnPreInit();
+                    initializedEntitiesThisFrame++;
+                }
+            }
+        }
         for (auto& component : m_Components)
         {
             if (component != nullptr)
@@ -127,26 +127,26 @@ namespace ForgeEngine
                 component->OnPreUpdate(dT);
             }
         }
-	}
+    }
 
-	void World::Update(float dT)
-	{
-		unsigned int initializedEntitiesThisFrame = 0;
-		for (auto& entity : m_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				if (entity->IsInitialized())
-				{
-					entity->OnUpdate(dT);
-				}
-				else if (entity->NeedsInit() && initializedEntitiesThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
-				{
-					entity->OnInit();
-					initializedEntitiesThisFrame++;
-				}
-			}
-		}
+    void World::Update(float dT)
+    {
+        unsigned int initializedEntitiesThisFrame = 0;
+        for (auto& entity : m_RegisteredEntities)
+        {
+            if (entity != nullptr)
+            {
+                if (entity->IsInitialized())
+                {
+                    entity->OnUpdate(dT);
+                }
+                else if (entity->NeedsInit() && initializedEntitiesThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+                {
+                    entity->OnInit();
+                    initializedEntitiesThisFrame++;
+                }
+            }
+        }
         for (auto& component : m_Components)
         {
             if (component != nullptr)
@@ -154,26 +154,26 @@ namespace ForgeEngine
                 component->OnUpdate(dT);
             }
         }
-	}
+    }
 
-	void World::PostUpdate(float dT)
-	{
-		unsigned int initializedEntitiesThisFrame = 0;
-		for (auto& entity : m_RegisteredEntities)
-		{
-			if (entity != nullptr)
-			{
-				if (entity->IsInitialized())
-				{
-					entity->OnPostUpdate(dT);
-				}
-				else if (entity->NeedsPostInit() && initializedEntitiesThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
-				{
-					entity->OnPostInit();
-					initializedEntitiesThisFrame++;
-				}
-			}
-		}
+    void World::PostUpdate(float dT)
+    {
+        unsigned int initializedEntitiesThisFrame = 0;
+        for (auto& entity : m_RegisteredEntities)
+        {
+            if (entity != nullptr)
+            {
+                if (entity->IsInitialized())
+                {
+                    entity->OnPostUpdate(dT);
+                }
+                else if (entity->NeedsPostInit() && initializedEntitiesThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
+                {
+                    entity->OnPostInit();
+                    initializedEntitiesThisFrame++;
+                }
+            }
+        }
         for (auto& component : m_Components)
         {
             if (component != nullptr)
@@ -181,10 +181,10 @@ namespace ForgeEngine
                 component->OnPostUpdate(dT);
             }
         }
-	}
+    }
 #ifdef FORGE_DEBUG_ENABLED
-	void World::DrawDebug(float dT) 
-	{
+    void World::DrawDebug(float dT) 
+    {
         const DebugManager* debugManager = GetComponentByType<const DebugManager>();
         if (debugManager && debugManager->IsImGUIEnabled())
         {
@@ -245,11 +245,11 @@ namespace ForgeEngine
             }
             ImGui::End();
         }
-	}
+    }
 #endif
 
-	void World::OnDestroy()
-	{
+    void World::OnDestroy()
+    {
         for (auto& entity : m_RegisteredEntities)
         {
             if (entity != nullptr)
@@ -257,12 +257,12 @@ namespace ForgeEngine
                 entity->Destroy();
             }
         }
-		for (auto& component : m_Components)
-		{
-			if (component != nullptr)
-			{
-				component->Destroy();
-			}
-		}
-	}
+        for (auto& component : m_Components)
+        {
+            if (component != nullptr)
+            {
+                component->Destroy();
+            }
+        }
+    }
 }

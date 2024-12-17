@@ -4,19 +4,19 @@
 
 namespace ForgeEngine
 {
-	enum class EInitializationState
-	{
-		NeedsPreInit,
-		NeedsInit,
-		NeedsPostInit,
-		Initialized
-	};
+    enum class EInitializationState
+    {
+        NeedsPreInit,
+        NeedsInit,
+        NeedsPostInit,
+        Initialized
+    };
 
-	class ManagedObject : public Object
-	{
-		using Mother = Object;
+    class ManagedObject : public Object
+    {
+        using Mother = Object;
 
-		friend class World;
+        friend class World;
 
         public:
             ManagedObject();
@@ -50,8 +50,8 @@ namespace ForgeEngine
 
         virtual void OnDestroy() {}
 
-		private:
-			bool m_IsActive{ true };
-			EInitializationState m_InitializationState{ EInitializationState::NeedsPreInit };
-	};
+        private:
+            bool m_IsActive{ true };
+            EInitializationState m_InitializationState{ EInitializationState::NeedsPreInit };
+    };
 }
