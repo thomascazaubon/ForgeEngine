@@ -91,6 +91,11 @@ namespace ForgeEngine
                 }
             }
 #endif //FORGE_DEBUG_ENABLED
+
+            if (vertexCompiled && geometryCompiled && fragmentCompiled && programCompiled)
+            {
+                ParseTextures(fragContent);
+            }   
         }
     }
 
@@ -143,11 +148,17 @@ namespace ForgeEngine
         glUniform4f(glGetUniformLocation(m_ProgramID, which), value.GetRRatio(), value.GetGRatio(), value.GetBRatio(), value.GetA());
     }
 
-    void Shader::SetTexture(unsigned int which, const Texture* texture) 
+    void Shader::SetTexture(const char* which, const Texture* texture)
     {
-        SetBool(DEFAULT_USE_TEXTURE_NAME, texture != nullptr);
-        glActiveTexture(texture != nullptr ? which : 0); // activate the texture unit first before binding texture
-        glBindTexture(GL_TEXTURE_2D, texture != nullptr ? texture->GetGLTexture() : 0);
+        if (texture != nullptr)
+        {
+            int unit = GetTextureUnit(which);
+            if (unit > -1)
+            {
+                glActiveTexture(unit); // activate the texture unit first before binding texture
+                glBindTexture(GL_TEXTURE_2D, texture->GetGLTexture());
+            }
+        }
     }
 
     void Shader::SetMatrix4(const char* which, const glm::mat4& matrix) 
@@ -171,7 +182,46 @@ namespace ForgeEngine
         SetFloat(std::format("{}.{}", which, DEFAULT_MATERIAL_DIFFUSE_NAME).c_str(), material.GetDiffuse());
         SetFloat(std::format("{}.{}", which, DEFAULT_MATERIAL_SPECULAR_NAME).c_str(), material.GetSpecular());
         SetInt(std::format("{}.{}", which, DEFAULT_MATERIAL_SHININESS_NAME).c_str(), material.GetShininess());
-        SetTexture(GL_TEXTURE0, material.GetTexture());
+        const Texture* texture = material.GetTexture();
+        if (texture != nullptr)
+        {
+            //TODO: this is not very good as it does not include parent struct name
+            SetTexture(DEFAULT_TEXTURE_NAME, texture);
+            SetBool(std::format("{}.{}", which, DEFAULT_MATERIAL_HAS_TEXTURE_NAME).c_str(), true);
+        }
+        else
+        {
+            SetBool(std::format("{}.{}", which, DEFAULT_MATERIAL_HAS_TEXTURE_NAME).c_str(), false);
+        }
+    }
+
+    void Shader::ParseTextures(const std::string& fileContent)
+    {
+        const std::vector<std::string> textures = FileUtils::ExtractLines(GLSL_TEXTURE_TOKEN, fileContent);
+        for (const std::string& str : textures)
+        {
+            std::vector<std::string> splitted = FileUtils::Split(" ", str);
+            if (splitted.size() == 2)
+            {
+                const std::string name = FileUtils::Split(";", splitted[1])[0];
+                const int unit = m_TextureUnits.size();
+                SetInt(name.c_str(), unit);
+                m_TextureUnits.push_back(name);
+            }
+        }
+    }
+
+    int Shader::GetTextureUnit(const std::string& which) const
+    {
+        for (unsigned int i = 0; i < m_TextureUnits.size(); i++)
+        {
+            if (m_TextureUnits[i] == which)
+            {
+                return GL_TEXTURE0 + i;
+            }
+        }
+
+        return -1;
     }
 
 #ifdef FORGE_DEBUG_ENABLED
@@ -222,15 +272,33 @@ namespace ForgeEngine
         ImGui::Text("FragmentID ID: %d", m_FragmentID);
         ImGui::Text("Input Data Size: %d", GetInputDataSize());
 
+        if (!m_TextureUnits.empty())
+        {
+            ImGuiUtils::PushId((int)this);
+            if (ImGui::CollapsingHeader("Texture Units"))
+            {
+                ImGui::Indent();
+                unsigned int unit = 0;
+                for (const std::string& name : m_TextureUnits)
+                {
+                    ImGui::Text("%s (%d)", name.c_str(), unit);
+                    unit++;
+                }
+                ImGui::Unindent();
+            }
+            ImGui::PopID();
+        }
+        ImGuiUtils::PushId((int)this);
         if (ImGui::CollapsingHeader("Variables"))
         {
             ImGui::Indent();
             for (const UniformData& data : m_UniformsData)
             {
-                ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(data.m_VariableType), "%s (%s)", data.m_VariableName.c_str(), data.m_VariableType.c_str());
+                ImGui::TextColored(ImGuiUtils::GetShaderVariableTypeColor(data.m_VariableType), "%s (%s)", data.m_VariableName.c_str(), data.m_VariableType.c_str());
             }
             ImGui::Unindent();
         }
+        ImGui::PopID();
     }
 #endif //FORGE_DEBUG_ENABLED
 }

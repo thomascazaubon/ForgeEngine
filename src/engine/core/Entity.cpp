@@ -151,7 +151,7 @@ namespace ForgeEngine
         m_Transform.DebugImGUI();
         m_Transform.Draw();
 
-        ImGui::PushID(static_cast<int>(GetID()));
+        ImGuiUtils::PushId((int)this);
         for (auto& component : m_RegisteredComponents)
         {
             if (component != nullptr)

@@ -10,8 +10,9 @@ namespace ForgeEngine
 {
     class Color;
 
-    namespace ImGUIUtils
+    namespace ImGuiUtils
     {
+        void PushId(int seed);
         ImVec4 ToImColor(const Color& color);
         ImVec4 GetShaderVariableTypeColor(const std::string& type);
     }

@@ -254,9 +254,13 @@ namespace ForgeEngine
         }
     }
 
-    void MeshComponent::SetShaderTexture(unsigned int which, const Texture* texture)
+    void MeshComponent::SetShaderTexture(const char* which, const Texture* texture)
     {
         m_Shader->SetTexture(which, texture);
+        if (m_RecordEnabled && m_Shader->HasUniform(which) && texture != nullptr)
+        {
+            m_RecordData.m_Data[which] = RecordData::Data("sampler2D", texture->GetDebugName());
+        }
     }
 
     void MeshComponent::SetShaderMatrix4(const char* which, const glm::mat4& matrix)
@@ -291,6 +295,12 @@ namespace ForgeEngine
             m_RecordData.m_Data[std::format("{}.{}", which, DEFAULT_MATERIAL_DIFFUSE_NAME)] = RecordData::Data("float", std::format("{}", material.GetDiffuse()));
             m_RecordData.m_Data[std::format("{}.{}", which, DEFAULT_MATERIAL_SPECULAR_NAME)] = RecordData::Data("float", std::format("{}", material.GetSpecular()));
             m_RecordData.m_Data[std::format("{}.{}", which, DEFAULT_MATERIAL_SHININESS_NAME)] = RecordData::Data("int", std::format("{}", material.GetShininess()));
+            const Texture* texture = material.GetTexture();
+            m_RecordData.m_Data[std::format("{}.{}", which, DEFAULT_MATERIAL_HAS_TEXTURE_NAME)] = RecordData::Data("bool", std::format("{}", texture != nullptr ? "true" : "false"));
+            if (texture != nullptr)
+            {
+                m_RecordData.m_Data[DEFAULT_TEXTURE_NAME] = RecordData::Data("sampler2d", std::format("{}", material.GetTexture()->GetDebugName()));
+            }
         }
     }
 
@@ -315,7 +325,7 @@ namespace ForgeEngine
 
     void MeshComponent::UpdateDrawModeCombo() const
     {
-        ImGui::PushID((int)this);
+        ImGuiUtils::PushId((int)this);
         if (ImGui::BeginCombo("Current Draw Mode", m_CurrentDrawMode == DrawMode::Arrays ? "Arrays" : "Elements"))
         {
             for (int i = 0; i < 2; i++)
@@ -349,11 +359,11 @@ namespace ForgeEngine
             {
                 ImGui::TableNextRow();
                 ImGui::TableSetColumnIndex(0);
-                ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.first.c_str());
+                ImGui::TextColored(ImGuiUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.first.c_str());
                 ImGui::TableSetColumnIndex(1);
-                ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Type.c_str());
+                ImGui::TextColored(ImGuiUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Type.c_str());
                 ImGui::TableSetColumnIndex(2);
-                ImGui::TextColored(ImGUIUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Value.c_str());
+                ImGui::TextColored(ImGuiUtils::GetShaderVariableTypeColor(pair.second.m_Type), "%s", pair.second.m_Value.c_str());
             }
             ImGui::EndTable();
         }

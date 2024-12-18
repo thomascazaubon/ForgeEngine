@@ -8,18 +8,19 @@ uniform vec4 LightColor;
 uniform vec3 LightSourcePosition;
 uniform vec3 CameraPosition;
 uniform float LightRange;
-uniform sampler2D RenderTexture;
 uniform int Shininess;
 uniform float SpecularIntensity;
-uniform bool UseTexture;
 uniform bool HasPointLights;
+uniform sampler2D Texture;
+uniform sampler2D boomer;
 
 struct MaterialData {
     vec4 color;
     float diffuse;
     float specular;
     int shininess;
-}; 
+    bool hasTexture;
+};
   
 uniform MaterialData Material;
 
@@ -46,9 +47,9 @@ void main()
 
 	vec4 result;
 
-	if (UseTexture)
+	if (Material.hasTexture)
 	{
-		vec4 texture = texture(RenderTexture, inTextureCoordinates).rgba;
+		vec4 texture = texture(Texture, inTextureCoordinates).rgba;
 
 		if (HasPointLights)
 		{

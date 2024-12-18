@@ -65,7 +65,7 @@ namespace ForgeEngine
             void SetShaderBool(const char* which, bool value);
             void SetShaderInt(const char* which, int value);
             void SetShaderColor(const char* which, const Color& value);
-            void SetShaderTexture(unsigned int which, const Texture* texture);
+            void SetShaderTexture(const char* which, const Texture* texture);
             void SetShaderMatrix4(const char* which, const glm::mat4& matrix);
             void SetShaderMatrix3(const char* which, const glm::mat3& matrix);
             void SetShaderVector3(const char* which, const Vector3& vector);

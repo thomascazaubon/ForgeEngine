@@ -141,7 +141,7 @@ namespace ForgeEngine
             {
                 for (const Vertex& vertex : m_Vertices)
                 {
-                    ImGui::Text("(%.2f, %.2f, %.2f)", vertex.m_Position.x, vertex.m_Position.y, vertex.m_Position.z);
+                    ImGui::Text(DebugUtils::ToString(vertex.m_Position).c_str());
                 }
             }
             ImGui::Unindent();
