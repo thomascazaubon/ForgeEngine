@@ -154,15 +154,6 @@ namespace ForgeEngine
             m_Shader->Use();
             Matrix4 matrix = GetOwner()->GetTransform().GetMatrix();
 
-            const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
-            if (m_BillboardMode != BillboardMode::Disabled)
-            {
-                const Vector3 cameraPosition = activeCamera.GetOwner()->GetPosition();
-                const Vector3 cameraPositionFinal = m_BillboardMode == BillboardMode::Full ? cameraPosition : Vector3(cameraPosition.x, GetOwner()->GetPosition().y, cameraPosition.z);
-                const Vector3 direction = ForgeMaths::Normalize(cameraPositionFinal - GetOwner()->GetPosition());
-                matrix = GetOwner()->GetTransform().MakeLookAt(direction);
-            }
-
             SET_SHADER_MATRIX4(DEFAULT_TRANSFORM_NAME, matrix);
             //TODO: Don't do this per frame
             SET_SHADER_MATRIX3(DEFAULT_NORMAL_MATRIX_NAME, glm::mat3(glm::transpose(glm::inverse(m_Owner->GetTransform().GetMatrix()))));
@@ -194,6 +185,7 @@ namespace ForgeEngine
             
             SET_SHADER_MATERIAL(DEFAULT_MATERIAL_NAME, *m_Mesh.GetMaterial());
 
+            const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
             SET_SHADER_MATRIX4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection());
             SET_SHADER_MATRIX4(DEFAULT_VIEW_NAME, activeCamera.GetView());
             SET_SHADER_VECTOR3(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition());

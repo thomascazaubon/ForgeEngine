@@ -57,7 +57,7 @@ namespace Torch
         m_Cube->GetTransform().Translate(Vector3(4.f, 0.f, 4.f));
 
         Entity* npc = world.RegisterEntity("NPC");
-        npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\lit", BillboardMode::LockY));
+        npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\billboard"));
         npc->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
     }
 

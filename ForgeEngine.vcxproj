@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\anim\Animation.h" />
     <ClInclude Include="src\engine\assetloaders\LoadableAsset.h" />
     <ClInclude Include="src\engine\assetloaders\MaterialLoader.h" />
     <ClInclude Include="src\engine\assetloaders\AssetLoader.h" />
@@ -396,6 +397,7 @@
     <ClInclude Include="src\engine\math\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\anim\Animation.cpp" />
     <ClCompile Include="src\engine\assetloaders\LoadableAsset.cpp" />
     <ClCompile Include="src\engine\assetloaders\MaterialLoader.cpp" />
     <ClCompile Include="src\engine\assetloaders\AssetLoader.cpp" />
@@ -465,6 +467,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="assets\anims\npc_idle.anim" />
     <None Include="assets\shaders\billboard.frag" />
     <None Include="assets\shaders\billboard.geom" />
     <None Include="assets\shaders\billboard.vert" />

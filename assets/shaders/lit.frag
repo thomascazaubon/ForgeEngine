@@ -3,13 +3,10 @@
 //FRAGMENT SHADER
 
 uniform float AmbientLightIntensity;
-uniform vec4 RenderColor;
 uniform vec4 LightColor;
 uniform vec3 LightSourcePosition;
 uniform vec3 CameraPosition;
 uniform float LightRange;
-uniform int Shininess;
-uniform float SpecularIntensity;
 uniform bool HasPointLights;
 uniform sampler2D Texture;
 

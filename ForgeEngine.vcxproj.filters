@@ -1116,6 +1116,9 @@
     <ClInclude Include="src\engine\debug\ImGUICore.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\anim\Animation.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\extern\opengl\includes\glad\glad.c">
@@ -1314,6 +1317,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\debug\ImGUICore.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\anim\Animation.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1738,6 +1744,7 @@
     <None Include="assets\shaders\billboard.frag" />
     <None Include="assets\shaders\billboard.geom" />
     <None Include="assets\shaders\billboard.vert" />
+    <None Include="assets\anims\npc_idle.anim" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="vs-chromium-project.txt" />
