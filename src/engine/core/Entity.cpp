@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+#include "engine/core/World.h"
+
 #ifdef FORGE_DEBUG_ENABLED
 #include "engine/debug/ImGUICore.h"
 #endif //FORGE_DEBUG_ENABLED
@@ -69,6 +71,13 @@ namespace ForgeEngine
 
     void Entity::OnPreUpdate(float dT) /*override*/
     {
+#ifdef FORGE_DEBUG_ENABLED
+        if (m_DestroyRequested)
+        {
+            Destroy();
+            return;
+        }
+#endif
         if (!IsActive())
         {
             return;
@@ -146,12 +155,15 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
     void Entity::OnDrawDebug(float dT) const  /*override*/
     {
+        ImGuiUtils::PushId((int)this);
         Mother::OnDrawDebug(dT);
-
+        if (ImGui::Button("Destroy"))
+        {
+            m_DestroyRequested = true;
+        }
         m_Transform.DebugImGUI();
         m_Transform.Draw();
 
-        ImGuiUtils::PushId((int)this);
         for (auto& component : m_RegisteredComponents)
         {
             if (component != nullptr)
@@ -173,7 +185,6 @@ namespace ForgeEngine
 
     void Entity::OnDestroy() /*override*/
     {
-        Mother::OnDestroy();
         for (auto& component : m_RegisteredComponents)
         {
             if (component != nullptr)
@@ -181,5 +192,7 @@ namespace ForgeEngine
                 component->Destroy();
             }
         }
+        Mother::OnDestroy();
+        m_World.UnregisterEntity(this);
     }
 }

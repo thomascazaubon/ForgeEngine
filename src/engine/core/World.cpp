@@ -12,6 +12,7 @@
 
 namespace ForgeEngine
 {
+    //TODO: Return weakptr
     Entity* World::RegisterEntity(const char* debugName /*= nullptr*/)
     {
         std::string finalDebugName{ debugName != nullptr ? debugName : "" };
@@ -26,6 +27,20 @@ namespace ForgeEngine
         Entity* entity = new Entity(*this, finalDebugName);
         m_RegisteredEntities.push_back(std::unique_ptr<Entity>(entity));
         return entity;
+    }
+
+    void World::UnregisterEntity(const Entity* entity)
+    {
+        if (entity != nullptr)
+        {
+            for (unsigned int i = 0; i < m_RegisteredEntities.size(); i++)
+            {
+                if (m_RegisteredEntities[i].get() == entity)
+                { 
+                    m_RegisteredEntities.erase(m_RegisteredEntities.begin() + i);
+                }
+            }
+        }
     }
 
     World::~World()

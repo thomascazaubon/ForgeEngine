@@ -465,6 +465,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="assets\shaders\billboard.frag" />
+    <None Include="assets\shaders\billboard.geom" />
+    <None Include="assets\shaders\billboard.vert" />
     <None Include="assets\shaders\fragment\textured.glslf" />
     <None Include="assets\shaders\lit.geom" />
     <None Include="assets\shaders\vertex\textured.glslv" />

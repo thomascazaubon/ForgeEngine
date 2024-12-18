@@ -94,6 +94,7 @@ namespace ForgeEngine
 
 #ifdef FORGE_DEBUG_ENABLED
             const std::string m_DebugName;
+            mutable bool m_DestroyRequested{false};
 #endif //FORGE_DEBUG_ENABLED
     };
 }

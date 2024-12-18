@@ -1735,6 +1735,9 @@
     <None Include="imgui.ini" />
     <None Include="README.md" />
     <None Include="assets\shaders\lit.geom" />
+    <None Include="assets\shaders\billboard.frag" />
+    <None Include="assets\shaders\billboard.geom" />
+    <None Include="assets\shaders\billboard.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="vs-chromium-project.txt" />

@@ -17,6 +17,7 @@ namespace ForgeEngine
     class World : ManagedObject
     {
         friend class GameHandler;
+        friend void Entity::OnDestroy();
 
         /************************************/
         /************ATTRIBUTES**************/
@@ -90,6 +91,8 @@ namespace ForgeEngine
             void PostUpdate(float dT);
 
             void OnDestroy();
+
+            void UnregisterEntity(const Entity* entity);
 
 #ifdef FORGE_DEBUG_ENABLED
             void DrawDebug(float dT);

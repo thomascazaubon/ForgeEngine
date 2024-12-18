@@ -12,7 +12,6 @@ uniform int Shininess;
 uniform float SpecularIntensity;
 uniform bool HasPointLights;
 uniform sampler2D Texture;
-uniform sampler2D boomer;
 
 struct MaterialData {
     vec4 color;
