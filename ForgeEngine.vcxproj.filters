@@ -1757,6 +1757,7 @@
     <None Include="assets\shaders\billboard.geom" />
     <None Include="assets\shaders\billboard.vert" />
     <None Include="assets\anims\npc_idle.anim" />
+    <None Include="assets\anims\npc_walk.anim" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="vs-chromium-project.txt" />

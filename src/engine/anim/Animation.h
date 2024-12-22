@@ -19,9 +19,10 @@ namespace ForgeEngine
         friend class AssetLoader;
 
         public:
-            bool IsValid() const override { return !m_Frames.empty(); }
+            bool IsValid() const override { return !m_Frames.empty() && m_Duration > 0.f; }
 
-            const Texture* GetFrameForProgressRatio(const float progressRation) const;
+            const Texture& GetFrameForProgressRatio(const float progressRatio) const;
+            float GetDuration() const { return m_Duration; }
 
         private:
             Animation(const std::string& path);

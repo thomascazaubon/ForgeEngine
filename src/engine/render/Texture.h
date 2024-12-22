@@ -15,8 +15,6 @@ namespace ForgeEngine
         friend class AssetLoader;
 
         public:
-            //TODO: is this needed?
-            Texture(void* data, unsigned int width, unsigned int height);
             ~Texture();
 
 #ifdef FORGE_DEBUG_ENABLED

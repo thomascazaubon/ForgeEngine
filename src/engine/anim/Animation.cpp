@@ -79,12 +79,17 @@ namespace ForgeEngine
             if (name == "duration")
             {
                 m_Duration = stof(values[0]);
-                return true;
+                if (m_Duration <= 0.f)
+                {
+                    DebugUtils::LogError("AnimationLoader: attribute duration must have a positive non null value \"{}\"", path);
+                }
+                return m_Duration > 0.f;
             }
             else if (name == "frames")
             {
                 for (const std::string& value : values)
                 {
+                    //TODO: Allow indentation
                     if (const std::shared_ptr<Texture>* texture = GameHandler::Get().GetWorld().GetComponentByType<TextureLoader>()->GetOrLoadResource(value))
                     {
                         m_Frames.push_back(*texture);
@@ -110,9 +115,21 @@ namespace ForgeEngine
         return false;
     }
 
-    const Texture* Animation::GetFrameForProgressRatio(const float progressRation) const
+    const Texture& Animation::GetFrameForProgressRatio(const float progressRatio) const
     {
-        return nullptr;
+        unsigned int frameIndex = 0;
+
+        if (progressRatio == 1.f)
+        {
+            frameIndex = m_Frames.size() - 1;
+        }
+        else
+        {
+            const float frameDuration = m_Duration / m_Frames.size();
+            frameIndex = (progressRatio * m_Duration) / frameDuration;
+        }
+
+        return *m_Frames[frameIndex].get();
     }
 
 #ifdef FORGE_DEBUG_ENABLED

@@ -1,8 +1,6 @@
-duration:1.0
+duration:2
 frames
 {
-assets\daggerfall\textures\npcs\male_nord\0-0.PNG
-assets\daggerfall\textures\npcs\male_nord\0-1.PNG
-assets\daggerfall\textures\npcs\male_nord\0-2.PNG
-assets\daggerfall\textures\npcs\male_nord\0-3.PNG
+assets\daggerfall\textures\npcs\male_nord\5-0.PNG
+assets\daggerfall\textures\npcs\male_nord\5-1.PNG
 }

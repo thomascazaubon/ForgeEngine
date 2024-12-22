@@ -472,6 +472,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="assets\anims\npc_idle.anim" />
+    <None Include="assets\anims\npc_walk.anim" />
     <None Include="assets\shaders\billboard.frag" />
     <None Include="assets\shaders\billboard.geom" />
     <None Include="assets\shaders\billboard.vert" />

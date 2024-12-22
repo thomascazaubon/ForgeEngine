@@ -195,7 +195,8 @@ namespace Alchemist
     {
         m_Texture.release();
         GeneratePixels();
-        m_Texture = std::make_unique<Texture>(m_Pixels, ALCHEMIST_LANDSCAPE_WIDTH, ALCHEMIST_LANDSCAPE_HEIGHT);
+        //TODO: fix this
+        //m_Texture = std::make_unique<Texture>(m_Pixels, ALCHEMIST_LANDSCAPE_WIDTH, ALCHEMIST_LANDSCAPE_HEIGHT);
     }
     
     void LandscapeComponent::GeneratePixels()

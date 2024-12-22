@@ -3,6 +3,7 @@
 #include "common/worldcomponents/SkyboxComponent.h"
 
 #include "engine/assetloaders/ShaderLoader.h"
+#include "engine/components/AnimatorComponent.h"
 #include "engine/components/CameraComponent.h"
 #include "engine/components/LightComponent.h"
 #include "engine/core/ForgeEngine.h"
@@ -184,6 +185,11 @@ namespace ForgeEngine
             SET_SHADER_FLOAT(DEFAULT_AMBIENT_LIGHT_INTENSITY_NAME, ambientLightIntensity);
             
             SET_SHADER_MATERIAL(DEFAULT_MATERIAL_NAME, *m_Mesh.GetMaterial());
+
+            if (const AnimatorComponent* animator = GetOwner()->GetComponentByType<const AnimatorComponent>())
+            {
+                SET_SHADER_TEXTURE(DEFAULT_TEXTURE_NAME, &animator->GetTexture());
+            }
 
             const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
             SET_SHADER_MATRIX4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection());

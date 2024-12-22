@@ -57,10 +57,10 @@ namespace Torch
         m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\marble.mat", Pivot::Bottom), "assets\\shaders\\lit"));
         m_Cube->GetTransform().Translate(Vector3(4.f, 0.f, 4.f));
 
-        Entity* npc = world.RegisterEntity("NPC");
-        npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\billboard"));
-        npc->RegisterComponent(new AnimatorComponent("assets\\anims\\npc_idle.anim"));
-        npc->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
+        m_Cube = world.RegisterEntity("NPC");
+        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\billboard"));
+        m_Cube->RegisterComponent(new AnimatorComponent("assets\\anims\\npc_walk.anim"));
+        m_Cube->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
     }
 
     void Torch::OnUpdate(float dT) /*override*/
@@ -68,7 +68,15 @@ namespace Torch
         Mother::OnUpdate(dT);
         Vector3 position = m_Light->GetPosition();
         m_Light->GetTransform().SetPosition(Vector3(position.x, 2.f + (sin(static_cast<float>(glfwGetTime()) * 2.0f)), position.z));
-        m_Cube->GetTransform().Rotate(m_Cube->GetTransform().GetYAxis() * 180.f * dT);
+        const CameraComponent& player = CameraComponent::GetActiveCamera();
+        const Vector3& playerPosition = player.GetOwner()->GetPosition();
+        const Vector3& playerPositionFlat = Vector3(playerPosition.x, m_Cube->GetPosition().y, playerPosition.z);
+        const Vector3 toPlayer = playerPositionFlat - m_Cube->GetPosition();
+        if (glm::length(toPlayer) > 3.f)
+        {
+            m_Cube->GetTransform().Translate(ForgeMaths::Normalize(toPlayer) * 5.f * dT);
+        }
+       
     }
 
     void Torch::OnTermination() /*override*/

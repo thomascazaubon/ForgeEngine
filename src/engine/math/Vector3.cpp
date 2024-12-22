@@ -33,7 +33,7 @@ namespace ForgeEngine
 
         float Distance(const Vector3& v1, const Vector3& v2)
         {
-            return (v1 - v2).length();
+            return glm::length(v1 - v2);
         }
     }
 }

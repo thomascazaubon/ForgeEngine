@@ -45,27 +45,6 @@ namespace ForgeEngine
         stbi_image_free(data);
     }
 
-    Texture::Texture(void* data, unsigned int width, unsigned int height) :
-        Mother(""),
-        m_Width(width),
-        m_Height(height)
-    {
-        if (data)
-        {
-            glGenTextures(1, &m_GLTexture);
-            glBindTexture(GL_TEXTURE_2D, m_GLTexture);
-
-            // set the texture wrapping/filtering options (on the currently bound texture object)
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_FLOAT, data);
-            glGenerateMipmap(GL_TEXTURE_2D);
-        }
-    }
-
     Texture::~Texture()
     {
         glDeleteTextures(1, &m_GLTexture);
