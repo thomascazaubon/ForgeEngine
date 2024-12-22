@@ -14,6 +14,7 @@
 #include "engine/render/ShaderUtils.h"
 #include "engine/worldcomponents/DebugManager.h"
 #include "engine/worldcomponents/InputManager.h"
+#include "projects/daggerfall/components/NPCComponent.h"
 
 int main()
 {
@@ -41,7 +42,7 @@ namespace Torch
         Entity* player = world.RegisterEntity("Player");
         player->RegisterComponent(new CameraComponent(CameraComponent::PerspectiveCamera{}));
         player->RegisterComponent(new FirstPersonControllerComponent());
-        player->GetTransform().SetPosition(Vector3(2.f, 1.7f, 2.f));
+        player->GetTransform().SetPosition(Vector3(0.f, 1.7f, 0.f));
         
         Color lightColor = COLOR_WHITE;
         m_Light = world.RegisterEntity("Light");
@@ -57,10 +58,13 @@ namespace Torch
         m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeCube(1.f, "assets\\materials\\marble.mat", Pivot::Bottom), "assets\\shaders\\lit"));
         m_Cube->GetTransform().Translate(Vector3(4.f, 0.f, 4.f));
 
-        m_Cube = world.RegisterEntity("NPC");
-        m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\billboard"));
-        m_Cube->RegisterComponent(new AnimatorComponent("assets\\anims\\npc.animator"));
-        m_Cube->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
+        for (unsigned int i = 0; i < 1; i++)
+        {
+            Entity* npc = world.RegisterEntity("NPC");
+            npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\billboard"));
+            npc->RegisterComponent(new AnimatorComponent("assets\\anims\\npc.animator"));
+            npc->RegisterComponent(new NPCComponent());
+        }
     }
 
     void Torch::OnUpdate(float dT) /*override*/
@@ -68,22 +72,6 @@ namespace Torch
         Mother::OnUpdate(dT);
         Vector3 position = m_Light->GetPosition();
         m_Light->GetTransform().SetPosition(Vector3(position.x, 2.f + (sin(static_cast<float>(glfwGetTime()) * 2.0f)), position.z));
-        const CameraComponent& player = CameraComponent::GetActiveCamera();
-        const Vector3& playerPosition = player.GetOwner()->GetPosition();
-        const Vector3& playerPositionFlat = Vector3(playerPosition.x, m_Cube->GetPosition().y, playerPosition.z);
-        const Vector3 toPlayer = playerPositionFlat - m_Cube->GetPosition();
-        if (AnimatorComponent* animationComponent = m_Cube->GetComponentByType<AnimatorComponent>())
-        {
-            if (glm::length(toPlayer) > 3.f)
-            {
-                m_Cube->GetTransform().Translate(ForgeMaths::Normalize(toPlayer) * 5.f * dT);
-                animationComponent->SetRunningAnimation("walk");
-            }
-            else
-            {
-                animationComponent->SetRunningAnimation("idle");
-            }
-        }
     }
 
     void Torch::OnTermination() /*override*/
