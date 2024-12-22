@@ -11,14 +11,15 @@ namespace ForgeEngine
     {
         using Mother = LoadableAsset;
 
+        template<typename T>
+        friend class AssetLoader;
+
         public:
-            Texture(const std::string& texturePath, unsigned int rgbaMode = GL_RGBA, bool flip = true);
             //TODO: is this needed?
             Texture(void* data, unsigned int width, unsigned int height);
             ~Texture();
 
 #ifdef FORGE_DEBUG_ENABLED
-            const char* GetDebugName() const override { return m_Name.c_str(); }
             void OnDrawDebug() const override;
 #endif //FORGE_DEBUG_ENABLED
 
@@ -31,9 +32,7 @@ namespace ForgeEngine
             void Use();
 
         private:
-#ifdef FORGE_DEBUG_ENABLED
-            const std::string m_Name;
-#endif //FORGE_DEBUG_ENABLED
+            Texture(const std::string& texturePath);
 
             unsigned int m_GLTexture{};
 

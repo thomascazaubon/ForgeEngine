@@ -77,18 +77,29 @@ namespace ForgeEngine
                 std::string resourceHeader = resource.first + " [" + std::to_string(resource.second.use_count() - 1) + "]";
                 if (ImGui::CollapsingHeader(resourceHeader.c_str()))
                 {
-                    DebugResource(*resource.second.get());
+                    resource.second.get()->OnDrawDebug();
                 }
             }
         }
 #endif //FORGE_DEBUG_ENABLED
 
         protected:
-            virtual bool AddResource(const std::string& resourcePath) = 0;
+            virtual bool AddResource(const std::string& resourcePath)
+            {
+                T* resource = new T(resourcePath);
 
-#ifdef FORGE_DEBUG_ENABLED
-            virtual void DebugResource(const T& resource) const = 0;
-#endif //FORGE_DEBUG_ENABLED
+                if (resource->IsValid())
+                {
+                    m_LoadedResources[resourcePath] = std::shared_ptr<T>(resource);
+                }
+                else
+                {
+                    delete(resource);
+                    resource = nullptr;
+                }
+
+                return resource;
+            }
 
             bool IsResourceLoaded(const std::string& resourcePath)
             {

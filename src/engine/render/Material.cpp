@@ -14,41 +14,40 @@
 
 namespace ForgeEngine
 {
-    Material::Material(const std::string& source
-#ifdef FORGE_DEBUG_ENABLED
-        , const char* path
-#endif //FORGE_DEBUG_ENABLED
-    )
+    Material::Material(const std::string& path)
+        : Mother(path)
     {
-        std::vector<std::string> attributes = FileUtils::Split("\n", source);
-
-        if (!source.empty())
+        std::string source;
+        if (FileUtils::TryLoadFileContent(path, source))
         {
-            for (const std::string& attribute : attributes)
-            {
-                std::vector<std::string> splittedAttribute = FileUtils::Split(":", attribute);
-                const std::string& name = splittedAttribute[0];
+            m_Color = COLOR_WHITE;
 
-                if (splittedAttribute.size() == 2)
+            std::vector<std::string> attributes = FileUtils::Split("\n", source);
+
+            if (!source.empty())
+            {
+                for (const std::string& attribute : attributes)
                 {
-                    if (!ResolveAttribute(name, splittedAttribute[1]))
+                    std::vector<std::string> splittedAttribute = FileUtils::Split(":", attribute);
+                    const std::string& name = splittedAttribute[0];
+
+                    if (splittedAttribute.size() == 2)
+                    {
+                        if (!ResolveAttribute(name, splittedAttribute[1]))
+                        {
+#ifdef FORGE_DEBUG_ENABLED
+                            DebugUtils::LogError("Material {}: Cannot resolve attribute \"{}\".", path, name.c_str());
+#endif //FORGE_DEBUG_ENABLED
+                        }
+                    }
+                    else
                     {
 #ifdef FORGE_DEBUG_ENABLED
-                        DebugUtils::LogError("Material {}: Cannot resolve attribute \"{}\".", path, name.c_str());
+                        DebugUtils::LogError("Material {}: Invalid syntax \"{}\".", path, name.c_str());
 #endif //FORGE_DEBUG_ENABLED
                     }
                 }
-                else
-                {
-#ifdef FORGE_DEBUG_ENABLED
-                    DebugUtils::LogError("Material {}: Invalid syntax \"{}\".", path, name.c_str());
-#endif //FORGE_DEBUG_ENABLED
-                }
             }
-        }
-        else
-        {
-            m_Color = COLOR_MAGENTA;
         }
     }
 

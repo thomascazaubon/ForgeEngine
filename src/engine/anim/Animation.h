@@ -13,30 +13,30 @@ namespace ForgeEngine
 
     class Animation : public LoadableAsset
     {
-        friend class AnimationLoader;
+        using Mother = LoadableAsset;
 
-    public:
-        //TODO: fix this
+        template<typename T>
+        friend class AssetLoader;
+
+        public:
+            bool IsValid() const override { return !m_Frames.empty(); }
+
+            const Texture* GetFrameForProgressRatio(const float progressRation) const;
+
+        private:
+            Animation(const std::string& path);
+
+            bool ResolveAttribute(const std::string& name, const std::vector<std::string>& values
 #ifdef FORGE_DEBUG_ENABLED
-        const char* GetDebugName() const override { return "?"; }
+                , const std::string& path
+#endif //FORGE_DEBUG_ENABLED
+            );
+
+#ifdef FORGE_DEBUG_ENABLED
+            void OnDrawDebug() const override;
 #endif //FORGE_DEBUG_ENABLED
 
-        bool IsValid() const override { return true; }
-
-    private:
-        Animation(const std::string& source
-#ifdef FORGE_DEBUG_ENABLED
-            , const char* path
-#endif //FORGE_DEBUG_ENABLED
-        );
-
-        bool ResolveAttribute(const std::string& name, const std::string& value);
-
-#ifdef FORGE_DEBUG_ENABLED
-        void OnDrawDebug() const override;
-#endif //FORGE_DEBUG_ENABLED
-        Timer m_Timer;
-        std::vector<std::shared_ptr<Texture>> m_Frames;
-        float m_Duration{0.f};
+            std::vector<std::shared_ptr<Texture>> m_Frames;
+            float m_Duration{0.f};
     };
 }

@@ -2,6 +2,7 @@
 
 #include "common/components/FirstPersonControllerComponent.h"
 #include "common/worldcomponents/SkyboxComponent.h"
+#include "engine/components/AnimatorComponent.h"
 #include "engine/components/CameraComponent.h"
 #include "engine/components/LightComponent.h"
 #include "engine/components/MeshComponent.h"
@@ -58,6 +59,7 @@ namespace Torch
 
         Entity* npc = world.RegisterEntity("NPC");
         npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\billboard"));
+        npc->RegisterComponent(new AnimatorComponent("assets\\anims\\npc_idle.anim"));
         npc->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
     }
 

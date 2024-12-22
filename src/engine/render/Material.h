@@ -7,19 +7,16 @@
 
 namespace ForgeEngine
 {
-    class MaterialLoader;
     class Texture;
 
     class Material : public LoadableAsset
     {
-        friend class MaterialLoader;
+        using Mother = LoadableAsset;
+
+        template<typename T>
+        friend class AssetLoader;
 
         public:
-            //TODO: fix this
-#ifdef FORGE_DEBUG_ENABLED
-            const char* GetDebugName() const override { return "?"; }
-#endif //FORGE_DEBUG_ENABLED
-
             bool IsValid() const override { return true; }
             int GetShininess() const { return m_Shininess; }
             float GetSpecular() const { return m_Specular; }
@@ -28,11 +25,7 @@ namespace ForgeEngine
             const Texture* GetTexture() const { return m_Texture.get(); }
 
         private:
-            Material(const std::string& source
-#ifdef FORGE_DEBUG_ENABLED
-                , const char* path
-#endif //FORGE_DEBUG_ENABLED
-            );
+            Material(const std::string& path);
             bool ResolveAttribute(const std::string& name, const std::string& value);
 
             void SetColor(Color color) { m_Color = color; }
@@ -44,7 +37,7 @@ namespace ForgeEngine
             int m_Shininess{ 2 };
             float m_Diffuse{ 1.f };
             float m_Specular{ 0.f };
-            Color m_Color{ COLOR_WHITE };
+            Color m_Color{ COLOR_MAGENTA };
             std::shared_ptr<Texture> m_Texture{ nullptr };
     };
 }

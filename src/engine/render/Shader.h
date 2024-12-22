@@ -56,18 +56,19 @@ namespace ForgeEngine
 
     class Color;
     class Material;
-    class MeshComponent;
     class Texture;
 
     class Shader : public LoadableAsset
     {
+        using Mother = LoadableAsset;
+
+        template<typename T>
+        friend class AssetLoader;
+
         public:
-            Shader(const std::string& shaderPath);
             ~Shader();
 
-            //TODO: fix this
 #ifdef FORGE_DEBUG_ENABLED
-            const char* GetDebugName() const override { return "?"; }
             void OnDrawDebug() const override;
 
             bool HasUniform(const std::string& name) const { return GetUniformData(name) != nullptr; }
@@ -75,7 +76,7 @@ namespace ForgeEngine
 
             void Use() const;
 
-            bool IsValid() const override { return m_ProgramID && m_VertexID&& m_FragmentID; }
+            bool IsValid() const override { return m_ProgramID && m_VertexID && m_FragmentID; }
 
             int GetInputDataSize() const;
 
@@ -95,6 +96,8 @@ namespace ForgeEngine
             void SetMaterial(const char* which, const Material& material);
 
         private:
+            Shader(const std::string& path);
+
 #ifdef FORGE_DEBUG_ENABLED
             struct UniformData
             {

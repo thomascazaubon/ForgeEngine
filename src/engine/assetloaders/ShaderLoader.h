@@ -1,11 +1,12 @@
 #pragma once
 
 #include "engine/assetloaders/AssetLoader.h"
+#include "engine/render/Shader.h"
 
-#define DEFAULT_SHADER_PATH                        "assets\\shaders\\default"
+#define DEFAULT_SHADER_PATH                     "assets\\shaders\\default"
 #define TEXTURED_SHADER_PATH                    "assets\\shaders\\textured"
-#define LIT_SHADER_PATH                            "assets\\shaders\\lit"
-#define DEBUG_SHADER_PATH                        "assets\\shaders\\debug"
+#define LIT_SHADER_PATH                         "assets\\shaders\\lit"
+#define DEBUG_SHADER_PATH                       "assets\\shaders\\debug"
 
 namespace ForgeEngine
 {
@@ -15,16 +16,9 @@ namespace ForgeEngine
     {
         using Mother = AssetLoader<Shader>;
 
-    public:
+        public:
 #ifdef FORGE_DEBUG_ENABLED
-        const char* GetDebugName() const override { return "ShaderLoader"; }
-#endif //FORGE_DEBUG_ENABLED
-
-    protected:
-        bool AddResource(const std::string& resourcePath) override;
-
-#ifdef FORGE_DEBUG_ENABLED
-        void DebugResource(const Shader& resource) const override;
+            const char* GetDebugName() const override { return "ShaderLoader"; }
 #endif //FORGE_DEBUG_ENABLED
     };
 }

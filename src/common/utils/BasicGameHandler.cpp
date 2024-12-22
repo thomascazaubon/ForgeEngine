@@ -1,6 +1,7 @@
 #include "BasicGameHandler.h"
 
 #include "common/worldcomponents/SkyboxComponent.h"
+#include "engine/assetloaders/AnimationLoader.h"
 #include "engine/assetloaders/MaterialLoader.h"
 #include "engine/assetloaders/ShaderLoader.h"
 #include "engine/assetloaders/TextureLoader.h"
@@ -18,10 +19,11 @@ namespace ForgeEngine
         Mother::OnPreInit();
 
         m_World.RegisterComponent(new ShaderLoader());
-        m_World.RegisterComponent(new InputManager());
-        m_World.RegisterComponent(new LightManager());
         m_World.RegisterComponent(new MaterialLoader());
         m_World.RegisterComponent(new TextureLoader());
+        m_World.RegisterComponent(new AnimationLoader());
+        m_World.RegisterComponent(new InputManager());
+        m_World.RegisterComponent(new LightManager());
         m_World.RegisterComponent(new SkyboxComponent(0.f, NOON_TIME));
 
 #ifdef FORGE_DEBUG_ENABLED

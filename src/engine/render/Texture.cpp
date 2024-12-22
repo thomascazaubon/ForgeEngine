@@ -10,13 +10,14 @@
 
 namespace ForgeEngine
 {
-    Texture::Texture(const std::string& texturePath, unsigned int rgbaMode/*= GL_RGBA*/, bool flip/* = true*/) 
-        : Mother()
-#ifdef FORGE_DEBUG_ENABLED
-        , m_Name(texturePath)
-#endif //FORGE_DEBUG_ENABLED
+    Texture::Texture(const std::string& texturePath) 
+        : Mother(texturePath)
     {
-        stbi_set_flip_vertically_on_load(flip);
+#ifdef FORGE_DEBUG_ENABLED
+        m_DebugName = texturePath;
+#endif //FORGE_DEBUG_ENABLED
+
+        stbi_set_flip_vertically_on_load(true);
         unsigned char* data = stbi_load(texturePath.c_str(), &m_Width, &m_Height, &m_Channels, STBI_rgb_alpha);
         stbi_set_flip_vertically_on_load(false);
 
@@ -31,7 +32,7 @@ namespace ForgeEngine
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, rgbaMode, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
             glGenerateMipmap(GL_TEXTURE_2D);
         }
         else
@@ -45,7 +46,7 @@ namespace ForgeEngine
     }
 
     Texture::Texture(void* data, unsigned int width, unsigned int height) :
-        Mother(),
+        Mother(""),
         m_Width(width),
         m_Height(height)
     {
