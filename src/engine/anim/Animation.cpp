@@ -20,9 +20,6 @@ namespace ForgeEngine
         {
             const std::vector<std::string> lines = FileUtils::Split("\n", source);
             std::vector<std::string> gatheredAttributes;
-#ifdef FORGE_DEBUG_ENABLED
-            std::vector<std::string> errorLogs;
-#endif //FORGE_DEBUG_ENABLED
             std::string bracketAttributeName = "";
             bool hasOpenedBracket = false;
 
@@ -115,21 +112,22 @@ namespace ForgeEngine
         return false;
     }
 
-    const Texture& Animation::GetFrameForProgressRatio(const float progressRatio) const
+    unsigned int Animation::GetFrameIndexForProgressRatio(const float progressRatio) const
     {
-        unsigned int frameIndex = 0;
-
         if (progressRatio == 1.f)
         {
-            frameIndex = m_Frames.size() - 1;
+            return m_Frames.size() - 1;
         }
         else
         {
             const float frameDuration = m_Duration / m_Frames.size();
-            frameIndex = (progressRatio * m_Duration) / frameDuration;
+            return (progressRatio * m_Duration) / frameDuration;
         }
+    }
 
-        return *m_Frames[frameIndex].get();
+    const Texture& Animation::GetFrameForProgressRatio(const float progressRatio) const
+    {
+        return *m_Frames[GetFrameIndexForProgressRatio(progressRatio)].get();
     }
 
 #ifdef FORGE_DEBUG_ENABLED

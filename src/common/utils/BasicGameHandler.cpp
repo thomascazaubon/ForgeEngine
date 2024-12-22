@@ -2,6 +2,7 @@
 
 #include "common/worldcomponents/SkyboxComponent.h"
 #include "engine/assetloaders/AnimationLoader.h"
+#include "engine/assetloaders/AnimatorLoader.h"
 #include "engine/assetloaders/MaterialLoader.h"
 #include "engine/assetloaders/ShaderLoader.h"
 #include "engine/assetloaders/TextureLoader.h"
@@ -22,6 +23,7 @@ namespace ForgeEngine
         m_World.RegisterComponent(new MaterialLoader());
         m_World.RegisterComponent(new TextureLoader());
         m_World.RegisterComponent(new AnimationLoader());
+        m_World.RegisterComponent(new AnimatorLoader());
         m_World.RegisterComponent(new InputManager());
         m_World.RegisterComponent(new LightManager());
         m_World.RegisterComponent(new SkyboxComponent(0.f, NOON_TIME));

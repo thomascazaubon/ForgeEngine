@@ -30,9 +30,9 @@ namespace Torch
     {
     }
 
-    void Torch::OnPostInit() /*override*/
+    void Torch::OnInit() /*override*/
     {
-        Mother::OnPostInit();
+        Mother::OnInit();
         World& world = GetWorld();
         
         Entity* ground = world.RegisterEntity("Ground");
@@ -59,7 +59,7 @@ namespace Torch
 
         m_Cube = world.RegisterEntity("NPC");
         m_Cube->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\billboard"));
-        m_Cube->RegisterComponent(new AnimatorComponent("assets\\anims\\npc_walk.anim"));
+        m_Cube->RegisterComponent(new AnimatorComponent("assets\\anims\\npc.animator"));
         m_Cube->GetTransform().SetPosition(Vector3(3.f, 0.f, 3.f));
     }
 
@@ -72,11 +72,18 @@ namespace Torch
         const Vector3& playerPosition = player.GetOwner()->GetPosition();
         const Vector3& playerPositionFlat = Vector3(playerPosition.x, m_Cube->GetPosition().y, playerPosition.z);
         const Vector3 toPlayer = playerPositionFlat - m_Cube->GetPosition();
-        if (glm::length(toPlayer) > 3.f)
+        if (AnimatorComponent* animationComponent = m_Cube->GetComponentByType<AnimatorComponent>())
         {
-            m_Cube->GetTransform().Translate(ForgeMaths::Normalize(toPlayer) * 5.f * dT);
+            if (glm::length(toPlayer) > 3.f)
+            {
+                m_Cube->GetTransform().Translate(ForgeMaths::Normalize(toPlayer) * 5.f * dT);
+                animationComponent->SetRunningAnimation("walk");
+            }
+            else
+            {
+                animationComponent->SetRunningAnimation("idle");
+            }
         }
-       
     }
 
     void Torch::OnTermination() /*override*/

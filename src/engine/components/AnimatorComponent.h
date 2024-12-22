@@ -9,6 +9,7 @@
 namespace ForgeEngine
 {
     class Animation;
+    class Animator;
     class Texture;
 
     class AnimatorComponent : public Component
@@ -22,7 +23,10 @@ namespace ForgeEngine
             const char* GetDebugName() const override { return "AnimatorComponent"; }
 #endif //FORGE_DEBUG_ENABLED
 
-            const Texture& GetTexture() const;
+            const Texture& GetCurrentTexture() const;
+            const Animation& GetCurrentAnimation() const;
+
+            bool SetRunningAnimation(const std::string& name);
 
         protected:
             void OnPreUpdate(float dT) override;
@@ -33,9 +37,13 @@ namespace ForgeEngine
 #endif //FORGE_DEBUG_ENABLED
 
         private:
+            void RestartTimer();
+
             Timer m_Timer;
+
+            std::string m_CurrentAnimation;
             std::string m_AnimatorPath;
-            std::shared_ptr<Animation> m_Animation;
+            std::shared_ptr<Animator> m_Animator;
     };
 }
 #pragma once

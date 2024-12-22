@@ -1125,6 +1125,12 @@
     <ClInclude Include="src\engine\components\AnimatorComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\anim\Animator.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\assetloaders\AnimatorLoader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\extern\opengl\includes\glad\glad.c">
@@ -1226,15 +1232,6 @@
     <ClCompile Include="src\common\utils\BasicGameHandler.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\assetloaders\MaterialLoader.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\engine\assetloaders\ShaderLoader.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\engine\assetloaders\TextureLoader.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\components\CameraComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -1313,9 +1310,6 @@
     <ClCompile Include="src\engine\assetloaders\LoadableAsset.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\assetloaders\AssetLoader.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\debug\Assert.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -1328,10 +1322,10 @@
     <ClCompile Include="src\engine\anim\Animation.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\assetloaders\AnimationLoader.cpp">
+    <ClCompile Include="src\engine\components\AnimatorComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\components\AnimatorComponent.cpp">
+    <ClCompile Include="src\engine\anim\Animator.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1758,6 +1752,7 @@
     <None Include="assets\shaders\billboard.vert" />
     <None Include="assets\anims\npc_idle.anim" />
     <None Include="assets\anims\npc_walk.anim" />
+    <None Include="assets\anims\npc.animator" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="vs-chromium-project.txt" />

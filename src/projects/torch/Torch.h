@@ -19,7 +19,7 @@ namespace Torch
             Torch(std::string name, unsigned int width, unsigned int height);
 
         protected:
-            virtual void OnPostInit() override;
+            virtual void OnInit() override;
             virtual void OnUpdate(float dT) override;
             virtual void OnTermination() override;
 

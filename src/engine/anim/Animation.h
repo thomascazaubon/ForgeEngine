@@ -22,6 +22,7 @@ namespace ForgeEngine
             bool IsValid() const override { return !m_Frames.empty() && m_Duration > 0.f; }
 
             const Texture& GetFrameForProgressRatio(const float progressRatio) const;
+            unsigned int GetFrameIndexForProgressRatio(const float progressRatio) const;
             float GetDuration() const { return m_Duration; }
 
         private:

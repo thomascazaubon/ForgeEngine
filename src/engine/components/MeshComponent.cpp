@@ -188,7 +188,7 @@ namespace ForgeEngine
 
             if (const AnimatorComponent* animator = GetOwner()->GetComponentByType<const AnimatorComponent>())
             {
-                SET_SHADER_TEXTURE(DEFAULT_TEXTURE_NAME, &animator->GetTexture());
+                SET_SHADER_TEXTURE(DEFAULT_TEXTURE_NAME, &animator->GetCurrentTexture());
             }
 
             const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
