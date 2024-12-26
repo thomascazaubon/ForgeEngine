@@ -25,9 +25,9 @@ namespace ForgeEngine
         m_InputActionMappings[EInputAction::Exit]                = std::unique_ptr<InputAction>(new InputAction{ EInputType::Release, EDeviceTarget::Keyboard, GLFW_KEY_ENTER });
     }
 
-    void InputManager::OnPreUpdate(float dT) /*override*/
+    void InputManager::OnUpdatePreRender(float dT) /*override*/
     {
-        Mother::OnPreUpdate(dT);
+        Mother::OnUpdatePreRender(dT);
         for (auto& inputAction : m_InputActionMappings)
         {
             inputAction.second.get()->Update(dT);

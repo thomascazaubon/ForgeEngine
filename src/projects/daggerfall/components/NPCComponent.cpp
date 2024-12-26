@@ -12,8 +12,9 @@ namespace ForgeEngine
 {
     bool NPCComponent::OnInit()
     {
+        bool initSuccess = Mother::OnInit();
         m_AnimatorComponent = GetOwner()->GetComponentByType<AnimatorComponent>();
-        return m_AnimatorComponent != nullptr;
+        return initSuccess && m_AnimatorComponent != nullptr;
     }
 
     void NPCComponent::OnUpdate(float dT)

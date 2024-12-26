@@ -43,9 +43,9 @@ namespace ForgeEngine
 #endif //#ifdef FORGE_DEBUG_ENABLED
     }
 
-    void BasicGameHandler::OnPreUpdate(float dT) /*override*/
+    void BasicGameHandler::OnUpdatePreRender(float dT) /*override*/
     {
-        Mother::OnPreUpdate(dT);
+        Mother::OnUpdatePreRender(dT);
         ShaderUtils::ClearScreen(m_World.GetComponentByType<SkyboxComponent>()->GetCurrentSkyColor());
     }
 

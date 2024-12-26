@@ -46,8 +46,7 @@ namespace ForgeEngine
         protected:
             virtual void OnPreInit() {};
             virtual void OnInit() {};
-            virtual void OnPostInit() {};
-            virtual void OnPreUpdate(float dT);
+            virtual void OnUpdatePreRender(float dT);
             virtual void OnUpdate(float dT) {}
             virtual void OnPostUpdate(float dT) {}
             virtual void OnTermination();

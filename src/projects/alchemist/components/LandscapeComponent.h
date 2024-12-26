@@ -64,7 +64,7 @@ namespace Alchemist
 
         public:
             virtual bool OnPreInit() override;
-            virtual void OnPreUpdate(float dT) override;
+            virtual void OnUpdatePreRender(float dT) override;
             virtual void OnDrawDebug(float dT) const override;
 
 #ifdef FORGE_DEBUG_ENABLED

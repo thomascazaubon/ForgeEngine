@@ -52,24 +52,7 @@ namespace ForgeEngine
         return success;
     }
 
-    bool Entity::OnPostInit() /*override*/
-    {
-        bool success = Mother::OnPostInit();
-        for (auto& component : m_RegisteredComponents)
-        {
-            if (component != nullptr && component->IsActive())
-            {
-                if (!component->OnPostInit())
-                {
-                    //Should display warning here!
-                    component->SetActive(false);
-                }
-            }
-        }
-        return success;
-    }
-
-    void Entity::OnPreUpdate(float dT) /*override*/
+    void Entity::OnUpdatePreRender(float dT) /*override*/
     {
 #ifdef FORGE_DEBUG_ENABLED
         if (m_DestroyRequested)
@@ -83,7 +66,7 @@ namespace ForgeEngine
             return;
         }
 
-        Mother::OnPreUpdate(dT);
+        Mother::OnUpdatePreRender(dT);
 
         for (auto& component : m_RegisteredComponents)
         {
@@ -91,7 +74,7 @@ namespace ForgeEngine
             {
                 if (component->IsInitialized())
                 {
-                    component->OnPreUpdate(dT);
+                    component->OnUpdatePreRender(dT);
                 }
                 else if (component->NeedsPreInit())
                 {
@@ -126,14 +109,14 @@ namespace ForgeEngine
         }
     }
 
-    void Entity::OnPostUpdate(float dT) /*override*/
+    void Entity::OnUpdatePostRender(float dT) /*override*/
     {
         if (!IsActive())
         {
             return;
         }
 
-        Mother::OnPostUpdate(dT);
+        Mother::OnUpdatePostRender(dT);
 
         m_Transform.Update();
 
@@ -143,11 +126,7 @@ namespace ForgeEngine
             {
                 if (component->IsInitialized())
                 {
-                    component->OnPostUpdate(dT);
-                }
-                else if (component->NeedsPostInit())
-                {
-                    component->OnPostInit();
+                    component->OnUpdatePostRender(dT);
                 }
             }
         }

@@ -32,7 +32,7 @@ namespace ForgeEngine
         return m_Animator.get() != nullptr;
     }
 
-    void AnimatorComponent::OnPreUpdate(float dT)
+    void AnimatorComponent::OnUpdate(float dT)
     {
         if (m_Timer.IsPaused() || m_Timer.IsElapsed())
         {

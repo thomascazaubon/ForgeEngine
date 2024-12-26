@@ -44,10 +44,9 @@ namespace ForgeEngine
     #define SET_SHADER_MATERIAL(Identifier, Value) m_Shader->SetMaterial(Identifier, Value)
 #endif //FORGE_DEBUG_ENABLED
 
-    MeshComponent::MeshComponent(const Mesh& mesh, const std::string& shaderPath, BillboardMode billboardMode /*= BillboardMode::Disabled*/)
+    MeshComponent::MeshComponent(const Mesh& mesh, const std::string& shaderPath)
         : Mother()
         , m_Mesh(mesh)
-        , m_BillboardMode(billboardMode)
     {
         m_Shader = std::shared_ptr<Shader>(*(GameHandler::Get().GetWorld().GetComponentByType<ShaderLoader>()->GetOrLoadResource(shaderPath)));
         InitRender();
@@ -123,19 +122,7 @@ namespace ForgeEngine
 
     void MeshComponent::OnUpdate(float dT)
     {
-        if (false/*m_BillboardMode != BillboardMode::Disabled*/)
-        {
-            const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
-            const Vector3 cameraPosition = activeCamera.GetOwner()->GetPosition();
-            const Vector3 cameraPositionFinal = m_BillboardMode == BillboardMode::Full ? cameraPosition : Vector3(cameraPosition.x, GetOwner()->GetPosition().y, cameraPosition.z);
-            const Vector3 direction = ForgeMaths::Normalize(cameraPositionFinal - GetOwner()->GetPosition());
-            GetOwner()->GetTransform().LookAt(direction);
-        }
-    }
-
-    void MeshComponent::OnPostUpdate(float dT)
-    {
-        Mother::OnPostUpdate(dT);
+        Mother::OnUpdate(dT);
 
 #ifdef FORGE_DEBUG_ENABLED
         if (m_ResetRequested)

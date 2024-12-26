@@ -34,9 +34,9 @@ namespace Alchemist
         return true;
     }
 
-    void LandscapeComponent::OnPreUpdate(float dT) /*override*/
+    void LandscapeComponent::OnUpdatePreRender(float dT) /*override*/
     {
-        Mother::OnPreUpdate(dT);
+        Mother::OnUpdatePreRender(dT);
 
         Vector2 mousePosition = GetMousePosition();
         unsigned int pixelX = (unsigned int)mousePosition.x;

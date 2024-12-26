@@ -11,7 +11,7 @@ namespace ForgeEngine
 
     protected:
         virtual void OnPreInit() override;
-        virtual void OnPreUpdate(float dT) override;
+        virtual void OnUpdatePreRender(float dT) override;
 
         virtual bool ShouldTerminate() override;
     };

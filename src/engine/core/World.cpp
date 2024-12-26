@@ -94,29 +94,6 @@ namespace ForgeEngine
         return true;
     }
 
-    bool World::PostInit()
-    {
-        for (auto& entity : m_RegisteredEntities)
-        {
-            if (entity != nullptr)
-            {
-                entity->OnPostInit();
-            }
-        }
-        for (auto& component : m_Components)
-        {
-            if (component != nullptr)
-            {
-                if (!component->OnPostInit())
-                {
-                    //Should display warning here!
-                    component->SetActive(false);
-                }
-            }
-        }
-        return true;
-    }
-
     void World::PreUpdate(float dT)
     {
         unsigned int initializedEntitiesThisFrame = 0;
@@ -126,7 +103,7 @@ namespace ForgeEngine
             {
                 if (entity->IsInitialized())
                 {
-                    entity->OnPreUpdate(dT);
+                    entity->OnUpdatePreRender(dT);
                 }
                 else if (entity->NeedsPreInit() && initializedEntitiesThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
                 {
@@ -139,7 +116,7 @@ namespace ForgeEngine
         {
             if (component != nullptr)
             {
-                component->OnPreUpdate(dT);
+                component->OnUpdatePreRender(dT);
             }
         }
     }
@@ -180,12 +157,7 @@ namespace ForgeEngine
             {
                 if (entity->IsInitialized())
                 {
-                    entity->OnPostUpdate(dT);
-                }
-                else if (entity->NeedsPostInit() && initializedEntitiesThisFrame < K_MAX_INITIALIZATIONS_PER_FRAME)
-                {
-                    entity->OnPostInit();
-                    initializedEntitiesThisFrame++;
+                    entity->OnUpdatePostRender(dT);
                 }
             }
         }
@@ -193,7 +165,7 @@ namespace ForgeEngine
         {
             if (component != nullptr)
             {
-                component->OnPostUpdate(dT);
+                component->OnUpdatePostRender(dT);
             }
         }
     }

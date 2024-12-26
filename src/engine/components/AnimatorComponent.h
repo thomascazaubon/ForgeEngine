@@ -29,7 +29,7 @@ namespace ForgeEngine
             bool SetRunningAnimation(const std::string& name);
 
         protected:
-            void OnPreUpdate(float dT) override;
+            void OnUpdate(float dT) override;
             bool OnInit() override;
 
 #ifdef FORGE_DEBUG_ENABLED

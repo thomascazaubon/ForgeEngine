@@ -78,11 +78,10 @@ namespace ForgeEngine
 
             virtual bool OnPreInit() override;
             virtual bool OnInit() override;
-            virtual bool OnPostInit() override;
 
-            virtual void OnPreUpdate(float dT) override;
+            virtual void OnUpdatePreRender(float dT) override;
             virtual void OnUpdate(float dT) override;
-            virtual void OnPostUpdate(float dT) override;
+            virtual void OnUpdatePostRender(float dT) override;
 
             virtual void OnDestroy() override;
 

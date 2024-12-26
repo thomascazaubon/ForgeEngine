@@ -20,7 +20,7 @@ namespace ForgeEngine
 
             bool OnInit() override;
             void OnUpdate(float dT) override;
-            void OnPostUpdate(float dT) override;
+            void OnUpdatePostRender(float dT) override;
 
             void OnDrawDebug(float dT) const override;
             const char* GetDebugName() const override { return "DebugManager"; }

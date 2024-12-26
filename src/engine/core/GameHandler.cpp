@@ -58,8 +58,6 @@ namespace ForgeEngine
             m_World.PreInit();
             OnInit();
             m_World.Init();
-            m_World.PostInit();
-            OnPostInit();
 
             while (!ShouldTerminate())
             {
@@ -68,7 +66,7 @@ namespace ForgeEngine
                 frameStart = std::chrono::high_resolution_clock::now();
 
                 m_World.PreUpdate(dT);
-                OnPreUpdate(dT);
+                OnUpdatePreRender(dT);
                 m_World.Update(dT);
                 OnUpdate(dT);
                 m_World.PostUpdate(dT);
@@ -116,7 +114,7 @@ namespace ForgeEngine
         }
     }
 
-    void GameHandler::OnPreUpdate(float dT)
+    void GameHandler::OnUpdatePreRender(float dT)
     {
         ShaderUtils::ClearScreen(COLOR_GREEN);
     }

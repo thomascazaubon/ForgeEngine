@@ -8,7 +8,6 @@ namespace ForgeEngine
     {
         NeedsPreInit,
         NeedsInit,
-        NeedsPostInit,
         Initialized
     };
 
@@ -27,7 +26,6 @@ namespace ForgeEngine
             EInitializationState GetInitializationState() const { return m_InitializationState; }
             bool NeedsPreInit() const { return m_InitializationState == EInitializationState::NeedsPreInit; }
             bool NeedsInit() const { return m_InitializationState == EInitializationState::NeedsInit; }
-            bool NeedsPostInit() const { return m_InitializationState == EInitializationState::NeedsPostInit; }
             bool IsInitialized() const { return m_InitializationState == EInitializationState::Initialized; }
 
             void Destroy() { OnDestroy(); }
@@ -37,18 +35,17 @@ namespace ForgeEngine
             virtual void OnDeactivate() {}
 
             virtual bool OnPreInit() { m_InitializationState = EInitializationState::NeedsInit;  return true; }
-            virtual bool OnInit() { m_InitializationState = EInitializationState::NeedsPostInit;  return true; }
-            virtual bool OnPostInit() { m_InitializationState = EInitializationState::Initialized;  return true; }
+            virtual bool OnInit() { m_InitializationState = EInitializationState::Initialized;  return true; }
 
-            virtual void OnPreUpdate(float dT) {}
+            virtual void OnUpdatePreRender(float dT) {}
             virtual void OnUpdate(float dT) {}
-            virtual void OnPostUpdate(float dT) {}
+            virtual void OnUpdatePostRender(float dT) {}
 
     #ifdef FORGE_DEBUG_ENABLED
             virtual void OnDrawDebug(float dT) const {}
     #endif //FORGE_DEBUG_ENABLED
 
-        virtual void OnDestroy() {}
+            virtual void OnDestroy() {}
 
         private:
             bool m_IsActive{ true };

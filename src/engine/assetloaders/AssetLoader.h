@@ -51,9 +51,9 @@ namespace ForgeEngine
             return GetOrLoadResource(DEFAULT_RESOURCE_NAME);
         }
 
-        void OnPostUpdate(float dT) override
+        void OnUpdatePostRender(float dT) override
         {
-            Mother::OnPostUpdate(dT);
+            Mother::OnUpdatePostRender(dT);
 
             for (auto it = m_LoadedResources.begin(); it != m_LoadedResources.end();) 
             {

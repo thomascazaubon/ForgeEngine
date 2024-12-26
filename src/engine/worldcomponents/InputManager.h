@@ -16,7 +16,7 @@ namespace ForgeEngine
         public:
             InputManager();
 
-            virtual void OnPreUpdate(float dT) override;
+            virtual void OnUpdatePreRender(float dT) override;
 
 #ifdef FORGE_DEBUG_ENABLED
             const char* GetDebugName() const override { return "InputManager"; }

@@ -33,7 +33,7 @@ namespace ForgeEngine
         ComputeFramerate(dT);
     }
 
-    void DebugManager::OnPostUpdate(float dT) /*override*/
+    void DebugManager::OnUpdatePostRender(float dT) /*override*/
     {
         m_DebugDrawer->Update();
     }
