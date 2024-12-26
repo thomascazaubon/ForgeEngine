@@ -27,16 +27,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\engine\assetloaders\AnimatorLoader.h" />
-    <ClInclude Include="src\engine\anim\Animator.h" />
-    <ClInclude Include="src\engine\anim\Animation.h" />
-    <ClInclude Include="src\engine\assetloaders\AnimationLoader.h" />
+    <ClInclude Include="src\engine\assetloaders\Animator2DLoader.h" />
+    <ClInclude Include="src\engine\anim\Animator2D.h" />
+    <ClInclude Include="src\engine\anim\Animation2D.h" />
+    <ClInclude Include="src\engine\assetloaders\Animation2DLoader.h" />
     <ClInclude Include="src\engine\assetloaders\LoadableAsset.h" />
     <ClInclude Include="src\engine\assetloaders\MaterialLoader.h" />
     <ClInclude Include="src\engine\assetloaders\AssetLoader.h" />
     <ClInclude Include="src\engine\assetloaders\ShaderLoader.h" />
     <ClInclude Include="src\engine\assetloaders\TextureLoader.h" />
-    <ClInclude Include="src\engine\components\AnimatorComponent.h" />
+    <ClInclude Include="src\engine\components\Animator2DComponent.h" />
     <ClInclude Include="src\engine\components\CameraComponent.h" />
     <ClInclude Include="src\engine\components\Component.h" />
     <ClInclude Include="src\engine\components\LightComponent.h" />
@@ -401,10 +401,10 @@
     <ClInclude Include="src\engine\math\Transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\engine\anim\Animator.cpp" />
-    <ClCompile Include="src\engine\anim\Animation.cpp" />
+    <ClCompile Include="src\engine\anim\Animator2D.cpp" />
+    <ClCompile Include="src\engine\anim\Animation2D.cpp" />
     <ClCompile Include="src\engine\assetloaders\LoadableAsset.cpp" />
-    <ClCompile Include="src\engine\components\AnimatorComponent.cpp" />
+    <ClCompile Include="src\engine\components\Animator2DComponent.cpp" />
     <ClCompile Include="src\engine\components\CameraComponent.cpp" />
     <ClCompile Include="src\engine\components\Component.cpp" />
     <ClCompile Include="src\engine\components\LightComponent.cpp" />

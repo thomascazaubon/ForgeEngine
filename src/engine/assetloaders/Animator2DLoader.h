@@ -1,15 +1,15 @@
 #pragma once
 
-#include "engine/anim/Animator.h"
+#include "engine/anim/Animator2D.h"
 #include "engine/assetloaders/AssetLoader.h"
 
 namespace ForgeEngine
 {
-    class Animation;
+    class Animation2D;
 
-    class AnimatorLoader : public AssetLoader<Animator>
+    class Animator2DLoader : public AssetLoader<Animator2D>
     {
-        using Mother = AssetLoader<Animator>;
+        using Mother = AssetLoader<Animator2D>;
 
     public:
 #ifdef FORGE_DEBUG_ENABLED

@@ -1,6 +1,6 @@
-#include "Animator.h"
+#include "Animator2D.h"
 
-#include "engine/assetloaders/AnimationLoader.h"
+#include "engine/assetloaders/Animation2DLoader.h"
 #include "engine/core/GameHandler.h"
 #include "engine/io/FileUtils.h"
 
@@ -11,7 +11,7 @@
 
 namespace ForgeEngine
 {
-    Animator::Animator(const std::string& path)
+    Animator2D::Animator2D(const std::string& path)
         : Mother(path)
     {
         std::string source;
@@ -24,7 +24,7 @@ namespace ForgeEngine
                 std::vector<std::string> splittedLine = FileUtils::Split(":", line);
                 if (splittedLine.size() == 2)
                 {
-                    if (const std::shared_ptr<Animation>* animation = GameHandler::Get().GetWorld().GetComponentByType<AnimationLoader>()->GetOrLoadResource(splittedLine[1]))
+                    if (const std::shared_ptr<Animation2D>* animation = GameHandler::Get().GetWorld().GetComponentByType<Animation2DLoader>()->GetOrLoadResource(splittedLine[1]))
                     {
                         m_Animations[splittedLine[0]] = *animation;
                     }
@@ -37,19 +37,31 @@ namespace ForgeEngine
         }
     }
 
-    bool Animator::HasAnimation(const std::string& name) const
+    bool Animator2D::HasAnimation(const std::string& name) const
     {
         return GetAnimation(name) != nullptr;
     }
 
-    const Animation* Animator::GetAnimation(const std::string& name) const
+    const Animation2D* Animator2D::GetAnimation(const std::string& name) const
     {
         auto it = m_Animations.find(name);
         return (it != m_Animations.end()) ? (*it).second.get() : nullptr;
     }
 
 #ifdef FORGE_DEBUG_ENABLED
-    void Animator::OnDrawDebug() const
+    std::vector<std::string> Animator2D::GetStates() const
+    {
+        std::vector<std::string> states;
+
+        for (auto pair : m_Animations)
+        {
+            states.push_back(pair.first);
+        }
+
+        return states;
+    }
+
+    void Animator2D::OnDrawDebug() const
     {
         for (auto pair : m_Animations)
         {

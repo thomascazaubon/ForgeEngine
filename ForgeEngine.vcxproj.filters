@@ -1116,19 +1116,19 @@
     <ClInclude Include="src\engine\debug\ImGUICore.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\anim\Animation.h">
+    <ClInclude Include="src\engine\anim\Animation2D.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\assetloaders\AnimationLoader.h">
+    <ClInclude Include="src\engine\assetloaders\Animation2DLoader.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\components\AnimatorComponent.h">
+    <ClInclude Include="src\engine\components\Animator2DComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\anim\Animator.h">
+    <ClInclude Include="src\engine\anim\Animator2D.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\assetloaders\AnimatorLoader.h">
+    <ClInclude Include="src\engine\assetloaders\Animator2DLoader.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1319,13 +1319,13 @@
     <ClCompile Include="src\engine\debug\ImGUICore.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\anim\Animation.cpp">
+    <ClCompile Include="src\engine\anim\Animation2D.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\components\AnimatorComponent.cpp">
+    <ClCompile Include="src\engine\components\Animator2DComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\anim\Animator.cpp">
+    <ClCompile Include="src\engine\anim\Animator2D.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

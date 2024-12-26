@@ -3,7 +3,7 @@
 #include "common/worldcomponents/SkyboxComponent.h"
 
 #include "engine/assetloaders/ShaderLoader.h"
-#include "engine/components/AnimatorComponent.h"
+#include "engine/components/Animator2DComponent.h"
 #include "engine/components/CameraComponent.h"
 #include "engine/components/LightComponent.h"
 #include "engine/core/ForgeEngine.h"
@@ -173,7 +173,7 @@ namespace ForgeEngine
             
             SET_SHADER_MATERIAL(DEFAULT_MATERIAL_NAME, *m_Mesh.GetMaterial());
 
-            if (const AnimatorComponent* animator = GetOwner()->GetComponentByType<const AnimatorComponent>())
+            if (const Animator2DComponent* animator = GetOwner()->GetComponentByType<const Animator2DComponent>())
             {
                 SET_SHADER_TEXTURE(DEFAULT_TEXTURE_NAME, &animator->GetCurrentTexture());
             }

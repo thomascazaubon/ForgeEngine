@@ -1,6 +1,6 @@
 #include "NPCComponent.h"
 
-#include "engine/components/AnimatorComponent.h"
+#include "engine/components/Animator2DComponent.h"
 #include "engine/components/CameraComponent.h"
 #include "engine/core/Entity.h"
 
@@ -13,7 +13,7 @@ namespace ForgeEngine
     bool NPCComponent::OnInit()
     {
         bool initSuccess = Mother::OnInit();
-        m_AnimatorComponent = GetOwner()->GetComponentByType<AnimatorComponent>();
+        m_AnimatorComponent = GetOwner()->GetComponentByType<Animator2DComponent>();
         return initSuccess && m_AnimatorComponent != nullptr;
     }
 

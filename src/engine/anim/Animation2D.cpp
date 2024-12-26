@@ -1,4 +1,4 @@
-#include "Animation.h"
+#include "Animation2D.h"
 
 #include "engine/assetloaders/TextureLoader.h"
 #include "engine/core/GameHandler.h"
@@ -12,7 +12,7 @@
 
 namespace ForgeEngine
 {
-    Animation::Animation(const std::string& path)
+    Animation2D::Animation2D(const std::string& path)
         : Mother(path)
     {
         std::string source;
@@ -65,7 +65,7 @@ namespace ForgeEngine
         }
     }
 
-    bool Animation::ResolveAttribute(const std::string& name, const std::vector<std::string>& values
+    bool Animation2D::ResolveAttribute(const std::string& name, const std::vector<std::string>& values
 #ifdef FORGE_DEBUG_ENABLED
         , const std::string& path
 #endif //FORGE_DEBUG_ENABLED
@@ -112,7 +112,7 @@ namespace ForgeEngine
         return false;
     }
 
-    unsigned int Animation::GetFrameIndexForProgressRatio(const float progressRatio) const
+    unsigned int Animation2D::GetFrameIndexForProgressRatio(const float progressRatio) const
     {
         if (progressRatio == 1.f)
         {
@@ -125,13 +125,13 @@ namespace ForgeEngine
         }
     }
 
-    const Texture& Animation::GetFrameForProgressRatio(const float progressRatio) const
+    const Texture& Animation2D::GetFrameForProgressRatio(const float progressRatio) const
     {
         return *m_Frames[GetFrameIndexForProgressRatio(progressRatio)].get();
     }
 
 #ifdef FORGE_DEBUG_ENABLED
-    void Animation::OnDrawDebug() const
+    void Animation2D::OnDrawDebug() const
     {
         ImGui::Text("Duration: %.2f", m_Duration);
         ImGui::Text("Frames: %d", m_Frames.size());

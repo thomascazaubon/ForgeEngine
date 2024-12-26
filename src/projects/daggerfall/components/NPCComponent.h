@@ -4,7 +4,7 @@
 
 namespace ForgeEngine
 {
-    class AnimatorComponent;
+    class Animator2DComponent;
 
     class NPCComponent : public Component
     {
@@ -20,7 +20,7 @@ namespace ForgeEngine
             void OnUpdate(float dT) override;
 
         private:
-            AnimatorComponent* m_AnimatorComponent{ nullptr };
+            Animator2DComponent* m_AnimatorComponent{ nullptr };
     };
 }
 #pragma once

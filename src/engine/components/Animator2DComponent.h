@@ -8,23 +8,23 @@
 
 namespace ForgeEngine
 {
-    class Animation;
-    class Animator;
+    class Animation2D;
+    class Animator2D;
     class Texture;
 
-    class AnimatorComponent : public Component
+    class Animator2DComponent : public Component
     {
         using Mother = Component;
 
         public:
-            AnimatorComponent(const std::string& animatorPath);
+            Animator2DComponent(const std::string& animatorPath);
 
 #ifdef FORGE_DEBUG_ENABLED
             const char* GetDebugName() const override { return "AnimatorComponent"; }
 #endif //FORGE_DEBUG_ENABLED
 
             const Texture& GetCurrentTexture() const;
-            const Animation& GetCurrentAnimation() const;
+            const Animation2D& GetCurrentAnimation() const;
 
             bool SetRunningAnimation(const std::string& name);
 
@@ -43,7 +43,7 @@ namespace ForgeEngine
 
             std::string m_CurrentAnimation;
             std::string m_AnimatorPath;
-            std::shared_ptr<Animator> m_Animator;
+            std::shared_ptr<Animator2D> m_Animator;
     };
 }
 #pragma once

@@ -11,7 +11,7 @@ namespace ForgeEngine
 {
     class Texture;
 
-    class Animation : public LoadableAsset
+    class Animation2D : public LoadableAsset
     {
         using Mother = LoadableAsset;
 
@@ -26,7 +26,7 @@ namespace ForgeEngine
             float GetDuration() const { return m_Duration; }
 
         private:
-            Animation(const std::string& path);
+            Animation2D(const std::string& path);
 
             bool ResolveAttribute(const std::string& name, const std::vector<std::string>& values
 #ifdef FORGE_DEBUG_ENABLED
