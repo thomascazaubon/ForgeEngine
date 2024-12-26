@@ -3,7 +3,6 @@
 #include "engine/components/CameraComponent.h"
 #include "common/components/FirstPersonControllerComponent.h"
 #include "engine/components/MeshComponent.h"
-#include "engine/core/ForgeEngine.h"
 #include "engine/input/InputHelper.h"
 #include "engine/render/Color.h"
 #include "engine/render/MeshUtils.h"

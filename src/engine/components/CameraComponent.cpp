@@ -1,6 +1,6 @@
 #include "CameraComponent.h"
 
-#include "engine/core/ForgeEngine.h"
+#include "engine/core/Entity.h"
 #include "engine/math/MathUtils.h"
 
 #include <glm/gtc/matrix_transform.hpp>

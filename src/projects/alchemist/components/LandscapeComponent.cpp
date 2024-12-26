@@ -1,11 +1,15 @@
 #include "LandscapeComponent.h"
 
 #include "engine/components/MeshComponent.h"
-#include "engine/core/ForgeEngine.h"
-#include "engine/debug/ImGUICore.h"
+#include "engine/core/Entity.h"
+#include "engine/core/GameHandler.h"
 #include "engine/input/InputHelper.h"
 #include "engine/math/MathUtils.h"
 #include "engine/render/Texture.h"
+
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/ImGUICore.h"
+#endif //FORGE_DEBUG_ENABLED
 
 #include <cstdlib>
 #include <vector>
@@ -65,17 +69,6 @@ namespace Alchemist
             //TODO: FIX THIS
             //mesh->GetMesh().SetTexture(m_Texture.get());
         }
-    }
-
-    void LandscapeComponent::OnDrawDebug(float dT) const  /*override*/ 
-    {
-        Vector2 mousePosition = GetMousePosition();
-        float heightConversionRatio = GameHandler::Get().GetWindowHeight() / static_cast<float>(ALCHEMIST_LANDSCAPE_HEIGHT);
-        float widthConversionRatio = GameHandler::Get().GetWindowWidth() / static_cast<float>(ALCHEMIST_LANDSCAPE_WIDTH);
-
-        ImGui::Text("Grid Size: %d x %d", ALCHEMIST_LANDSCAPE_WIDTH, ALCHEMIST_LANDSCAPE_HEIGHT);
-        ImGui::Text("Grid Mouse Position {%d,%d}", static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y));
-        ImGui::Text("Conversion Ratio {%f,%f}", heightConversionRatio, widthConversionRatio);
     }
 
     Vector2 LandscapeComponent::GetMousePosition() const
@@ -290,4 +283,17 @@ namespace Alchemist
             m_ParticleContainer[y][x + 1] = currentParticle;
         }
     }
+
+#ifdef FORGE_DEBUG_ENABLED
+    void LandscapeComponent::OnDrawDebug(float dT) const  /*override*/
+    {
+        Vector2 mousePosition = GetMousePosition();
+        float heightConversionRatio = GameHandler::Get().GetWindowHeight() / static_cast<float>(ALCHEMIST_LANDSCAPE_HEIGHT);
+        float widthConversionRatio = GameHandler::Get().GetWindowWidth() / static_cast<float>(ALCHEMIST_LANDSCAPE_WIDTH);
+
+        ImGui::Text("Grid Size: %d x %d", ALCHEMIST_LANDSCAPE_WIDTH, ALCHEMIST_LANDSCAPE_HEIGHT);
+        ImGui::Text("Grid Mouse Position {%d,%d}", static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y));
+        ImGui::Text("Conversion Ratio {%f,%f}", heightConversionRatio, widthConversionRatio);
+    }
+#endif //FORGE_DEBUG_ENABLED
 }

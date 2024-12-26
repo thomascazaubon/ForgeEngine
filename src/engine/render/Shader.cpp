@@ -1,6 +1,5 @@
 #include "Shader.h"
 
-#include "engine/core/ForgeEngine.h"
 #include "engine/io/FileUtils.h"
 #include "engine/render/Color.h"
 #include "engine/render/Material.h"

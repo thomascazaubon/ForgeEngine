@@ -1,8 +1,10 @@
 #include "SkyboxComponent.h"
 
-#include "engine/core/ForgeEngine.h"
-#include "engine/debug/ImGUICore.h"
 #include "engine/math/MathUtils.h"
+
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/ImGUICore.h"
+#endif //FORGE_DEBUG_ENABLED
 
 #include <format>
 #include <math.h>

@@ -76,10 +76,12 @@ namespace ForgeEngine
             if (name == "duration")
             {
                 m_Duration = stof(values[0]);
+#ifdef FORGE_DEBUG_ENABLED
                 if (m_Duration <= 0.f)
                 {
                     DebugUtils::LogError("AnimationLoader: attribute duration must have a positive non null value \"{}\"", path);
                 }
+#endif //FORGE_DEBUG_ENABLED
                 return m_Duration > 0.f;
             }
             else if (name == "frames")

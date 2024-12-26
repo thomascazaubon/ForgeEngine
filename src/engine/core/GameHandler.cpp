@@ -1,6 +1,6 @@
 #include "GameHandler.h"
 
-#include "engine/core/ForgeEngine.h"
+#include "engine/core/WindowUtils.h"
 #include "engine/render/Color.h"
 #include "engine/render/ShaderUtils.h"
 

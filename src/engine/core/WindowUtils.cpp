@@ -1,6 +1,7 @@
 #include "WindowUtils.h"
 
-#include "engine/core/ForgeEngine.h"
+#include "engine/core/GameHandler.h"
+#include "engine/render/OpenGL.h"
 
 #ifdef FORGE_DEBUG_ENABLED
 #include "engine/debug/DebugUtils.h"

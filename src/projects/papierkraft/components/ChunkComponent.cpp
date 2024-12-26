@@ -1,6 +1,7 @@
 #include "ChunkComponent.h"
 
-#include "engine/core/ForgeEngine.h"
+#include "engine/core/Entity.h"
+#include "engine/core/World.h"
 #include "engine/math/MathUtils.h"
 
 #include "projects/papierkraft/components/BlockComponent.h"

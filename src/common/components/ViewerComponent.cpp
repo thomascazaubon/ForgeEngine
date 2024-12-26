@@ -1,7 +1,9 @@
 #include "ViewerComponent.h"
 
-#include "engine/core/ForgeEngine.h"
+#include "engine/core/Entity.h"
+#include "engine/core/GameHandler.h"
 #include "engine/math/Vector3.h"
+#include "engine/render/OpenGL.h"
 
 namespace ForgeEngine
 {

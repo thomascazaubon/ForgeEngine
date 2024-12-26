@@ -12,23 +12,6 @@ namespace ForgeEngine
 
     class GameHandler
     {
-        /************************************/
-        /************ATTRIBUTES**************/
-        /************************************/
-
-        public:
-            static GameHandler* s_Instance;
-
-        protected:
-            GLFWwindow* m_Window{ nullptr };
-            unsigned int m_WindowWidth;
-            unsigned int m_WindowHeight;
-            World m_World{};
-
-        /************************************/
-        /**************METHODS***************/
-        /************************************/
-
         public:
             GameHandler(std::string name, unsigned int width, unsigned int height);
             //Handles the main loop
@@ -52,5 +35,14 @@ namespace ForgeEngine
             virtual void OnTermination();
 
             virtual bool ShouldTerminate() = 0;
+
+        public:
+            static GameHandler* s_Instance;
+
+        protected:
+            GLFWwindow* m_Window{ nullptr };
+            unsigned int m_WindowWidth;
+            unsigned int m_WindowHeight;
+            World m_World{};
     };
 }

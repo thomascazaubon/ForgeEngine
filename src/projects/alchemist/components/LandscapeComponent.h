@@ -65,9 +65,9 @@ namespace Alchemist
         public:
             virtual bool OnPreInit() override;
             virtual void OnUpdatePreRender(float dT) override;
-            virtual void OnDrawDebug(float dT) const override;
 
 #ifdef FORGE_DEBUG_ENABLED
+            virtual void OnDrawDebug(float dT) const override;
             const char* GetDebugName() const override { return "LandscapeComponent"; }
 #endif //FORGE_DEBUG_ENABLED
 

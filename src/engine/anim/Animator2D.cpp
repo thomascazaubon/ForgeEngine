@@ -28,10 +28,12 @@ namespace ForgeEngine
                     {
                         m_Animations[splittedLine[0]] = *animation;
                     }
+#ifdef FORGE_DEBUG_ENABLED
                     else
                     {
                         DebugUtils::LogError("AnimatorLoader: Cannot load animation \"{}\" in {} (line {}).", splittedLine[1], path, i + 1);
                     }
+#endif //FORGE_DEBUG_ENABLED
                 }
             }
         }

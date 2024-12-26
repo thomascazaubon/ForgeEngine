@@ -1,20 +1,21 @@
 #include "Torch.h"
 
 #include "common/components/FirstPersonControllerComponent.h"
-#include "common/worldcomponents/SkyboxComponent.h"
 #include "engine/components/Animator2DComponent.h"
 #include "engine/components/CameraComponent.h"
 #include "engine/components/LightComponent.h"
 #include "engine/components/MeshComponent.h"
-#include "engine/core/ForgeEngine.h"
-#include "engine/debug/DebugUtils.h"
 #include "engine/input/InputHelper.h"
 #include "engine/render/MeshUtils.h"
 #include "engine/render/OpenGL.h"
 #include "engine/render/ShaderUtils.h"
-#include "engine/worldcomponents/DebugManager.h"
 #include "engine/worldcomponents/InputManager.h"
 #include "projects/daggerfall/components/NPCComponent.h"
+
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/DebugUtils.h"
+#include "engine/worldcomponents/DebugManager.h"
+#endif //FORGE_DEBUG_ENABLED
 
 int main()
 {

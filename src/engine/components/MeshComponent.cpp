@@ -6,7 +6,7 @@
 #include "engine/components/Animator2DComponent.h"
 #include "engine/components/CameraComponent.h"
 #include "engine/components/LightComponent.h"
-#include "engine/core/ForgeEngine.h"
+#include "engine/core/GameHandler.h"
 #include "engine/render/Material.h"
 #include "engine/render/Shader.h"
 #include "engine/render/Texture.h"

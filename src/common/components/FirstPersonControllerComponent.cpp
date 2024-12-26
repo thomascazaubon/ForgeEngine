@@ -1,13 +1,18 @@
 #include "FirstPersonControllerComponent.h"
 
 #include "engine/components/CameraComponent.h"
-#include "engine/core/ForgeEngine.h"
-#include "engine/debug/ImGUICore.h"
+#include "engine/core/Entity.h"
+#include "engine/core/GameHandler.h"
 #include "engine/input/InputHelper.h"
 #include "engine/math/MathUtils.h"
 #include "engine/math/Vector2.h"
 #include "engine/math/Vector3.h"
+#include "engine/render/OpenGL.h"
+
+#ifdef FORGE_DEBUG_ENABLED
+#include "engine/debug/ImGUICore.h"
 #include "engine/worldcomponents/DebugManager.h"
+#endif //FORGE_DEBUG_ENABLED
 
 namespace ForgeEngine
 {
