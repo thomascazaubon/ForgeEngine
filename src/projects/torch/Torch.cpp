@@ -63,7 +63,7 @@ namespace Torch
         {
             Entity* npc = world.RegisterEntity("NPC");
             npc->RegisterComponent(new MeshComponent(MeshUtils::MakeSprite("assets\\materials\\npc.mat", 1.8, Pivot::Bottom), "assets\\shaders\\billboard"));
-            npc->RegisterComponent(new Animator2DComponent("assets\\anims\\npc.animator"));
+            npc->RegisterComponent(new Animator2DComponent("assets\\anims\\thief.animator"));
             npc->RegisterComponent(new NPCComponent());
         }
     }

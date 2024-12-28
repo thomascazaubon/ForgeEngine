@@ -1,11 +1,12 @@
 #include "DebugManager.h"
 
-#include "engine/assetloaders/ShaderLoader.h"
-#include "engine/input/InputHelper.h"
-
 #ifdef FORGE_DEBUG_ENABLED
+#include "engine/assetloaders/ShaderLoader.h"
+#include "engine/core/GameHandler.h"
 #include "engine/debug/DebugDrawer.h"
 #include "engine/debug/ImGUICore.h"
+#include "engine/input/InputHelper.h"
+#include "engine/render/OpenGL.h"
 #endif //FORGE_DEBUG_ENABLED
 
 #include <list>

@@ -77,7 +77,6 @@
     <ClInclude Include="src\projects\daggerfall\core\Daggerfall.h" />
     <ClInclude Include="src\projects\alchemist\core\Alchemist.h" />
     <ClInclude Include="src\projects\alchemist\components\LandscapeComponent.h" />
-    <ClInclude Include="src\engine\core\ForgeEngine.h" />
     <ClInclude Include="src\engine\ui\ImGUI.h" />
     <ClInclude Include="src\projects\papierkraft\core\PapierKraft.h" />
     <ClInclude Include="src\extern\imgui\imconfig.h" />

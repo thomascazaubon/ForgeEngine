@@ -246,6 +246,11 @@ namespace ForgeEngine
             return Mesh(GetPlaneVerticesCoordinates(height, height * heightWidthRatio, pivotType, false), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(1.f), *material);
         }
 
+        Mesh MakeSprite(const char* materialPath, float height, float width, Pivot pivotType /*= Pivot::Geometry*/)
+        {
+            return Mesh(GetPlaneVerticesCoordinates(height, width, pivotType, false), GetPlaneVerticesIndexes(), GetPlaneTextureCoordinates(1.f), materialPath);
+        }
+
         Mesh MakeTriangle(float scale /*= 1.f*/, const char* materialPath /* =nullptr*/, Pivot pivotType /*= Pivot::Geometry*/)
         {
             return Mesh(GetTriangleVerticesCoordinates(scale, pivotType), GetTriangleVerticesIndexes(), GetTriangleTextureCoordinates(scale), materialPath);
