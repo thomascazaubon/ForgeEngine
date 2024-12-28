@@ -1,8 +1,14 @@
+dimensions=5x5
+ground=assets\materials\grass.mat
+
+legend
+{
 p=player
+}
 
-
-xxxxxxxxxx
-xxxxxxxxxx
-xxxxpxxxxx
-xxxxxxxxxx
-xxxxxxxxxx
+layout
+xxxxx
+xxxxx
+xxpxx
+xxxxx
+xxxxx
