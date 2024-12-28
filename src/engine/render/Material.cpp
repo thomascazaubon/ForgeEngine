@@ -86,6 +86,10 @@ namespace ForgeEngine
                 m_Texture = std::shared_ptr<Texture>(*(GameHandler::Get().GetWorld().GetComponentByType<TextureLoader>()->GetOrLoadResource(value)));
             }
         }
+        else if (name == "textureHeight")
+        {
+            m_TextureHeight = stof(value);
+        }
         else
         {
             success = false;

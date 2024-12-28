@@ -6,6 +6,7 @@ namespace ForgeEngine
 {
     class CameraComponent;
 
+    //TODO: make this debug free cam
     class FirstPersonControllerComponent : public Component
     {
         using Mother = Component;

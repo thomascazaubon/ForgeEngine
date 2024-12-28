@@ -1,14 +1,21 @@
-dimensions=5x5
-ground=assets\materials\grass.mat
+dimensions=10
+ground=assets/materials/grass.mat
 
-legend
-{
-p=player
-}
+p=spawnPosition
+n=assets/materials/npc.mat
+t=assets/materials/tree.mat
+r=assets/materials/rock.mat
+f=assets/materials/flower.mat
+s=assets/materials/sappling.mat
 
 layout
-xxxxx
-xxxxx
-xxpxx
-xxxxx
-xxxxx
+xxxxxxxxxx
+xxxtxxxxxx
+xxxxxxrxxx
+xxxxxxxxxx
+xrxxxxxxxx
+xxxxxxpsxx
+xxxxxxfxxx
+xxxxxffrxx
+xtxxxxxxxx
+xxxxxxxxxx

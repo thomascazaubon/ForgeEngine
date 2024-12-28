@@ -178,10 +178,12 @@ namespace ForgeEngine
                 SET_SHADER_TEXTURE(DEFAULT_TEXTURE_NAME, &animator->GetCurrentTexture());
             }
 
-            const CameraComponent& activeCamera = CameraComponent::GetActiveCamera();
-            SET_SHADER_MATRIX4(DEFAULT_PROJECTION_NAME, activeCamera.GetProjection());
-            SET_SHADER_MATRIX4(DEFAULT_VIEW_NAME, activeCamera.GetView());
-            SET_SHADER_VECTOR3(DEFAULT_CAMERA_POSITION_NAME, activeCamera.GetOwner()->GetPosition());
+            if (const CameraComponent* activeCamera = CameraComponent::GetActiveCamera())
+            {
+                SET_SHADER_MATRIX4(DEFAULT_PROJECTION_NAME, activeCamera->GetProjection());
+                SET_SHADER_MATRIX4(DEFAULT_VIEW_NAME, activeCamera->GetView());
+                SET_SHADER_VECTOR3(DEFAULT_CAMERA_POSITION_NAME, activeCamera->GetOwner()->GetPosition());
+            }
 
             glBindVertexArray(m_VertexArrayObject);
             if (m_CurrentDrawMode == DrawMode::Elements)

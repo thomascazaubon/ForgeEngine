@@ -11,6 +11,7 @@ namespace ForgeEngine
 #ifdef FORGE_DEBUG_ENABLED
         m_InputActionMappings[EInputAction::ToggleWireframe]    = std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_F1 });
         m_InputActionMappings[EInputAction::ToggleImGUI]        = std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_F2 });
+        m_InputActionMappings[EInputAction::DebugFastMove]      = std::unique_ptr<InputAction>(new InputAction{ EInputType::Hold, EDeviceTarget::Keyboard, GLFW_KEY_F });
 #endif //FORGE_DEBUG_ENABLED
 
         m_InputActionMappings[EInputAction::ToggleFreeMouse]    = std::unique_ptr<InputAction>(new InputAction{ EInputType::Press, EDeviceTarget::Keyboard, GLFW_KEY_TAB });

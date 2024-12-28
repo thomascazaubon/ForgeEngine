@@ -81,7 +81,14 @@ namespace ForgeEngine
         {
             m_CameraComponent->SetYaw(yaw);
             m_CameraComponent->SetPitch(pitch);
-            Vector3 finalTranslation = translation != VECTOR3_NULL ? glm::normalize(translation) * m_MoveSpeed * dT : VECTOR3_NULL;
+            float speed = m_MoveSpeed;
+#ifdef FORGE_DEBUG_ENABLED
+            if (InputHelper::IsInputActive(EInputAction::DebugFastMove))
+            {
+                speed *= 3.f;
+            }
+#endif //FORGE_DEBUG_ENABLED
+            Vector3 finalTranslation = translation != VECTOR3_NULL ? glm::normalize(translation) * speed * dT : VECTOR3_NULL;
             GetOwner()->GetTransform().Translate(finalTranslation);
         }
     }

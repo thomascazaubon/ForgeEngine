@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\utils\CartographUtils.h" />
     <ClInclude Include="src\projects\cartographer\Cartographer.h" />
     <ClInclude Include="src\engine\assetloaders\Animator2DLoader.h" />
     <ClInclude Include="src\engine\anim\Animator2D.h" />
@@ -401,6 +402,7 @@
     <ClInclude Include="src\engine\math\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\utils\CartographUtils.cpp" />
     <ClCompile Include="src\projects\cartographer\Cartographer.cpp" />
     <ClCompile Include="src\engine\anim\Animator2D.cpp" />
     <ClCompile Include="src\engine\anim\Animation2D.cpp" />

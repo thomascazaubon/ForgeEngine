@@ -16,13 +16,13 @@
 #include "engine/debug/DebugUtils.h"
 #include "engine/worldcomponents/DebugManager.h"
 #endif //FORGE_DEBUG_ENABLED
-/*
+
 int main()
 {
     Torch::Torch instance("Torch", 1920, 1080);
     instance.HandleProcess();
 }
-*/
+
 namespace Torch
 {
     Torch::Torch(std::string name, unsigned int width, unsigned int height) :

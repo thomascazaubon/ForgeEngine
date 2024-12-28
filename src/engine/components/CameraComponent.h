@@ -30,7 +30,7 @@ namespace ForgeEngine
             CameraComponent(const PerspectiveCamera& cameraData);
             CameraComponent(const OrthographicCamera& cameraData);
 
-            static const CameraComponent& GetActiveCamera() { return *s_ActiveCamera; }
+            static const CameraComponent* GetActiveCamera() { return s_ActiveCamera; }
             const Matrix4& GetProjection() const { return m_Projection; }
             const Matrix4& GetView() const { return m_View; }
 

@@ -21,6 +21,7 @@ namespace ForgeEngine
             int GetShininess() const { return m_Shininess; }
             float GetSpecular() const { return m_Specular; }
             float GetDiffuse() const { return m_Diffuse; }
+            float GetTextureHeight() const { return m_TextureHeight; }
             const Color& GetColor() const { return m_Color; }
             const Texture* GetTexture() const { return m_Texture.get(); }
 
@@ -37,6 +38,7 @@ namespace ForgeEngine
             int m_Shininess{ 2 };
             float m_Diffuse{ 1.f };
             float m_Specular{ 0.f };
+            float m_TextureHeight{ 0.f };
             Color m_Color{ COLOR_MAGENTA };
             std::shared_ptr<Texture> m_Texture{ nullptr };
     };

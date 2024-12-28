@@ -16,6 +16,7 @@ namespace ForgeEngine
         MoveLeft,
         FlyUp,
         FlyDown,
+        DebugFastMove,
         RightClick,
         RightClickOnce,
         LeftClick,

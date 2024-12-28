@@ -19,8 +19,8 @@ namespace ForgeEngine
 
     void NPCComponent::OnUpdate(float dT)
     {
-        const CameraComponent& playerCamera = CameraComponent::GetActiveCamera();
-        const Vector3& playerPosition = playerCamera.GetOwner()->GetPosition();
+        const CameraComponent* playerCamera = CameraComponent::GetActiveCamera();
+        const Vector3& playerPosition = playerCamera != nullptr ? playerCamera->GetOwner()->GetPosition() : VECTOR3_NULL;
         const Vector3& ownerPosition = GetOwner()->GetPosition();
 
         const Vector3& playerPositionFlat = Vector3(playerPosition.x, ownerPosition.y, playerPosition.z);

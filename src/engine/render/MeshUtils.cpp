@@ -237,6 +237,8 @@ namespace ForgeEngine
         {
             const std::shared_ptr<Material>* material = GameHandler::Get().GetWorld().GetComponentByType<MaterialLoader>()->GetOrLoadResource(materialPath);
             float heightWidthRatio = 1.f;
+            //TODO: make this not shit
+            height = material->get()->GetTextureHeight();
 
             if (const Texture* texture = material->get()->GetTexture())
             {

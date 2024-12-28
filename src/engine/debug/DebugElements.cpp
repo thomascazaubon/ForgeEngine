@@ -50,9 +50,11 @@ namespace ForgeEngine
 
         shader.Use();
 
-        const CameraComponent& camera = CameraComponent::GetActiveCamera();
-        shader.SetMatrix4(DEFAULT_PROJECTION_NAME, camera.GetProjection());
-        shader.SetMatrix4(DEFAULT_VIEW_NAME, camera.GetView());
+        if (const CameraComponent* camera = CameraComponent::GetActiveCamera())
+        {
+            shader.SetMatrix4(DEFAULT_PROJECTION_NAME, camera->GetProjection());
+            shader.SetMatrix4(DEFAULT_VIEW_NAME, camera->GetView());
+        }
 
         shader.SetColor(DEFAULT_RENDER_COLOR_NAME, m_Color);
 
