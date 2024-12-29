@@ -12,7 +12,7 @@ namespace ForgeEngine
     #define COLOR_MAGENTA        Color{255, 0, 255}
     #define COLOR_ORANGE        Color{255, 128, 0}
     #define COLOR_PURPLE        Color{128, 0, 255}
-    #define COLOR_SKY_BLUE        Color{187, 222, 240}
+    #define COLOR_SKY_BLUE        Color{119, 181, 254}
     #define COLOR_BLACK            Color{0, 0, 0}
     #define COLOR_WHITE            Color{255, 255, 255}
     #define COLOR_LIGHT_GREY    Color{150, 150, 150}

@@ -3,6 +3,7 @@
 //FRAGMENT SHADER
 
 uniform float AmbientLightIntensity;
+uniform float LightIntensity;
 uniform vec4 LightColor;
 uniform vec3 LightSourcePosition;
 uniform vec3 CameraPosition;
@@ -40,7 +41,6 @@ void main()
 	
 	float specularFactor = pow(max(dot(eyeDirection, lightRayReflection), 0), Material.shininess);
 	vec4 specularLight = LightColor * (Material.specular * Material.color * specularFactor)  * (1 - distanceRatio);
-
     
 	float diffuseFactor = max(dot(directionToLightNormalized, normal), 0.0);
 	vec4 diffuseLight = diffuseFactor * Material.color * Material.diffuse * LightColor * (1 - distanceRatio);
@@ -51,15 +51,20 @@ void main()
 	{
 		vec4 texture = texture(Texture, inTextureCoordinates).rgba;
 
+		if (texture.a == 0.0)
+		{
+			discard;
+		}
+
 		if (HasPointLights)
 		{
-			result = texture * Material.color * (diffuseLight + specularLight + AmbientLightIntensity);
+			result = texture * Material.color * (diffuseLight * LightIntensity + specularLight + AmbientLightIntensity);
 		}
 		else
 		{
-		result = texture * Material.color * AmbientLightIntensity;
+			result = texture * Material.color * AmbientLightIntensity;
 		}
-		
+
 		result.w = texture.w * Material.color.w;
 	}
 	else

@@ -34,7 +34,7 @@ namespace ForgeEngine
             const Matrix4& GetProjection() const { return m_Projection; }
             const Matrix4& GetView() const { return m_View; }
 
-            virtual void OnUpdate(float dT) override;
+            virtual void OnUpdatePreRender(float dT) override;
             virtual void OnActivate() override;
             virtual void OnDeactivate() override;
             virtual void OnDestroy() override;

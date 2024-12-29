@@ -3,6 +3,7 @@
 //FRAGMENT SHADER
 
 uniform float AmbientLightIntensity;
+uniform float LightIntensity;
 uniform vec4 LightColor;
 uniform vec3 LightSourcePosition;
 uniform vec3 CameraPosition;
@@ -49,7 +50,7 @@ void main()
 
 		if (HasPointLights)
 		{
-			result = texture * Material.color * (diffuseLight + specularLight + AmbientLightIntensity);
+			result = texture * Material.color * (diffuseLight * LightIntensity + specularLight + AmbientLightIntensity);
 		}
 		else
 		{

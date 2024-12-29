@@ -22,9 +22,9 @@ namespace ForgeEngine
         s_ActiveCamera = this;
     }
 
-    void CameraComponent::OnUpdate(float dT) /*override*/
+    void CameraComponent::OnUpdatePreRender(float dT) /*override*/
     {
-        Mother::OnUpdate(dT);
+        Mother::OnUpdatePreRender(dT);
         RefreshView();
     }
 
@@ -57,12 +57,14 @@ namespace ForgeEngine
     void CameraComponent::RefreshView()
     {
         m_View = Matrix4{ 1.f };
-        ForgeMaths::Translate(m_View, -GetOwner()->GetTransform().GetPosition());
+        const Vector3& ownerPosition = GetOwner()->GetPosition();
+
+        ForgeMaths::Translate(m_View, -ownerPosition);
 
         Vector3 sight{};
         if (m_IsFocusActive && m_FocusedEntity != nullptr)
         {
-            sight = m_FocusedEntity->GetTransform().GetPosition() - GetOwner()->GetTransform().GetPosition();
+            sight = m_FocusedEntity->GetTransform().GetPosition() - ownerPosition;
         }
         else
         {
@@ -73,6 +75,6 @@ namespace ForgeEngine
         m_Right = ForgeMaths::Cross(VECTOR3_UP, m_Sight);
         m_Up = ForgeMaths::Cross(m_Sight, m_Right);
 
-        ForgeMaths::LookAt(m_View, GetOwner()->GetTransform().GetPosition(), GetOwner()->GetTransform().GetPosition() + m_Sight, VECTOR3_UP);
+        ForgeMaths::LookAt(m_View, ownerPosition, ownerPosition + m_Sight, VECTOR3_UP);
     }
 }
